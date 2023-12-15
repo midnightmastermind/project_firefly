@@ -1,0 +1,78 @@
+[{
+  "_id": {
+    "$oid": "6525a34178970289c38346d6"
+  },
+  "site_id": {
+    "$oid": "647ce16af0323909dbddb1f5"
+  },
+  "type": "page",
+  "parent_id": null,
+  "style_properties": {},
+  "position_properties": {},
+  "source_properties": {
+    "route": "/about"
+  },
+  "children": [
+    {
+      "$oid": "6525a72878970289c38346d8"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6525a72878970289c38346d8"
+  },
+  "site_id": {
+    "$oid": "647ce16af0323909dbddb1f5"
+  },
+  "type": "section",
+  "parent_id": {
+    "$oid": "6525a34178970289c38346d6"
+  },
+  "style_properties": {},
+  "position_properties": {
+    "order": 0
+  },
+  "source_properties": {},
+  "children": [
+    {
+      "$oid": "6525a74878970289c38346d9"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6525a74878970289c38346d9"
+  },
+  "site_id": {
+    "$oid": "647ce16af0323909dbddb1f5"
+  },
+  "type": "textbox",
+  "parent_id": {
+    "$oid": "6525a72878970289c38346d8"
+  },
+  "style_properties": {},
+  "position_properties": {
+    "order": 0
+  },
+  "source_properties": {},
+  "children": []
+},
+{
+  "_id": {
+    "$oid": "6525a79878970289c38346db"
+  },
+  "site_id": {
+    "$oid": "647ce16af0323909dbddb1f5"
+  },
+  "type": "header_menu_link",
+  "parent_id": null,
+  "style_properties": {},
+  "position_properties": {
+    "order": 0
+  },
+  "source_properties": {
+    "route": "/about"
+  },
+  "children": []
+}]

@@ -1,0 +1,501 @@
+	[
+	    {
+	        "name": "T-Shirt",
+	        "description": "A comfortable cotton t-shirt",
+	        "price": 19.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "red"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "medium"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/red_tshirt_medium.jpg"
+	                    }
+	                ],
+	                "stock": 50
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Jeans",
+	        "description": "Classic denim jeans",
+	        "price": 49.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "blue"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "32"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/blue_jeans_32.jpg"
+	                    }
+	                ],
+	                "stock": 30
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "black"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "34"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/black_jeans_34.jpg"
+	                    }
+	                ],
+	                "stock": 20
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Sneakers",
+	        "description": "Comfortable sneakers for everyday wear",
+	        "price": 79.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "white"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "8"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/white_sneakers_8.jpg"
+	                    }
+	                ],
+	                "stock": 10
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "black"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "9"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/black_sneakers_9.jpg"
+	                    }
+	                ],
+	                "stock": 5
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Dress",
+	        "description": "Elegant evening dress",
+	        "price": 129.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "black"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "small"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/black_dress_small.jpg"
+	                    }
+	                ],
+	                "stock": 15
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "red"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "medium"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/red_dress_medium.jpg"
+	                    }
+	                ],
+	                "stock": 12
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Hoodie",
+	        "description": "Warm and cozy hoodie",
+	        "price": 39.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "gray"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "large"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/gray_hoodie_large.jpg"
+	                    }
+	                ],
+	                "stock": 25
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "blue"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "medium"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/blue_hoodie_medium.jpg"
+	                    }
+	                ],
+	                "stock": 18
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Sunglasses",
+	        "description": "Stylish sunglasses for sunny days",
+	        "price": 29.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "black"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/black_sunglasses.jpg"
+	                    }
+	                ],
+	                "stock": 8
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "brown"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/brown_sunglasses.jpg"
+	                    }
+	                ],
+	                "stock": 6
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Watch",
+	        "description": "Classic wristwatch",
+	        "price": 99.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "silver"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/silver_watch.jpg"
+	                    }
+	                ],
+	                "stock": 10
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "gold"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/gold_watch.jpg"
+	                    }
+	                ],
+	                "stock": 7
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Backpack",
+	        "description": "Spacious backpack for everyday use",
+	        "price": 59.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "black"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/black_backpack.jpg"
+	                    }
+	                ],
+	                "stock": 15
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "gray"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/gray_backpack.jpg"
+	                    }
+	                ],
+	                "stock": 12
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Running Shoes",
+	        "description": "Lightweight running shoes",
+	        "price": 89.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "blue"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "9"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/blue_running_shoes_9.jpg"
+	                    }
+	                ],
+	                "stock": 10
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "black"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "10"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/black_running_shoes_10.jpg"
+	                    }
+	                ],
+	                "stock": 8
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Hat",
+	        "description": "Stylish hat for any occasion",
+	        "price": 24.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "black"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/black_hat.jpg"
+	                    }
+	                ],
+	                "stock": 15
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "gray"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/gray_hat.jpg"
+	                    }
+	                ],
+	                "stock": 12
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Gloves",
+	        "description": "Warm gloves for cold weather",
+	        "price": 19.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "black"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "medium"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/black_gloves_medium.jpg"
+	                    }
+	                ],
+	                "stock": 20
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "gray"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "large"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/gray_gloves_large.jpg"
+	                    }
+	                ],
+	                "stock": 18
+	            }
+	        ]
+	    },
+	    {
+	        "name": "Scarf",
+	        "description": "Soft and cozy scarf",
+	        "price": 14.99,
+	        "availability": true,
+	        "category": ["Apparel"],
+	        "variants": [
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "red"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/red_scarf.jpg"
+	                    }
+	                ],
+	                "stock": 25
+	            },
+	            {
+	                "attributes": [
+	                    {
+	                        "name": "color",
+	                        "value": "blue"
+	                    },
+	                    {
+	                        "name": "size",
+	                        "value": "one size"
+	                    },
+	                    {
+	                        "name": "image",
+	                        "value": "https://example.com/blue_scarf.jpg"
+	                    }
+	                ],
+	                "stock": 22
+	            }
+	        ]
+	    }
+	]
