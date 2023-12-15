@@ -1,0 +1,12 @@
+:root {
+    --global-background-color: red;
+    --global-text-color: black;
+    --settings-text-color: white;
+    --page-container-background-color: black;
+    /* Add more CSS variables as needed */
+  }
+  
+  /* Use the CSS variables in the document styles */
+  .site-settings div h6 {
+    color: var(--settings-text-color) !important;
+  }
