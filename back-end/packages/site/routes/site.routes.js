@@ -19,6 +19,6 @@ module.exports = function(app) {
   app.get("/api/site/:id", controller.getSite);
   app.post("/api/site", [authJwt.verifyToken, authJwt.isGlobalAdmin], controller.createSite);
   app.put("/api/site/:id", [authJwt.verifyToken], controller.updateSite);
-  app.delete("/api/site/:id",  [authJwt.verifyToken, authJwt.isGlobalAdmin], controller.getSite);
+  app.delete("/api/site/:id",  [authJwt.verifyToken, authJwt.isGlobalAdmin], controller.deleteSite);
 };
 

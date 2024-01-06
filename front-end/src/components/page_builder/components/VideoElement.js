@@ -76,10 +76,10 @@ import { useState } from 'react';
 // export default VideoElement;
 
 
-const VideoElement = ({ element, onAddItemType, onRemoveItem, setLockGrid }) => {
+const VideoElement = ({ element, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
   return (
     <div style={{height: "100%"}} className="my-context-menu-target">
-      <ComponentPopup type="video" style={{height: "100%"}} content={(
+      <ComponentPopup editComponent={editComponent} type="video" style={{height: "100%"}} content={(
         <div style={{height: "100%"}}>
           <iframe
             style={{ overflow: 'hidden', pointerEvents: 'none' }}

@@ -4,8 +4,9 @@ const Page = db.page;
 
 // Create a new Page
 exports.createPage = (req, res) => {
+  console.log(req);
   const page = new Page({
-    ...req.body
+    ...req.body.data
     // Add other fields as needed
   });
 
@@ -27,6 +28,7 @@ exports.getPages = (req, res) => {
         return;
       }
 
+      console.log(pages);
       if (!pages) {
         return res.status(404).send({ message: "Pages not found." });
       }

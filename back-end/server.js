@@ -66,7 +66,7 @@ require("./packages/site/routes/site.routes")(app);
 
 require("./packages/site/routes/user_site_availability.routes")(app);
 require("./packages/site/routes/site_product_availability.routes")(app);
-require("./packages/site_builder/routes/site_object.routes")(app);
+require("./packages/site_builder/routes/page.routes")(app);
 require("./packages/site/routes/content.routes")(app);
 
 require("./packages/storage/routes/file.routes")(app);

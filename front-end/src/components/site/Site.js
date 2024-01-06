@@ -10,7 +10,7 @@ import PageAuth from "../../common/PageAuth";
 import SaveObjectForm from "../common/SaveObjectForm";
 import ProductList from "../ecommerce/ProductList";
 import UserList from "../user/UserList";
-import ToolBar from "../navigation/ToolBar";
+import ToolBar from "../tools/ToolBar";
 
 const Site = (props) => {
     const initialSiteState = {

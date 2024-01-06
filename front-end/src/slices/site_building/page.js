@@ -51,7 +51,8 @@ export const getAll = createAsyncThunk(
 
 export const create = createAsyncThunk(
     "page/create",
-    async ({data}, thunkAPI) => {
+    async (data, thunkAPI) => {
+        console.log(data);
         try {
             const response = await PageService.create({data});
             thunkAPI.dispatch(setMessage(response.data.message));

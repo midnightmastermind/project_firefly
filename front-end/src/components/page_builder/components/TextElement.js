@@ -126,20 +126,22 @@ const defaultElementStyle = {
   backgroundColor: 'red',
 };
 
-const TextElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
-  const [style, setStyle] = useState(defaultElementStyle);
+const TextElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
+  const [style, setStyle] = useState(element.style || defaultElementStyle);
 
+  console.log(style);
   return (
     <div>
       <ComponentPopup
         type="text"
-        style={{...style}}
+        style={style}
         setStyle={setStyle}
         setLockGrid={setLockGrid}
         setDraggable={setDraggable}
+        editComponent={editComponent}
         content={(
           <div>
-            <span style={{...style}} className="text">{element.i}</span>
+            <span style={style} className="text">{element.i}</span>
             <span
               className="remove"
               style={{ position: "absolute", right: "2px", top: 0, cursor: "pointer" }}

@@ -1,54 +1,57 @@
 import React, { useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import * as CustomComponents from "./CustomPageBuilderComponents.js";
-import { create as createSiteObject, update as updateSiteObject, getAll as getAllSiteObjects } from 'slices/site_building/site_object.js';
+import { create as createPage, update as updatePage, getAll as getAllPages } from 'slices/site_building/page.js';
 
 import TestMarkdown from "../tools/markdown_editor/MarkdownEditor";
 import PageBuilderComponent from "./PageBuilderComponent";
 import { Tabs, Tab, Button } from "@blueprintjs/core";
+import PageForm from "./PageForm";
 import { DEFAULT_STYLES } from "./constants";
+import WebPagePreview from "components/common/WebpagePreview";
 const newPageObject = {
-  type: "page",
-  parent_id: null,
-  object_properties: {
-    name: "Untitled 1",
-    route: "",
-  },
-  children: [],
+  name: "Untitled",
+  route: "",
+  layout: [],
   status: false
 };
 
 const PageBuilder = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [layout, setLayout] = useState([]);
-  const [currentSiteId, setCurrentSiteId] = useState(false);
-  const [currentSiteObjects, setCurrentSiteObjects] = useState([]);
-  const [highlightedObject, setHighlightedObject] = useState(null);
+  const [currentSite, setCurrentSite] = useState(false);
+  const [currentPages, setCurrentPages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(null);
 
-  const site_objects = useSelector(state => state.site_object.site_objects);
+  const pages = useSelector(state => state.page.pages);
   const current_site = useSelector(state => state.site.current_site);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (current_site) {
-      setCurrentSiteId(current_site._id);
+      setCurrentSite(current_site);
     }
 
-    setCurrentSiteObjects(site_objects.filter(obj => obj.type === "page"));
-  }, [site_objects, current_site]);
+    if (pages) {
+      setCurrentPages(pages);
+      console.log(pages);
+    }
+  }, [pages, current_site]);
 
   const onLayoutChange = (layout) => {
+    console.log(layout);
     setLayout(layout);
   };
 
-  const addNewObject = object => {
-    const new_object = object;
-    new_object.site_id = currentSiteId;
+  const addPage = () => {
+    const new_page = newPageObject;
+    new_page.site_id = currentSite._id;
 
-    dispatch(createSiteObject(new_object))
+    console.log(new_page);
+    dispatch(createPage(new_page))
       .unwrap()
       .then(data => {
-        dispatch(getAllSiteObjects());
+        dispatch(getAllPages());
       })
       .catch(e => {
         console.log(e);
@@ -56,33 +59,31 @@ const PageBuilder = () => {
   };
 
 
-  const savePage = object => {
-    const new_object = object;
+  const savePage = page => {
+    const updated_page = page;
 
-    new_object.site_id = currentSiteId;
+    updated_page.site_id = currentSite._id;
 
-    dispatch(updateSiteObject({ id: object._id, data: new_object }))
+    dispatch(updatePage({ id: page._id, data: updated_page }))
       .unwrap()
       .then(data => {
-        dispatch(getAllSiteObjects());
+        dispatch(getAllPages());
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-  const toggleModal = (modal_type, object_id) => {
+  const toggleModal = (page) => {
     setIsModalOpen(prevState => !prevState);
-    setHighlightedObject(object_id);
+    setCurrentPage(page);
   };
 
   const PagePreview = ({ siteObject }) => {
+    console.log(siteObject);
     return (
-      <div key={siteObject._id} className="page-preview-block" onClick={() => toggleModal("page-editor", siteObject._id)}>
-        <div>
-          <h3>{siteObject.title}</h3>
-          <p>{siteObject.description}</p>
-        </div>
+      <div key={siteObject._id} className="page-preview-block" onClick={() => toggleModal(siteObject)}>
+        <WebPagePreview url={`${currentSite.domain == 'main' ? '' : currentSite.domain}/${siteObject.route}`} /> 
       </div>
     );
   };
@@ -97,6 +98,7 @@ const PageBuilder = () => {
     });
   }
 
+  console.log(currentPage);
   return (
     <div className="page-builder-container" >
       <div><h4>Page Builder</h4></div>
@@ -106,7 +108,7 @@ const PageBuilder = () => {
             <div className="pages-toolbox">
               <Button icon="plus" text="New Draft"
                 className="page-builder-plus-button"
-                onClick={() => addNewObject(newPageObject)}
+                onClick={() => addPage()}
               ></Button>
             </div>
             <Tabs id="toolbox-tabs" renderActiveTabPanelOnly={true}>
@@ -114,10 +116,9 @@ const PageBuilder = () => {
                 id="published-tab"
                 title="Published Pages"
                 panel={
-
                   <div className="page-builder-pages-container">
-                    {currentSiteObjects &&
-                      currentSiteObjects.map(siteObject => (
+                    {currentPages &&
+                      currentPages.map(siteObject => (
                         <PagePreview siteObject={siteObject} key={siteObject._id} />
                       ))}
                   </div>
@@ -128,8 +129,8 @@ const PageBuilder = () => {
                 title="Drafts"
                 panel={
                   <div className="page-builder-pages-container">
-                    {currentSiteObjects &&
-                      currentSiteObjects.map(siteObject => (
+                    {currentPages &&
+                      currentPages.map(siteObject => (
                         <PagePreview siteObject={siteObject} key={siteObject._id} />
                       ))}
                   </div>
@@ -140,8 +141,8 @@ const PageBuilder = () => {
                 title="Templates"
                 panel={
                   <div className="page-builder-pages-container">
-                    {currentSiteObjects &&
-                      currentSiteObjects.map(siteObject => (
+                    {currentPages &&
+                      currentPages.map(siteObject => (
                         <PagePreview siteObject={siteObject} key={siteObject._id} />
                       ))}
                   </div>
@@ -152,13 +153,9 @@ const PageBuilder = () => {
         )
       }
       {
-        isModalOpen && highlightedObject && (
+        isModalOpen && currentPage && (
         <div className="app-site-builder">
-          <div className="layoutJSON">
-            Displayed as <code>[x, y, w, h]</code>:
-            <div className="columns">{stringifyLayout()}</div>
-          </div>
-          <PageBuilderComponent onLayoutChange={onLayoutChange} />
+          <PageBuilderComponent savePage={savePage} page={currentPage} layout={currentPage.layout} />
         </div>
         )
       }

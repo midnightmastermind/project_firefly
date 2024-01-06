@@ -4,7 +4,7 @@ import { Icon } from '@blueprintjs/core';
 import StyleEditor from './popover_menus/StyleEditor';
 import ComponentEditor from './popover_menus/ComponentEditor';
 import SettingsDrawer from './popover_menus/SettingsDrawer';
-const ComponentPopup = ({ type, content, element, style, setStyle, setLockGrid }) => {
+const ComponentPopup = ({ type, content, element, style, setStyle, setLockGrid, editComponent }) => {
     const cogButton = (
         <div
             id={`cogs-icon-${element ? element.i : ''}`}
@@ -28,7 +28,7 @@ const ComponentPopup = ({ type, content, element, style, setStyle, setLockGrid }
         },
         {
             title: "Style",
-            content: <SettingsDrawer style={style} setStyle={setStyle} element={element}/>,
+            content: <SettingsDrawer editComponent={editComponent} style={style} setStyle={setStyle} element={element}/>,
         },
         {
             title: "Properties",

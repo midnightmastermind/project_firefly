@@ -19,6 +19,7 @@ import { logout } from "slices/auth/auth";
 import { css } from "@emotion/react"
 import message from 'slices/notification/message';
 import Form from 'components/form/Form';
+import ProductForm from 'components/ecommerce/NewProductForm';
 
 const header_buttons = [
     {
@@ -102,6 +103,12 @@ const settingsMenuItems = [
         label: 'Products',
         icon: 'shopping-cart',
         panel: <ProductManagementDashboard />,
+    },
+    {
+        id: 'product_test',
+        label: 'Product Form Test',
+        icon: 'shopping-cart',
+        panel: <ProductForm />,
     },
     {
         id: 'scheduling',

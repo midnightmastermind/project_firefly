@@ -15,7 +15,6 @@
   height: 100%;
 }
 .header-nav {
-  height: 60px !important;
   border-bottom: 1px solid lightblue;
   background-color: #050315 !important;
 }
@@ -269,7 +268,9 @@
 }
 
 .page-preview-block:hover {
-  background-color: #252A31 !important;
+  /*background-color: #252A31 !important;*/
+  box-shadow: 0 0 2px 2px #48abe0;
+  cursor: pointer;
 }
 
 .post-manager-post-selection {
@@ -333,10 +334,13 @@
 
 .bp5-popover-content .bp5-menu {
   color: white;
-  background-color: #2F343C !important;
   min-width: unset;
+  background-color: #1C2127 !important;
 }
 
+.bp5-popover-content .bp5-button {
+  justify-content: start;
+}
 .page-builder-page-selection .bp5-tab {
   color: white;
 }
@@ -426,9 +430,14 @@
   outline: none !important;
 }
 
-.bp5-input {
+.bp5-input,
+.bp5-html-select select, .bp5-select select, textarea, .bp5-file-upload-input {
   background-color: #2F343C !important;
   color: white !important;
+}
+
+.bp5-tag {
+  color: gray !important;
 }
 
 .editor {
@@ -472,7 +481,7 @@
 .card {
   width: 265px;
   height: 288px;
-  margin: 20px;
+  margin-bottom: 20px;
   border: 1px solid gray;
   border-radius: 10px;
   overflow: hidden;
@@ -627,7 +636,7 @@
 }
 
 .ecommerce-section {
-  height: 200px;
+  width: 100%;
 }
 .ecommerce-section-header {
   display: flex;
@@ -645,16 +654,15 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  margin: 50px;
+  margin: 0 auto;
   overflow-y: scroll;
   max-height: 700px;
   contain: content;
   position: inherit;
-  padding-top: 543px;
-  width: 90%;
   padding-left: 5px;
-  padding-right: 50px;
+  padding-right: 10px;
+  margin-top: 30px;
+
 }
 
 .bp5-menu {
@@ -673,4 +681,137 @@
 
 .grid .bp5-button {
   background: none !important;
+}
+
+.settings-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.prose {
+  height: 100vh;
+  text-align: left;
+  width: 75% !important;
+  margin: 0 auto;
+}
+
+.page-container {
+  /* width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 0 0 10px rgba(12, 14, 16, 0.3) !important; */
+  padding: 0px;
+}
+
+.settings-menu {
+  width: 20%;
+}
+
+.settings-drawer-content {
+  width: 80%;
+}
+
+.new-product-list {
+  height: 100%;
+  max-height: 600px;
+  overflow-y: scroll;
+}
+
+.chonky-chonkyRoot {
+  background-color: #293136 !important;
+  color: white !important;
+}
+
+.MuiTypography-colorTextSecondary,
+.MuiButton-root,
+.MuiInputBase-root {
+  color: white !important;
+}
+
+.MuiButton-label {
+  color: white !important;
+}
+
+.bp5-popover .bp5-popover-content {
+  background-color: #293136 !important;
+}
+
+.bp5-form-group .bp5-control {
+  margin-top: 0px !important;
+  margin-left: 10px;
+}
+
+textarea.bp5-input {
+  height: auto !important;
+  width: 100% !important;
+}
+
+
+.bp5-form-content .bp5-button {
+  margin: 0px;
+  padding: 0px;
+  margin-left: 5px;
+}
+
+.dynamic-form-label {
+  font-size: 14px !important;
+  line-height: unset !important;
+}
+
+.page-container {
+  padding: 0px !important;
+}
+
+/* .page-component {
+  width: 76% !important;
+  margin: 0 auto;
+} */
+
+.page-form-group {
+  flex-direction: row;
+  display: flex;
+}
+
+.preview-box {
+  height: 100%;
+  width: 100%;
+}
+
+.preview-box iframe {
+  display: block;
+  width: 100%;
+  content: contain;
+  contain: content;
+  -ms-transform: scale(0.25);
+  -moz-transform: scale(0.25);
+  -o-transform: scale(0.25);
+  -webkit-transform: scale(0.25);
+  transform: scale(0.25);
+  -ms-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  height: 200px;
+  width: 593px;
+  height: 786px;
+  pointer-events: none ! important;
+}
+
+.solo-form-group {
+  flex-direction: row !important;
+  justify-content: space-between;
+}
+
+.variations .form-component {
+  margin: 0px;
+}
+
+.variations .bp5-card {
+  justify-content: space-between;
+}
+.solo-form-group .bp5-form-content {
+  flex-direction: row;
+  display: flex;
+  margin-left: 10px;
 }

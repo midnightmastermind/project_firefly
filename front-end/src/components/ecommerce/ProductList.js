@@ -20,7 +20,7 @@ import SearchBar from "components/common/SearchBar";
 import LazyImage from "components/common//LazyImage";
 import Pagination from "components/common//Pagination";
 // import ToolBar from "navigation/ToolBar";
-import Card from "components/elements/Card";
+import Card from "components/ecommerce/Card";
 const searchFields = ["title", "description"];
 
 const exampleData = [   {
@@ -103,7 +103,7 @@ const ProductComponent = ({ product }) => {
         </div>
     )
     return (
-        <Card key={product.id} content={content} />
+        <Card element={product} content={content} />
     )
 }
 
@@ -282,9 +282,9 @@ const ProductList = (props) => {
 
                                             // {props.mode == "global_admin" && props.site_id && belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => removeFromSite(product._id)} class="remove-from-site-card">Remove from Site</button>)}
                                             // {props.mode == "global_admin" && props.site_id && !belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => addToSite(product._id)} class="add-to-site-card">Add To Site</button>)} */
-                                            if (product.availability == true) {
-                                                return <ProductComponent key={product} />
-                                            }
+                                            // if (product.availability == true) {
+                                                return <ProductComponent product={product} />
+                                            // }
                                         })
                                     ) : (<div class="no-results">No Products Found</div>)
                                 }

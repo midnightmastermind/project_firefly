@@ -7,7 +7,7 @@ import 'App.css';
 // import 'css/App.css';
 import 'css/global.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
-
+import { Card } from "@blueprintjs/core";
 import Header from 'components/navigation/Header';
 import Footer from "components/navigation/Footer";
 import Login from "./pages/Login";
@@ -27,7 +27,7 @@ import { create as createUser, getAll as getAllUsers, getAllForSite as getAllUse
 import { getAll as getAllUserSiteAvailabilities } from "./slices/site/user_site_availability";
 import { getAll as getAllSitePermissions } from "./slices/auth/site_permissions";
 import { getAll as getAllSessions } from "./slices/scheduling/session";
-import { getAll as getAllSiteObjects } from "./slices/site_building/site_object";
+import { getAll as getAllPages } from "./slices/site_building/page";
 import SettingsDrawer from 'components/settings/SettingsDrawer';
 import CustomOverlay from 'components/elements/CustomOverlay';
 import { Menu, MenuDivider, Tab, Tree, Position, DrawerSize, Overlay, MenuItem } from '@blueprintjs/core';
@@ -49,7 +49,35 @@ import ProductManagementDashboard from 'components/ecommerce/ProductManagement';
 import ChatComponent from 'components/chat/ChatComponent';
 import Form from 'components/form/Form';
 import PostManager from './components/blog/PostManager';
+import Profile from "pages/Profile";
+import Cart from "components/ecommerce/todo/Cart";
+import SavedItems from "components/ecommerce/todo/SavedItems";
+import GlobalStyleSettings from "components/settings/GlobalStyleSettings";
+import Site from "components/site/Site";
+import UserList2 from "components/user/UserList";
+import SiteForm from "components/site/SiteForm";
+import UserForm from "components/user/UserForm";
+import PageComponent from "components/navigation/PageComponent";
+import CsvMappingComponent from "components/storage/CSVMapper";
+import ProductForm from "components/ecommerce/NewProductForm";
 
+const main_routes = [
+  { path: "/", element: <HomePage /> },
+  { path: "/home", element: <HomePage /> },
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  { path: "/products", element: <ProductList /> },
+  { path: "/users", element: <UserList2 /> },
+  { path: "/calendar", element: <Calendar /> },
+  { path: "/product/:id", element: <Product /> },
+  { path: "/user/:id", element: <User /> },
+  { path: "/post/:id", element: <Post /> },
+  { path: "/user-board", element: <UserBoard /> },
+  { path: "/blog", element: <Blog /> },
+  { path: "/markdown", element: <MarkdownEditor /> },
+  { path: "/header", element: <HeaderBuilder /> },
+  { path: "/csvtest", element: <CsvMappingComponent /> },
+];
 
 function App() {
   const globalTheme = useSelector((state) => state.theme.global);
@@ -63,6 +91,8 @@ function App() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [overlayContent, setOverlayContent] = useState(null);
   const { message } = useSelector((state) => state.message);
+  const { pages } = useSelector((state) => state.page);
+  const [routes, setRoutes] = useState([...main_routes]);
   const dispatch = useDispatch();
 
   const getGlobalAdminData = () => {
@@ -76,7 +106,7 @@ function App() {
       dispatch(getAllUsers());
       dispatch(getAllSitePermissions());
       dispatch(getAllSessions());
-      dispatch(getAllSiteObjects());
+      dispatch(getAllPages());
       dispatch(getAllFiles());
       dispatch(getAllFolders());
       //needs all users
@@ -95,8 +125,17 @@ function App() {
     if (user && !user.includes("undefined")) {
       login(JSON.parse(user));
     }
+
   }, []);
 
+  useEffect(() => {
+    if (pages) {
+      const customRoutes = pages.map((page) => {
+        return { path: page.route, element: <PageComponent page={page} /> }
+      });
+      setRoutes([...main_routes, ...customRoutes]);
+    }
+  }, [pages])
   useEffect(() => {
     EventBus.on("logout", () => {
       dispatch(logout());
@@ -169,12 +208,12 @@ function App() {
       icon: 'cog',
       hasCaret: true,
       children: [
-          {
-            type: 'label',
-            id: 'style',
-            label: 'style',
-          },
-          {
+        {
+          type: 'label',
+          id: 'style',
+          label: 'style',
+        },
+        {
           type: 'panel',
           onClickHandler: setPanel,
           id: 'styling',
@@ -188,7 +227,7 @@ function App() {
           id: 'global_styles',
           label: 'Global Styling',
           icon: 'globe',
-          panel: <div>Global Styling</div>,
+          panel: <GlobalStyleSettings />,
         },
         {
           type: 'panel',
@@ -210,7 +249,7 @@ function App() {
           id: 'site_information',
           label: 'Site Info',
           icon: 'info-sign',
-          panel: <div>Site Information</div>,
+          panel: <SiteForm data={currentSite} />,
         },
         {
           type: 'panel',
@@ -232,6 +271,14 @@ function App() {
           label: 'Products',
           icon: 'shopping-cart',
           panel: <ProductManagementDashboard />, // Placeholder for the actual component
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'product_management',
+          label: 'Product Form Test',
+          icon: 'shopping-cart',
+          panel: <ProductForm productData={{}} onUpdateProduct={() => { console.log("test")}} />, // Placeholder for the actual component
         },
         {
           type: 'label',
@@ -284,7 +331,7 @@ function App() {
     {
       type: 'dropdown',
       id: 'store',
-      label: 'Store',
+      label: 'Cart',
       icon: 'shopping-cart',
       hasCaret: true,
       children: [
@@ -294,7 +341,7 @@ function App() {
           id: 'cart',
           label: 'Cart',
           icon: 'shopping-cart',
-          panel: '<div>Cart</div>',
+          panel: <Cart />,
         },
         {
           type: 'panel',
@@ -302,14 +349,14 @@ function App() {
           id: 'saved-items',
           label: 'Saved Items',
           icon: 'bookmark',
-          panel: '<div>Saved Items</div>',
+          panel: <SavedItems />,
         },
       ],
     },
     {
       type: 'dropdown',
       id: 'profile',
-      label: 'Profile',
+      label: currentUser ? currentUser.username : 'Profile',
       icon: 'user',
       hasCaret: true,
       children: [
@@ -317,9 +364,25 @@ function App() {
           type: 'panel',
           onClickHandler: setPanel,
           id: 'profileInfo',
-          label: 'Profile Info',
+          label: 'Profile',
           icon: 'info-sign',
-          panel: '<div>Profile Information</div>',
+          panel: <Profile />,
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'userInfo',
+          label: 'User Info',
+          icon: 'info-sign',
+          panel: <UserForm data={currentUser} />,
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'calendar',
+          label: 'Calendar',
+          icon: 'calendar',
+          panel: <Calendar />,
         },
         {
           type: 'onClick',
@@ -401,23 +464,13 @@ function App() {
         <CustomOverlay isOverlayOpen={isOverlayOpen} setIsOverlayOpen={setIsOverlayOpen}>{overlayContent}</CustomOverlay>
         {isLoginOpen && <Login setIsLoginOpen={setIsLoginOpen} />}
         <CustomOverlay isOverlayOpen={isRegisterOpen} setIsOverlayOpen={setIsRegisterOpen}><Register /></CustomOverlay>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/test" element={<PageTester />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/users" element={<UserList />} />
-          <Route path="/calendar" element={<Calendar />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/user/:id" element={<User />} />
-          <Route path="/post/:id" element={<Post />} />
-          <Route path="/user-board" element={<UserBoard />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/markdown" element={<MarkdownEditor />} />
-          <Route path="/header" element={<HeaderBuilder />} />
-        </Routes>
+        <Card className="page-container">
+          <Routes>
+            {routes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+          </Routes>
+        </Card>
         <Footer />
       </div>
     </Router>

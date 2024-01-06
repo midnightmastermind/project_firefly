@@ -228,7 +228,7 @@ const UserList = (props) => {
                                     currentUserList.length > 0 ? (
                                         currentUserList.map((user, index) => (
 
-                                            <Card key={index} content={{image: user.profile_image, header: `${user.first_name} ${user.last_name}`, info: user.description, link: {src: `/user/${user._id}`, text: "View User"}}} />
+                                            <Card element={user} content={{image: user.profile_image, header: `${user.first_name} ${user.last_name}`, info: user.description, link: {src: `/user/${user._id}`, text: "View User"}}} />
                                             
                                         ))
                                     ) : (<div class="no-results">No Users Found</div>)

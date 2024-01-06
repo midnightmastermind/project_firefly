@@ -31,6 +31,7 @@ import eventReducer from './slices/scheduling/event';
 import bookingReducer from './slices/scheduling/booking';
 // import themeReducer from './slices/site/theme';
 import styleReducer from './slices/site/style';
+import cartReducer from './slices/ecommerce/cart'
 
 const reducer = {
   auth: authReducer,
@@ -64,7 +65,8 @@ const reducer = {
   shipment: shipmentReducer,
   purchase: purchaseReducer,
   style: styleReducer,
-  navigation: navigationReducer
+  navigation: navigationReducer,
+  cart: cartReducer
 }
 
 const store = configureStore({

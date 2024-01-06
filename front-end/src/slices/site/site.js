@@ -6,7 +6,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
 import EventBus from "common/EventBus";
-import SiteService from "../../services/site/site.service";
+import SiteService from "services/site/site.service";
 
 export const get = createAsyncThunk(
   "site/get",

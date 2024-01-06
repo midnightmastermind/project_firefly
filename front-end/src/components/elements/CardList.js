@@ -14,9 +14,11 @@ const CardList = ({ data, displayParams }) => {
 
   // Function to render a single row based on the specified type
   const renderRow = (rowData, displayParams) => {
+    console.log(rowData);
+    console.log("hit");
     return (
-      <Card elevation={Elevation.TWO} style={{ marginBottom: '10px' }}>
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Card key={rowData.id} elevation={Elevation.TWO} style={{ marginBottom: '10px' }}>
+        <div key={rowData.id} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           {displayParams.map(param => (
             <div key={param.type} style={{ marginRight: '10px' }}>
               {renderColumn(param.type, rowData[param.key])}

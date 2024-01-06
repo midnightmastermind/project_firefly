@@ -5,17 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { create as createStyle, update as updateStyle, getAll as getAllStyles } from 'slices/site/style.js';
 
-const StyleEditor = ({ element, styleCategory, style, setStyle }) => {
+const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent }) => {
   console.log(setStyle);
-  const [elementStyle, setElementStyle] = useState(style)
+  const [elementStyle, setElementStyle] = useState(style);
 
 
   const [selectedPopover, setSelectedPopover] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setElementStyle(style);
-  }, [style])
+    setElementStyle(element.style);
+  }, [element.style])
   // useEffect(() => {
   //   // Set initial style based on the styleCategory prop
   //   if (styleCategory === 'font') {
@@ -70,11 +70,15 @@ const StyleEditor = ({ element, styleCategory, style, setStyle }) => {
   // }, [styleCategory]);
 
   const handleColorChange = (color, property) => {
-    setStyle({ ...elementStyle, [property]: color.hex });
+    editComponent(element._id, property, color.hex, true)
+    //setStyle({ ...elementStyle, [property]: color.hex });
   };
 
   const handleInputChange = (property, value) => {
-    setStyle({ ...elementStyle, [property]: value });
+    console.log("hit editor");
+    editComponent(element._id, property, value, true)
+
+    //setStyle({ ...elementStyle, [property]: value });
   };
 
   // const addNewStyle = (style) => {

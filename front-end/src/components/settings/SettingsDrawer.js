@@ -97,7 +97,7 @@ const menuItems = [
 ];
 const SettingsDrawer = (props) => {
     return (
-        <>
+        <div className="settings-drawer-container">
             <CustomDrawer
                 isOpen={props.isDrawerOpen || false}
                 setIsDrawerOpen={props.setIsDrawerOpen}
@@ -122,7 +122,7 @@ const SettingsDrawer = (props) => {
                     </Menu>
                 </div>
             </CustomDrawer>
-        </>
+        </div>
     );
 };
 

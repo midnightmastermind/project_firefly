@@ -21,7 +21,7 @@ const ImageComponent = React.lazy(() => import('./ImageComponent'));
 const DocumentComponent = React.lazy(() => import('./DocumentComponent'));
 
 
-const FileManager = ({ smallManager }) => {
+const FileManager = ({ smallManager, onSelectFile }) => {
   const dispatch = useDispatch();
   const folders = useSelector((state) => state.folder.folders);
   const files = useSelector((state) => state.file.files);
@@ -127,17 +127,20 @@ const FileManager = ({ smallManager }) => {
     // Determine the content based on file type
     let ContentComponent;
 
-    if (file.type === 'video/mp4') {
-      ContentComponent = VideoComponent;
-    } else if (file.type && file.type.startsWith('image/')) {
-      ContentComponent = ImageComponent;
+    if (onSelectFile !== undefined) {
+      onSelectFile(file);
     } else {
-      ContentComponent = DocumentComponent;
+      if (file.type === 'video/mp4') {
+        ContentComponent = VideoComponent;
+      } else if (file.type && file.type.startsWith('image/')) {
+        ContentComponent = ImageComponent;
+      } else {
+        ContentComponent = DocumentComponent;
+      }
+      // Set the content and show the dialog
+      setDialogContent(<ContentComponent {...file} />);
+      setIsDialogOpen(true);
     }
-
-    // Set the content and show the dialog
-    setDialogContent(<ContentComponent {...file} />);
-    setIsDialogOpen(true);
   };
 
   return (

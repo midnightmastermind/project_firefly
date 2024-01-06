@@ -109,7 +109,7 @@ const FileManager = ({ smallManager }) => {
         <div className="file-manager-window-container">
           {/* Apply styles to limit the size of the file manager */}
           <div style={{ maxHeight: '500px', overflow: 'auto' }}>
-            <FileBrowser files={flatChonkyItems} folderChain={chonkyFolderChain} combineFolderChildren={combineFolderChildren}>
+            <FileBrowser darkMode={true} files={flatChonkyItems} folderChain={chonkyFolderChain} combineFolderChildren={combineFolderChildren}>
               <FileNavbar />
               <FileToolbar />
               <FileList renderFile={renderThumbnail} />
