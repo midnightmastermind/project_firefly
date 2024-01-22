@@ -815,3 +815,7 @@ textarea.bp5-input {
   display: flex;
   margin-left: 10px;
 }
+
+.grid-locked {
+  pointer-events: none;
+}
