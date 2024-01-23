@@ -25,6 +25,7 @@ db.commerce_category = require("../packages/ecommerce/models/commerce_category.m
 db.shipment = require("../packages/ecommerce/models/shipment.model");
 db.variation = require("../packages/ecommerce/models/variation.model");
 db.service = require("../packages/ecommerce/models/service.model");
+db.cart_item = require("../packages/ecommerce/models/cart_item.model");
 
 //scheduling models
 db.attendance = require("../packages/scheduling/models/attendance.model");

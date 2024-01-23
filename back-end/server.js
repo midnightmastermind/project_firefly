@@ -79,6 +79,7 @@ require("./packages/scheduling/routes/attendance.routes")(app);
 require("./packages/ecommerce/routes/transaction.routes")(app);
 require("./packages/ecommerce/routes/product_permissions.routes")(app);
 require("./packages/ecommerce/routes/product.routes")(app);
+require("./packages/ecommerce/routes/cart_item.routes")(app);
 
 
 // set port, listen for requests

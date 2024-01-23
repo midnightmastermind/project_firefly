@@ -27,6 +27,7 @@ import { create as createUser, getAll as getAllUsers, getAllForSite as getAllUse
 import { getAll as getAllUserSiteAvailabilities } from "./slices/site/user_site_availability";
 import { getAll as getAllSitePermissions } from "./slices/auth/site_permissions";
 import { getAll as getAllSessions } from "./slices/scheduling/session";
+import { getAll as getAllCartItems } from "./slices/ecommerce/cart_item";
 import { getAll as getAllPages } from "./slices/site_building/page";
 import SettingsDrawer from 'components/settings/SettingsDrawer';
 import CustomOverlay from 'components/elements/CustomOverlay';
@@ -50,8 +51,8 @@ import ChatComponent from 'components/chat/ChatComponent';
 import Form from 'components/form/Form';
 import PostManager from './components/blog/PostManager';
 import Profile from "pages/Profile";
-import Cart from "components/ecommerce/todo/Cart";
-import SavedItems from "components/ecommerce/todo/SavedItems";
+import Cart from "components/ecommerce/Cart";
+import SavedItems from "components/ecommerce/SavedItems";
 import GlobalStyleSettings from "components/settings/GlobalStyleSettings";
 import Site from "components/site/Site";
 import UserList2 from "components/user/UserList";
@@ -109,6 +110,7 @@ function App() {
       dispatch(getAllPages());
       dispatch(getAllFiles());
       dispatch(getAllFolders());
+      dispatch(getAllCartItems());
       //needs all users
       //needs all products
       //needs all sites
@@ -388,7 +390,7 @@ function App() {
           type: 'onClick',
           id: 'logout',
           label: 'Logout',
-          icon: 'logout',
+          icon: 'log-out',
           onClickHandler: () => logOut()
         },
         // Add more user sub-items as needed
@@ -408,7 +410,7 @@ function App() {
       type: 'onClick',
       id: 'login',
       label: 'Login',
-      icon: 'login',
+      icon: 'log-in',
       onClickHandler: () => setIsLoginOpen(true),
     },
     // ... Add more items as needed

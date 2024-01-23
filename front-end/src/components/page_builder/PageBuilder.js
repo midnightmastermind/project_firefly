@@ -13,7 +13,8 @@ const newPageObject = {
   name: "Untitled",
   route: "",
   layout: [],
-  status: false
+  status: false,
+  style: {}
 };
 
 const PageBuilder = () => {

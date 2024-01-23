@@ -21,91 +21,85 @@ import LazyImage from "components/common//LazyImage";
 import Pagination from "components/common//Pagination";
 // import ToolBar from "navigation/ToolBar";
 import Card from "components/ecommerce/Card";
+import { Tag, Overlay, Classes } from "@blueprintjs/core";
+import ProductComponent from "./ProductComponent";
 const searchFields = ["title", "description"];
 
-const exampleData = [   {
-    "name":"Cozy Knit Sweater",
-    "category":[
-       "Apparel",
-       "Mens",
-       "Sweaters"
+const exampleData = [{
+    "name": "Cozy Knit Sweater",
+    "category": [
+        "Apparel",
+        "Mens",
+        "Sweaters"
     ],
-    "variants":[
-       {
-          "description":"Warm and cozy knit sweater for chilly days",
-          "size":"medium",
-          "color":"green",
-          "pattern":null,
-          "images":[
-             "https://example.com/sweater_green_medium.jpg"
-          ],
-          "price":49.99,
-          "stock":12
-       },
-       {
-        "description":"Warm and cozy knit sweater for chilly days",
-        "size":"small",
-        "color":"green",
-        "pattern":null,
-        "images":[
-           "https://example.com/sweater_green_medium.jpg"
-        ],
-        "price":49.99,
-        "stock":12
-     },
-       {
-          "description":"Warm and cozy knit sweater for chilly days",
-          "size":"small",
-          "color":"blue",
-          "pattern":null,
-          "images":[
-             "https://example.com/sweater_blue_large.jpg"
-          ],
-          "price":49.99,
-          "stock":10
-       },
-       {
-          "description":"Warm and cozy knit sweater for chilly days",
-          "size":"extra-large",
-          "color":"gray",
-          "pattern":null,
-          "images":[
-             "https://example.com/sweater_gray_xlarge.jpg"
-          ],
-          "price":49.99,
-          "stock":15
-       }
+    "variants": [
+        {
+            "description": "Warm and cozy knit sweater for chilly days",
+            "size": "medium",
+            "color": "green",
+            "pattern": null,
+            "images": [
+                "https://example.com/sweater_green_medium.jpg"
+            ],
+            "price": 49.99,
+            "stock": 12
+        },
+        {
+            "description": "Warm and cozy knit sweater for chilly days",
+            "size": "small",
+            "color": "green",
+            "pattern": null,
+            "images": [
+                "https://example.com/sweater_green_medium.jpg"
+            ],
+            "price": 49.99,
+            "stock": 12
+        },
+        {
+            "description": "Warm and cozy knit sweater for chilly days",
+            "size": "small",
+            "color": "blue",
+            "pattern": null,
+            "images": [
+                "https://example.com/sweater_blue_large.jpg"
+            ],
+            "price": 49.99,
+            "stock": 10
+        },
+        {
+            "description": "Warm and cozy knit sweater for chilly days",
+            "size": "extra-large",
+            "color": "gray",
+            "pattern": null,
+            "images": [
+                "https://example.com/sweater_gray_xlarge.jpg"
+            ],
+            "price": 49.99,
+            "stock": 15
+        }
     ]
- }]
+}]
 
- //get all sizes available small, medium, extra-large
- //get all the colors green, blue, gray
-//print all of the available options as selectable
-//select the first variant at start: its size and color.
-//if you select a size
-//gray out all colors not in that size and if it was selected, deselect it
-//if you select a color
-//gray out all sizes not in that color and if it was selected, deselect it
-const ProductComponent = ({ product }) => {
-    const image = <div className="product-image" style={{ backgroundImage: `url(${product.default_image})` }} />
-
+const Product = ({ product, onProductClick }) => {
+    console.log(onProductClick);
+    const image = <div className="product-image" style={{ backgroundImage: `url(${product.product_image})` }} />
+  
     const content = (
-        <div>
-            {
-                <div className="product-component-container">
-                    <div className="product-image-container">
-                        {image}
-                    </div>
-                    <div className="product-header">{product.name}</div>
-                    <div className="product-info">{product.description}</div>
-                </div>
-            }
+      <div className="product-component-container" onClick={() => onProductClick(product)}>
+        <div className="product-image-container">
+          {image}
         </div>
+        <div className="product-header-container">
+          <div className="product-header">{product.title}</div>
+          <div className="product-price"><Tag>{`$${product.price}`}</Tag></div>
+        </div>
+      </div>
     )
+  
     return (
-        <Card element={product} content={content} />
+      <Card element={product} content={content} />
     )
-}
+  }
 
 const ProductList = (props) => {
     const [showLoadingBar, setShowLoadingBar] = useState(true);
@@ -117,7 +111,15 @@ const ProductList = (props) => {
     const [toolList, setToolList] = useState(null);
     const [currentSite, setCurrentSite] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
+    const openProductOverlay = (product) => {
+      setSelectedProduct(product);
+    };
+  
+    const closeProductOverlay = () => {
+      setSelectedProduct(null);
+    };
 
     const { products } = useSelector(state => state.product);
     const { user: currentUser } = useSelector((state) => state.auth);
@@ -283,7 +285,7 @@ const ProductList = (props) => {
                                             // {props.mode == "global_admin" && props.site_id && belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => removeFromSite(product._id)} class="remove-from-site-card">Remove from Site</button>)}
                                             // {props.mode == "global_admin" && props.site_id && !belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => addToSite(product._id)} class="add-to-site-card">Add To Site</button>)} */
                                             // if (product.availability == true) {
-                                                return <ProductComponent product={product} />
+                                            return <Product product={product} onProductClick={openProductOverlay}/>
                                             // }
                                         })
                                     ) : (<div class="no-results">No Products Found</div>)
@@ -302,6 +304,17 @@ const ProductList = (props) => {
                     )
                 }
             </div>
+            {selectedProduct && (
+                <Overlay
+                isOpen={!!selectedProduct}
+                onClose={closeProductOverlay}
+                className={Classes.OVERLAY_SCROLL_CONTAINER}
+                >
+                <div className={`${Classes.CARD} ${Classes.ELEVATION_4} product-overlay`}>
+                    <ProductComponent product={selectedProduct} />
+                </div>
+                </Overlay>
+      )}
         </div>
 
     );
