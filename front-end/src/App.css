@@ -864,3 +864,7 @@ textarea.bp5-input {
   width: 300px;
   height: 250px;
 }
+
+.grid-locked {
+  pointer-events: none;
+}

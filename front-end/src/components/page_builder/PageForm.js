@@ -4,7 +4,6 @@ import { InputGroup, FormGroup, Tag, Switch } from '@blueprintjs/core';
 const PageForm = ({ callbackFunction, page }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   useEffect(() => {
-    console.log(page);
 
     if (page) {
       setIsFullScreen(page.style.height == "90vh" ? true : false);

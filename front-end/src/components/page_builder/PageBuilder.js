@@ -9,6 +9,8 @@ import { Tabs, Tab, Button } from "@blueprintjs/core";
 import PageForm from "./PageForm";
 import { DEFAULT_STYLES } from "./constants";
 import WebPagePreview from "components/common/WebpagePreview";
+import { v4 as uuidv4 } from 'uuid';
+
 const newPageObject = {
   name: "Untitled",
   route: "",
@@ -35,20 +37,28 @@ const PageBuilder = () => {
 
     if (pages) {
       setCurrentPages(pages);
-      console.log(pages);
+
+      if (currentPage) {
+        const updatedPage = pages.find((page)=> page._id == currentPage._id);
+        setCurrentPage(updatedPage);
+      }
     }
   }, [pages, current_site]);
 
   const onLayoutChange = (layout) => {
-    console.log(layout);
     setLayout(layout);
   };
 
   const addPage = () => {
-    const new_page = newPageObject;
+    const new_page = {
+      name: `Untitled`,
+      route: uuidv4(), 
+      layout: [],
+      status: false,
+      style: { height: '90vh'}
+    };
     new_page.site_id = currentSite._id;
 
-    console.log(new_page);
     dispatch(createPage(new_page))
       .unwrap()
       .then(data => {
@@ -81,7 +91,6 @@ const PageBuilder = () => {
   };
 
   const PagePreview = ({ siteObject }) => {
-    console.log(siteObject);
     return (
       <div key={siteObject._id} className="page-preview-block" onClick={() => toggleModal(siteObject)}>
         <WebPagePreview url={`${currentSite.domain == 'main' ? '' : currentSite.domain}/${siteObject.route}`} /> 
@@ -99,7 +108,6 @@ const PageBuilder = () => {
     });
   }
 
-  console.log(currentPage);
   return (
     <div className="page-builder-container" >
       <div><h4>Page Builder</h4></div>

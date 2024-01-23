@@ -72,7 +72,6 @@ const Site = (props) => {
     }
 
     const updateContent = () => {
-        console.log("test");
         setShowContentEditForm(false);
     }
 
@@ -87,7 +86,6 @@ const Site = (props) => {
             sites.forEach((site, index) => {
                 if (site._id == current_site_id) {
                     setCurrentSite(site);
-                    console.log(site);
                 }
             });
         }
