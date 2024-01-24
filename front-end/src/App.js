@@ -444,8 +444,8 @@ function App() {
     {
       type: 'link',
       icon: 'edit',
-      label: 'Markdown',
-      link: '/markdown'
+      label: 'CSV Upload',
+      link: '/csvtest'
     },
     // {
     //   type: 'link',
