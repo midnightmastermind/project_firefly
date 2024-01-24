@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Button, Divider, FormGroup, HTMLSelect } from '@blueprintjs/core';
 
 import FileManager from './NewFileManager';
-const CsvMappingComponent = ({ fieldMappings }) => {
+const CsvMappingComponent = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fieldMappings, setFieldsMappings] = useState([]);
   const [fileHeaders, setFileHeaders] = useState([]);
   const [mappingObjects, setMappingObjects] = useState([
     { fieldName: 'ProductID', csvHeader: '' },
@@ -76,7 +77,7 @@ const CsvMappingComponent = ({ fieldMappings }) => {
 
   return (
     <div>
-      {!selectedFile && <FileManager smallManager={true} onSelectFile={handleFileChange} />}
+      {!selectedFile && <FileManager onSelectFile={handleFileChange} />}
       {selectedFile && (
         <div>
           <Divider />
