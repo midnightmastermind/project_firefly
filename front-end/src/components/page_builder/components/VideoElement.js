@@ -2,8 +2,9 @@
 // VideoElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import ComponentPopup from '../ComponentPopup';
+import ComponentPopup from '../ComponentSettings';
 import { useState } from 'react';
+import ComponentSettings from '../ComponentSettings';
 // const VideoElement = ({ element, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {
 //     e.stopPropagation();
@@ -79,7 +80,7 @@ import { useState } from 'react';
 const VideoElement = ({ element, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
   return (
     <div style={{height: "100%"}} className="my-context-menu-target">
-      <ComponentPopup editComponent={editComponent} type="video" style={{height: "100%"}} content={(
+      <ComponentSettings editComponent={editComponent} type="video" style={{height: "100%"}} content={(
         <div style={{height: "100%"}}>
           <iframe
             style={{ overflow: 'hidden', pointerEvents: 'none' }}

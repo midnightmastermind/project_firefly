@@ -5,78 +5,89 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { create as createStyle, update as updateStyle, getAll as getAllStyles } from 'slices/site/style.js';
 
-const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent }) => {
-  console.log(setStyle);
-  const [elementStyle, setElementStyle] = useState(style);
-
-
+const StyleEditor = ({ element, styleCategory, editComponent }) => {
+  const [elementStyle, setElementStyle] = useState(element.style || {});
   const [selectedPopover, setSelectedPopover] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setElementStyle(element.style);
+    if (element.style) {
+      setElementStyle(element.style)
+    }
   }, [element.style])
-  // useEffect(() => {
-  //   // Set initial style based on the styleCategory prop
-  //   if (styleCategory === 'font') {
-  //     setElementStyle({
-  //       color: 'red',
-  //       fontFamily: 'Arial, sans-serif',
-  //       fontSize: 16,
-  //     });
-  //   } else if (styleCategory === 'border') {
-  //     setElementStyle({
-  //       borderSize: '2',
-  //       borderSizeRight: '2',
-  //       borderSizeTop: '2',
-  //       borderSizeBottom: '2',
-  //       borderSizeLeft: '2',
-  //       borderColor: 'red',
-  //       borderColorRight: 'red',
-  //       borderColorTop: 'red',
-  //       borderColorBottom: 'red',
-  //       borderColorLeft: 'red',
-  //       borderType: 'solid',
-  //       borderTypeTop: 'solid',
-  //       borderTypeBottom: 'solid',
-  //       borderTypeRight: 'solid',
-  //       borderTypeLeft: 'solid',
-  //       borderRadius: '5',
-  //     });
-  //   } else if (styleCategory === 'size') {
-  //     setElementStyle({
-  //       width: 200,
-  //       height: 100,
-  //     });
-  //   } else if (styleCategory === 'spacing') {
-  //     setElementStyle({
-  //       margin: '10',
-  //       marginRight: '10',
-  //       marginTop: '10',
-  //       marginBottom: '10',
-  //       marginLeft: '10',
-  //       padding: '20',
-  //       paddingRight: '20',
-  //       paddingTop: '20',
-  //       paddingBottom: '20',
-  //       paddingLeft: '20',
-  //     });
-  //   } else if (styleCategory === 'color') {
-  //     setElementStyle({
-  //       opacity: 1,
-  //       backgroundColor: 'red',
-  //     });
-  //   }
-  // }, [styleCategory]);
+
+  useEffect(() => {
+    // Set initial style based on the styleCategory prop
+    // Helper function to extract style properties based on category
+    const extractStylesFromElement = () => {
+      if (styleCategory === 'font') {
+        return {
+          color: element.style?.color || 'red',
+          fontFamily: element.style?.fontFamily || 'Arial, sans-serif',
+          fontSize: element.style?.fontSize || 16,
+        };
+      } else if (styleCategory === 'border') {
+        return {
+          borderSize: element.style?.borderSize || 2,
+          borderSizeRight: element.style?.borderSizeRight || 2,
+          borderSizeTop: element.style?.borderSizeTop || 2,
+          borderSizeBottom: element.style?.borderSizeBottom || 2,
+          borderSizeLeft: element.style?.borderSizeLeft || 2,
+          borderColor: element.style?.borderColor || 'red',
+          borderColorRight: element.style?.borderColorRight || 'red',
+          borderColorTop: element.style?.borderColorTop || 'red',
+          borderColorBottom: element.style?.borderColorBottom || 'red',
+          borderColorLeft: element.style?.borderColorLeft || 'red',
+          borderType: element.style?.borderType || 'solid',
+          borderTypeTop: element.style?.borderTypeTop || 'solid',
+          borderTypeBottom: element.style?.borderTypeBottom || 'solid',
+          borderTypeRight: element.style?.borderTypeRight || 'solid',
+          borderTypeLeft: element.style?.borderTypeLeft || 'solid',
+          borderRadius: element.style?.borderRadius || 5,
+          // ... other border styles
+        };
+      } else if (styleCategory === 'size') {
+        return {
+          width: element.style?.width || 200,
+          height: element.style?.height || 100,
+        };
+      } else if (styleCategory === 'spacing') {
+        return {
+          margin: element.style?.margin || 10,
+          marginRight: element.style?.marginRight || 10,
+          marginTop: element.style?.marginTop || 10,
+          marginBottom: element.style?.marginBottom || 10,
+          marginLeft: element.style?.marginLeft || 10,
+          padding: element.style?.padding || 20,
+          paddingRight: element.style?.paddingRight || 20,
+          paddingTop: element.style?.paddingTop || 20,
+          paddingBottom: element.style?.paddingBottom || 20,
+          paddingLeft: element.style?.paddingLeft || 20,
+          // ... other spacing styles
+        };
+      } else if (styleCategory === 'color') {
+        return {
+          opacity: element.style?.opacity || 1,
+          backgroundColor: element.style?.backgroundColor || 'red',
+          // ... other color styles
+        };
+      }
+
+      // Default return in case styleCategory doesn't match any of the defined cases
+      return {};
+    };
+    const initialStyles = extractStylesFromElement();
+    setElementStyle(initialStyles);
+
+  }, [styleCategory]);
 
   const handleColorChange = (color, property) => {
-    editComponent(element._id, property, color.hex, true)
+    editComponent(element.i, property, color.hex, true)
     //setStyle({ ...elementStyle, [property]: color.hex });
   };
 
   const handleInputChange = (property, value) => {
-    console.log("hit editor");
-    editComponent(element._id, property, value, true)
+    editComponent(element.i, property, value, true)
 
     //setStyle({ ...elementStyle, [property]: value });
   };
@@ -130,11 +141,11 @@ const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent })
             {/* Add more font families as needed */}
           </Menu>
         }
-        isOpen={selectedPopover === 'fontFamily'}
-        onInteraction={(state) => setSelectedPopover(state ? 'fontFamily' : null)}
-        interactionKind="click"
+        // isOpen={selectedPopover === 'fontFamily'}
+        // onInteraction={(state) => setSelectedPopover(state ? 'fontFamily' : null)}
+        // interactionKind="click"
       >
-        <Button icon="font" onClick={() => setSelectedPopover('fontFamily')}>
+        <Button icon="font" >
           {`Font Family: ${elementStyle.fontFamily}`}
         </Button>
       </Popover>
@@ -144,7 +155,7 @@ const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent })
   const renderColorPicker = (property, label) => {
     return (
       <Popover
-       isOpen={selectedPopover === property}
+        isOpen={selectedPopover === property}
         onInteraction={(state) => setSelectedPopover(state ? property : null)}
         enforceFocus={false}
         placement="bottom-end"
@@ -164,7 +175,6 @@ const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent })
             />
           </div>
         }
-        interactionKind="click"
       >
         <Button icon="edit">{label}</Button>
       </Popover>
@@ -190,8 +200,7 @@ const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent })
     <div>
       {styleCategory === 'font' && (
         <div className="font-category">
-        {
-          renderColorPicker('color', 'Text Color')}
+          {renderColorPicker('color', 'Text Color')}
           {renderFontFamilyMenu()}
           {renderSliderInput('Font Size', 'fontSize-slider', 12, 24, 1, 2, 'fontSize')}
         </div>
@@ -199,7 +208,7 @@ const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent })
 
       {styleCategory === 'border' && (
         <div className="border-category">
-        {renderSliderInput('Border Size', 'borderSize-slider', 0, 10, 1, 2, 'borderSize')}
+          {renderSliderInput('Border Size', 'borderSize-slider', 0, 10, 1, 2, 'borderSize')}
           {renderColorPicker('borderColor', 'Border Color')}
           <FormGroup label="Border Type">
             <InputGroup
@@ -247,7 +256,7 @@ const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent })
 
       {styleCategory === 'size' && (
         <div className="size-category">
-        {renderSliderInput('Width', 'width-slider', 100, 300, 10, 50, 'width')}
+          {renderSliderInput('Width', 'width-slider', 100, 300, 10, 50, 'width')}
           {renderSliderInput('Height', 'height-slider', 50, 200, 10, 50, 'height')}
         </div>
       )}
@@ -267,7 +276,7 @@ const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent })
 
       {styleCategory === 'color' && (
         <div className="color-category">
-        {renderSliderInput('Opacity', 'opacity-slider', 0, 1, 0.1, 0.2, 'opacity')}
+          {renderSliderInput('Opacity', 'opacity-slider', 0, 1, 0.1, 0.2, 'opacity')}
           {renderColorPicker('backgroundColor', 'Background Color')}
         </div>
       )}
@@ -289,3 +298,4 @@ const StyleEditor = ({ element, styleCategory, style, setStyle, editComponent })
 };
 
 export default StyleEditor;
+

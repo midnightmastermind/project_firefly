@@ -1,0 +1,781 @@
+ID,Name,Color,Type,Categories,Size,Inventory,Price
+1,Hat,Red,Accessory,"Unisex,Accessories",Small,12,21.06
+1,Hat,Red,Accessory,"Unisex,Accessories",Medium,27,21.97
+1,Hat,Red,Accessory,"Unisex,Accessories",Large,19,46.35
+1,Hat,Red,Accessory,"Unisex,Accessories",XL,6,38.06
+1,Hat,Blue,Accessory,"Unisex,Accessories",Small,11,25.65
+1,Hat,Blue,Accessory,"Unisex,Accessories",Medium,36,44.82
+1,Hat,Blue,Accessory,"Unisex,Accessories",Large,41,15.73
+1,Hat,Blue,Accessory,"Unisex,Accessories",XL,25,12.63
+1,Hat,Green,Accessory,"Unisex,Accessories",Small,13,39.86
+1,Hat,Green,Accessory,"Unisex,Accessories",Medium,6,48.62
+1,Hat,Green,Accessory,"Unisex,Accessories",Large,15,26.8
+1,Hat,Green,Accessory,"Unisex,Accessories",XL,41,29.74
+1,Hat,Black,Accessory,"Unisex,Accessories",Small,13,30.22
+1,Hat,Black,Accessory,"Unisex,Accessories",Medium,46,43.6
+1,Hat,Black,Accessory,"Unisex,Accessories",Large,3,18.88
+1,Hat,Black,Accessory,"Unisex,Accessories",XL,39,31.47
+1,Hat,White,Accessory,"Unisex,Accessories",Small,37,35.63
+1,Hat,White,Accessory,"Unisex,Accessories",Medium,43,44.27
+1,Hat,White,Accessory,"Unisex,Accessories",Large,11,22.16
+1,Hat,White,Accessory,"Unisex,Accessories",XL,26,13.83
+2,Cap,Red,Accessory,"Unisex,Accessories",Small,38,41.79
+2,Cap,Red,Accessory,"Unisex,Accessories",Medium,38,43.25
+2,Cap,Red,Accessory,"Unisex,Accessories",Large,15,45.43
+2,Cap,Red,Accessory,"Unisex,Accessories",XL,17,18.23
+2,Cap,Blue,Accessory,"Unisex,Accessories",Small,50,23.75
+2,Cap,Blue,Accessory,"Unisex,Accessories",Medium,39,23.71
+2,Cap,Blue,Accessory,"Unisex,Accessories",Large,5,15.78
+2,Cap,Blue,Accessory,"Unisex,Accessories",XL,0,35.99
+2,Cap,Green,Accessory,"Unisex,Accessories",Small,11,11.73
+2,Cap,Green,Accessory,"Unisex,Accessories",Medium,17,38.86
+2,Cap,Green,Accessory,"Unisex,Accessories",Large,11,28.11
+2,Cap,Green,Accessory,"Unisex,Accessories",XL,49,15.73
+2,Cap,Black,Accessory,"Unisex,Accessories",Small,41,28.69
+2,Cap,Black,Accessory,"Unisex,Accessories",Medium,35,41.41
+2,Cap,Black,Accessory,"Unisex,Accessories",Large,47,33.22
+2,Cap,Black,Accessory,"Unisex,Accessories",XL,15,17.31
+2,Cap,White,Accessory,"Unisex,Accessories",Small,25,15.63
+2,Cap,White,Accessory,"Unisex,Accessories",Medium,26,45.74
+2,Cap,White,Accessory,"Unisex,Accessories",Large,14,12.0
+2,Cap,White,Accessory,"Unisex,Accessories",XL,13,44.77
+3,Scarf,Red,Accessory,"Unisex,Accessories",Small,12,37.46
+3,Scarf,Red,Accessory,"Unisex,Accessories",Medium,25,29.09
+3,Scarf,Red,Accessory,"Unisex,Accessories",Large,34,31.37
+3,Scarf,Red,Accessory,"Unisex,Accessories",XL,1,31.64
+3,Scarf,Blue,Accessory,"Unisex,Accessories",Small,24,44.62
+3,Scarf,Blue,Accessory,"Unisex,Accessories",Medium,17,44.96
+3,Scarf,Blue,Accessory,"Unisex,Accessories",Large,26,26.17
+3,Scarf,Blue,Accessory,"Unisex,Accessories",XL,23,25.11
+3,Scarf,Green,Accessory,"Unisex,Accessories",Small,41,19.85
+3,Scarf,Green,Accessory,"Unisex,Accessories",Medium,47,29.47
+3,Scarf,Green,Accessory,"Unisex,Accessories",Large,4,31.95
+3,Scarf,Green,Accessory,"Unisex,Accessories",XL,14,23.74
+3,Scarf,Black,Accessory,"Unisex,Accessories",Small,14,36.44
+3,Scarf,Black,Accessory,"Unisex,Accessories",Medium,1,21.18
+3,Scarf,Black,Accessory,"Unisex,Accessories",Large,42,43.84
+3,Scarf,Black,Accessory,"Unisex,Accessories",XL,37,17.21
+3,Scarf,White,Accessory,"Unisex,Accessories",Small,4,42.12
+3,Scarf,White,Accessory,"Unisex,Accessories",Medium,24,20.3
+3,Scarf,White,Accessory,"Unisex,Accessories",Large,9,41.64
+3,Scarf,White,Accessory,"Unisex,Accessories",XL,18,11.77
+4,Gloves,Red,Accessory,"Unisex,Accessories",Small,14,19.85
+4,Gloves,Red,Accessory,"Unisex,Accessories",Medium,36,44.96
+4,Gloves,Red,Accessory,"Unisex,Accessories",Large,38,15.54
+4,Gloves,Red,Accessory,"Unisex,Accessories",XL,3,47.04
+4,Gloves,Blue,Accessory,"Unisex,Accessories",Small,11,49.42
+4,Gloves,Blue,Accessory,"Unisex,Accessories",Medium,40,44.54
+4,Gloves,Blue,Accessory,"Unisex,Accessories",Large,25,24.95
+4,Gloves,Blue,Accessory,"Unisex,Accessories",XL,47,17.31
+4,Gloves,Green,Accessory,"Unisex,Accessories",Small,37,46.14
+4,Gloves,Green,Accessory,"Unisex,Accessories",Medium,11,42.5
+4,Gloves,Green,Accessory,"Unisex,Accessories",Large,27,43.3
+4,Gloves,Green,Accessory,"Unisex,Accessories",XL,16,32.01
+4,Gloves,Black,Accessory,"Unisex,Accessories",Small,46,35.51
+4,Gloves,Black,Accessory,"Unisex,Accessories",Medium,32,41.28
+4,Gloves,Black,Accessory,"Unisex,Accessories",Large,25,16.02
+4,Gloves,Black,Accessory,"Unisex,Accessories",XL,21,20.59
+4,Gloves,White,Accessory,"Unisex,Accessories",Small,5,35.42
+4,Gloves,White,Accessory,"Unisex,Accessories",Medium,45,28.66
+4,Gloves,White,Accessory,"Unisex,Accessories",Large,37,37.05
+4,Gloves,White,Accessory,"Unisex,Accessories",XL,46,40.08
+5,Belt,Red,Accessory,"Unisex,Accessories",Small,38,13.43
+5,Belt,Red,Accessory,"Unisex,Accessories",Medium,0,15.03
+5,Belt,Red,Accessory,"Unisex,Accessories",Large,31,32.37
+5,Belt,Red,Accessory,"Unisex,Accessories",XL,20,15.32
+5,Belt,Blue,Accessory,"Unisex,Accessories",Small,45,49.36
+5,Belt,Blue,Accessory,"Unisex,Accessories",Medium,31,25.16
+5,Belt,Blue,Accessory,"Unisex,Accessories",Large,22,48.09
+5,Belt,Blue,Accessory,"Unisex,Accessories",XL,22,26.77
+5,Belt,Green,Accessory,"Unisex,Accessories",Small,11,46.71
+5,Belt,Green,Accessory,"Unisex,Accessories",Medium,13,16.2
+5,Belt,Green,Accessory,"Unisex,Accessories",Large,21,22.88
+5,Belt,Green,Accessory,"Unisex,Accessories",XL,26,46.71
+5,Belt,Black,Accessory,"Unisex,Accessories",Small,40,21.64
+5,Belt,Black,Accessory,"Unisex,Accessories",Medium,11,47.93
+5,Belt,Black,Accessory,"Unisex,Accessories",Large,46,42.13
+5,Belt,Black,Accessory,"Unisex,Accessories",XL,32,27.77
+5,Belt,White,Accessory,"Unisex,Accessories",Small,46,30.67
+5,Belt,White,Accessory,"Unisex,Accessories",Medium,10,40.58
+5,Belt,White,Accessory,"Unisex,Accessories",Large,19,33.26
+5,Belt,White,Accessory,"Unisex,Accessories",XL,29,44.49
+6,Beanie,Red,Accessory,"Unisex,Accessories",Small,16,44.93
+6,Beanie,Red,Accessory,"Unisex,Accessories",Medium,32,14.5
+6,Beanie,Red,Accessory,"Unisex,Accessories",Large,42,17.11
+6,Beanie,Red,Accessory,"Unisex,Accessories",XL,15,12.3
+6,Beanie,Blue,Accessory,"Unisex,Accessories",Small,5,39.9
+6,Beanie,Blue,Accessory,"Unisex,Accessories",Medium,29,41.56
+6,Beanie,Blue,Accessory,"Unisex,Accessories",Large,26,25.73
+6,Beanie,Blue,Accessory,"Unisex,Accessories",XL,23,26.55
+6,Beanie,Green,Accessory,"Unisex,Accessories",Small,45,36.88
+6,Beanie,Green,Accessory,"Unisex,Accessories",Medium,41,16.89
+6,Beanie,Green,Accessory,"Unisex,Accessories",Large,45,28.1
+6,Beanie,Green,Accessory,"Unisex,Accessories",XL,0,11.78
+6,Beanie,Black,Accessory,"Unisex,Accessories",Small,13,37.79
+6,Beanie,Black,Accessory,"Unisex,Accessories",Medium,3,22.73
+6,Beanie,Black,Accessory,"Unisex,Accessories",Large,25,34.69
+6,Beanie,Black,Accessory,"Unisex,Accessories",XL,9,11.08
+6,Beanie,White,Accessory,"Unisex,Accessories",Small,40,47.85
+6,Beanie,White,Accessory,"Unisex,Accessories",Medium,43,22.07
+6,Beanie,White,Accessory,"Unisex,Accessories",Large,23,14.74
+6,Beanie,White,Accessory,"Unisex,Accessories",XL,39,13.34
+7,Sunglasses,Red,Accessory,"Unisex,Accessories",Small,11,11.22
+7,Sunglasses,Red,Accessory,"Unisex,Accessories",Medium,25,44.96
+7,Sunglasses,Red,Accessory,"Unisex,Accessories",Large,36,19.69
+7,Sunglasses,Red,Accessory,"Unisex,Accessories",XL,4,40.58
+7,Sunglasses,Blue,Accessory,"Unisex,Accessories",Small,3,29.95
+7,Sunglasses,Blue,Accessory,"Unisex,Accessories",Medium,19,20.28
+7,Sunglasses,Blue,Accessory,"Unisex,Accessories",Large,25,46.92
+7,Sunglasses,Blue,Accessory,"Unisex,Accessories",XL,17,23.62
+7,Sunglasses,Green,Accessory,"Unisex,Accessories",Small,11,27.69
+7,Sunglasses,Green,Accessory,"Unisex,Accessories",Medium,31,25.73
+7,Sunglasses,Green,Accessory,"Unisex,Accessories",Large,37,24.95
+7,Sunglasses,Green,Accessory,"Unisex,Accessories",XL,20,45.98
+7,Sunglasses,Black,Accessory,"Unisex,Accessories",Small,17,31.19
+7,Sunglasses,Black,Accessory,"Unisex,Accessories",Medium,3,12.99
+7,Sunglasses,Black,Accessory,"Unisex,Accessories",Large,11,22.69
+7,Sunglasses,Black,Accessory,"Unisex,Accessories",XL,30,42.73
+7,Sunglasses,White,Accessory,"Unisex,Accessories",Small,44,13.13
+7,Sunglasses,White,Accessory,"Unisex,Accessories",Medium,7,25.11
+7,Sunglasses,White,Accessory,"Unisex,Accessories",Large,42,29.47
+7,Sunglasses,White,Accessory,"Unisex,Accessories",XL,26,19.68
+8,Men's Graphic Tee,Blue,Clothing,"Men,Clothing,Tee",XL,22,45.38
+9,Women's Graphic Tee,Blue,Clothing,"Women,Clothing,Tee",XL,31,37.66
+8,Men's Graphic Tee,White,Clothing,"Men,Clothing,Tee",Small,2,49.21
+9,Women's Graphic Tee,White,Clothing,"Women,Clothing,Tee",Small,3,18.88
+8,Men's Graphic Tee,Black,Clothing,"Men,Clothing,Tee",Large,29,16.2
+9,Women's Graphic Tee,Black,Clothing,"Women,Clothing,Tee",Large,13,16.85
+8,Men's Graphic Tee,Green,Clothing,"Men,Clothing,Tee",Small,19,11.51
+9,Women's Graphic Tee,Green,Clothing,"Women,Clothing,Tee",Small,23,33.33
+8,Men's Graphic Tee,Black,Clothing,"Men,Clothing,Tee",Medium,39,46.92
+9,Women's Graphic Tee,Black,Clothing,"Women,Clothing,Tee",Medium,5,18.42
+8,Men's Graphic Tee,Red,Clothing,"Men,Clothing,Tee",Medium,6,28.12
+9,Women's Graphic Tee,Red,Clothing,"Women,Clothing,Tee",Medium,9,35.99
+8,Men's Graphic Tee,Red,Clothing,"Men,Clothing,Tee",Small,4,43.8
+9,Women's Graphic Tee,Red,Clothing,"Women,Clothing,Tee",Small,14,14.1
+8,Men's Graphic Tee,White,Clothing,"Men,Clothing,Tee",Large,9,16.89
+9,Women's Graphic Tee,White,Clothing,"Women,Clothing,Tee",Large,8,16.29
+8,Men's Graphic Tee,Black,Clothing,"Men,Clothing,Tee",XL,48,46.71
+9,Women's Graphic Tee,Black,Clothing,"Women,Clothing,Tee",XL,40,15.77
+8,Men's Graphic Tee,Green,Clothing,"Men,Clothing,Tee",XL,29,21.64
+9,Women's Graphic Tee,Green,Clothing,"Women,Clothing,Tee",XL,45,35.22
+8,Men's Graphic Tee,Blue,Clothing,"Men,Clothing,Tee",Medium,30,20.3
+9,Women's Graphic Tee,Blue,Clothing,"Women,Clothing,Tee",Medium,7,26.69
+8,Men's Graphic Tee,White,Clothing,"Men,Clothing,Tee",XL,29,29.24
+9,Women's Graphic Tee,White,Clothing,"Women,Clothing,Tee",XL,42,10.98
+8,Men's Graphic Tee,Red,Clothing,"Men,Clothing,Tee",XL,6,30.94
+9,Women's Graphic Tee,Red,Clothing,"Women,Clothing,Tee",XL,24,30.96
+8,Men's Graphic Tee,White,Clothing,"Men,Clothing,Tee",Medium,5,16.97
+9,Women's Graphic Tee,White,Clothing,"Women,Clothing,Tee",Medium,13,10.72
+8,Men's Graphic Tee,Black,Clothing,"Men,Clothing,Tee",Small,27,14.54
+9,Women's Graphic Tee,Black,Clothing,"Women,Clothing,Tee",Small,48,36.2
+8,Men's Graphic Tee,Green,Clothing,"Men,Clothing,Tee",Large,14,39.08
+9,Women's Graphic Tee,Green,Clothing,"Women,Clothing,Tee",Large,17,13.49
+8,Men's Graphic Tee,Blue,Clothing,"Men,Clothing,Tee",Small,38,28.18
+9,Women's Graphic Tee,Blue,Clothing,"Women,Clothing,Tee",Small,24,16.21
+8,Men's Graphic Tee,Red,Clothing,"Men,Clothing,Tee",Large,6,47.31
+9,Women's Graphic Tee,Red,Clothing,"Women,Clothing,Tee",Large,41,34.82
+8,Men's Graphic Tee,Green,Clothing,"Men,Clothing,Tee",Medium,33,44.31
+9,Women's Graphic Tee,Green,Clothing,"Women,Clothing,Tee",Medium,3,45.74
+8,Men's Graphic Tee,Blue,Clothing,"Men,Clothing,Tee",Large,38,13.43
+9,Women's Graphic Tee,Blue,Clothing,"Women,Clothing,Tee",Large,11,39.77
+10,Men's Winter Hat,Red,Clothing,"Men,Clothing,Hat",Small,15,42.13
+11,Women's Winter Hat,Red,Clothing,"Women,Clothing,Hat",Small,11,38.06
+10,Men's Winter Hat,Blue,Clothing,"Men,Clothing,Hat",Large,35,35.05
+11,Women's Winter Hat,Blue,Clothing,"Women,Clothing,Hat",Large,0,48.81
+10,Men's Winter Hat,Green,Clothing,"Men,Clothing,Hat",Small,48,11.07
+11,Women's Winter Hat,Green,Clothing,"Women,Clothing,Hat",Small,11,23.24
+10,Men's Winter Hat,Blue,Clothing,"Men,Clothing,Hat",XL,21,38.3
+11,Women's Winter Hat,Blue,Clothing,"Women,Clothing,Hat",XL,10,43.97
+10,Men's Winter Hat,Black,Clothing,"Men,Clothing,Hat",Medium,18,13.98
+11,Women's Winter Hat,Black,Clothing,"Women,Clothing,Hat",Medium,4,13.34
+10,Men's Winter Hat,Red,Clothing,"Men,Clothing,Hat",Large,48,29.06
+11,Women's Winter Hat,Red,Clothing,"Women,Clothing,Hat",Large,30,48.26
+10,Men's Winter Hat,Black,Clothing,"Men,Clothing,Hat",Large,2,25.34
+11,Women's Winter Hat,Black,Clothing,"Women,Clothing,Hat",Large,40,39.56
+10,Men's Winter Hat,Red,Clothing,"Men,Clothing,Hat",Medium,29,31.45
+11,Women's Winter Hat,Red,Clothing,"Women,Clothing,Hat",Medium,41,20.15
+10,Men's Winter Hat,Green,Clothing,"Men,Clothing,Hat",Medium,22,48.29
+11,Women's Winter Hat,Green,Clothing,"Women,Clothing,Hat",Medium,31,19.15
+10,Men's Winter Hat,Green,Clothing,"Men,Clothing,Hat",Large,20,27.27
+11,Women's Winter Hat,Green,Clothing,"Women,Clothing,Hat",Large,17,18.57
+10,Men's Winter Hat,Blue,Clothing,"Men,Clothing,Hat",Small,2,45.5
+11,Women's Winter Hat,Blue,Clothing,"Women,Clothing,Hat",Small,25,42.77
+10,Men's Winter Hat,Black,Clothing,"Men,Clothing,Hat",XL,17,29.5
+11,Women's Winter Hat,Black,Clothing,"Women,Clothing,Hat",XL,11,23.06
+10,Men's Winter Hat,White,Clothing,"Men,Clothing,Hat",Small,9,45.93
+11,Women's Winter Hat,White,Clothing,"Women,Clothing,Hat",Small,23,43.75
+10,Men's Winter Hat,Blue,Clothing,"Men,Clothing,Hat",Medium,40,48.02
+11,Women's Winter Hat,Blue,Clothing,"Women,Clothing,Hat",Medium,41,28.1
+10,Men's Winter Hat,Black,Clothing,"Men,Clothing,Hat",Small,41,15.96
+11,Women's Winter Hat,Black,Clothing,"Women,Clothing,Hat",Small,14,39.2
+10,Men's Winter Hat,White,Clothing,"Men,Clothing,Hat",Large,46,36.88
+11,Women's Winter Hat,White,Clothing,"Women,Clothing,Hat",Large,4,33.74
+10,Men's Winter Hat,White,Clothing,"Men,Clothing,Hat",Medium,41,38.34
+11,Women's Winter Hat,White,Clothing,"Women,Clothing,Hat",Medium,11,46.1
+10,Men's Winter Hat,Green,Clothing,"Men,Clothing,Hat",XL,46,42.48
+11,Women's Winter Hat,Green,Clothing,"Women,Clothing,Hat",XL,21,42.67
+10,Men's Winter Hat,Red,Clothing,"Men,Clothing,Hat",XL,29,47.91
+11,Women's Winter Hat,Red,Clothing,"Women,Clothing,Hat",XL,28,38.48
+10,Men's Winter Hat,White,Clothing,"Men,Clothing,Hat",XL,22,27.69
+11,Women's Winter Hat,White,Clothing,"Women,Clothing,Hat",XL,36,30.34
+12,Men's Jacket,Red,Clothing,"Men,Clothing,Jacket",Medium,18,25.51
+13,Women's Jacket,Red,Clothing,"Women,Clothing,Jacket",Medium,11,16.45
+12,Men's Jacket,Black,Clothing,"Men,Clothing,Jacket",XL,3,39.56
+13,Women's Jacket,Black,Clothing,"Women,Clothing,Jacket",XL,16,17.85
+12,Men's Jacket,White,Clothing,"Men,Clothing,Jacket",Medium,22,19.14
+13,Women's Jacket,White,Clothing,"Women,Clothing,Jacket",Medium,40,23.43
+12,Men's Jacket,Green,Clothing,"Men,Clothing,Jacket",Large,7,23.56
+13,Women's Jacket,Green,Clothing,"Women,Clothing,Jacket",Large,33,34.46
+12,Men's Jacket,Black,Clothing,"Men,Clothing,Jacket",Medium,31,25.9
+13,Women's Jacket,Black,Clothing,"Women,Clothing,Jacket",Medium,41,26.17
+12,Men's Jacket,Red,Clothing,"Men,Clothing,Jacket",XL,46,46.4
+13,Women's Jacket,Red,Clothing,"Women,Clothing,Jacket",XL,45,49.71
+12,Men's Jacket,Black,Clothing,"Men,Clothing,Jacket",Small,33,11.82
+13,Women's Jacket,Black,Clothing,"Women,Clothing,Jacket",Small,9,12.71
+12,Men's Jacket,Blue,Clothing,"Men,Clothing,Jacket",XL,36,46.7
+13,Women's Jacket,Blue,Clothing,"Women,Clothing,Jacket",XL,17,38.35
+12,Men's Jacket,Red,Clothing,"Men,Clothing,Jacket",Large,1,31.0
+13,Women's Jacket,Red,Clothing,"Women,Clothing,Jacket",Large,47,47.99
+12,Men's Jacket,Green,Clothing,"Men,Clothing,Jacket",XL,8,11.07
+13,Women's Jacket,Green,Clothing,"Women,Clothing,Jacket",XL,11,14.76
+12,Men's Jacket,Black,Clothing,"Men,Clothing,Jacket",Large,9,46.35
+13,Women's Jacket,Black,Clothing,"Women,Clothing,Jacket",Large,19,43.8
+12,Men's Jacket,Blue,Clothing,"Men,Clothing,Jacket",Large,19,48.28
+13,Women's Jacket,Blue,Clothing,"Women,Clothing,Jacket",Large,23,41.38
+12,Men's Jacket,White,Clothing,"Men,Clothing,Jacket",Large,31,43.51
+13,Women's Jacket,White,Clothing,"Women,Clothing,Jacket",Large,9,47.85
+12,Men's Jacket,Green,Clothing,"Men,Clothing,Jacket",Medium,38,24.25
+13,Women's Jacket,Green,Clothing,"Women,Clothing,Jacket",Medium,45,24.95
+12,Men's Jacket,White,Clothing,"Men,Clothing,Jacket",XL,22,21.92
+13,Women's Jacket,White,Clothing,"Women,Clothing,Jacket",XL,26,22.46
+12,Men's Jacket,Red,Clothing,"Men,Clothing,Jacket",Small,22,29.46
+13,Women's Jacket,Red,Clothing,"Women,Clothing,Jacket",Small,14,19.76
+12,Men's Jacket,White,Clothing,"Men,Clothing,Jacket",Small,47,29.4
+13,Women's Jacket,White,Clothing,"Women,Clothing,Jacket",Small,48,11.69
+12,Men's Jacket,Blue,Clothing,"Men,Clothing,Jacket",Medium,33,10.72
+13,Women's Jacket,Blue,Clothing,"Women,Clothing,Jacket",Medium,22,13.55
+12,Men's Jacket,Blue,Clothing,"Men,Clothing,Jacket",Small,14,41.78
+13,Women's Jacket,Blue,Clothing,"Women,Clothing,Jacket",Small,5,41.64
+12,Men's Jacket,Green,Clothing,"Men,Clothing,Jacket",Small,39,46.98
+13,Women's Jacket,Green,Clothing,"Women,Clothing,Jacket",Small,1,18.23
+14,Men's Jeans,White,Clothing,"Men,Clothing,Jeans",Large,3,27.45
+15,Women's Jeans,White,Clothing,"Women,Clothing,Jeans",Large,45,13.46
+14,Men's Jeans,Green,Clothing,"Men,Clothing,Jeans",Large,34,25.16
+15,Women's Jeans,Green,Clothing,"Women,Clothing,Jeans",Large,11,19.87
+14,Men's Jeans,Blue,Clothing,"Men,Clothing,Jeans",XL,47,45.74
+15,Women's Jeans,Blue,Clothing,"Women,Clothing,Jeans",XL,5,46.44
+14,Men's Jeans,Blue,Clothing,"Men,Clothing,Jeans",Large,48,33.74
+15,Women's Jeans,Blue,Clothing,"Women,Clothing,Jeans",Large,35,44.62
+14,Men's Jeans,Red,Clothing,"Men,Clothing,Jeans",Large,16,19.28
+15,Women's Jeans,Red,Clothing,"Women,Clothing,Jeans",Large,50,19.78
+14,Men's Jeans,Red,Clothing,"Men,Clothing,Jeans",Small,40,20.23
+15,Women's Jeans,Red,Clothing,"Women,Clothing,Jeans",Small,41,42.95
+14,Men's Jeans,Red,Clothing,"Men,Clothing,Jeans",Medium,8,48.18
+15,Women's Jeans,Red,Clothing,"Women,Clothing,Jeans",Medium,2,15.94
+14,Men's Jeans,White,Clothing,"Men,Clothing,Jeans",Medium,5,44.88
+15,Women's Jeans,White,Clothing,"Women,Clothing,Jeans",Medium,31,13.83
+14,Men's Jeans,Blue,Clothing,"Men,Clothing,Jeans",Small,14,19.25
+15,Women's Jeans,Blue,Clothing,"Women,Clothing,Jeans",Small,45,34.94
+14,Men's Jeans,Blue,Clothing,"Men,Clothing,Jeans",Medium,4,16.29
+15,Women's Jeans,Blue,Clothing,"Women,Clothing,Jeans",Medium,31,42.95
+14,Men's Jeans,Red,Clothing,"Men,Clothing,Jeans",XL,24,22.69
+15,Women's Jeans,Red,Clothing,"Women,Clothing,Jeans",XL,9,38.07
+14,Men's Jeans,White,Clothing,"Men,Clothing,Jeans",XL,11,22.3
+15,Women's Jeans,White,Clothing,"Women,Clothing,Jeans",XL,14,21.26
+14,Men's Jeans,Black,Clothing,"Men,Clothing,Jeans",Medium,44,39.77
+15,Women's Jeans,Black,Clothing,"Women,Clothing,Jeans",Medium,3,43.75
+14,Men's Jeans,Black,Clothing,"Men,Clothing,Jeans",XL,6,12.2
+15,Women's Jeans,Black,Clothing,"Women,Clothing,Jeans",XL,42,27.19
+14,Men's Jeans,Green,Clothing,"Men,Clothing,Jeans",Small,49,44.93
+15,Women's Jeans,Green,Clothing,"Women,Clothing,Jeans",Small,13,46.92
+14,Men's Jeans,Black,Clothing,"Men,Clothing,Jeans",Large,15,18.77
+15,Women's Jeans,Black,Clothing,"Women,Clothing,Jeans",Large,16,44.49
+14,Men's Jeans,Green,Clothing,"Men,Clothing,Jeans",Medium,47,32.82
+15,Women's Jeans,Green,Clothing,"Women,Clothing,Jeans",Medium,40,36.28
+14,Men's Jeans,Green,Clothing,"Men,Clothing,Jeans",XL,20,10.53
+15,Women's Jeans,Green,Clothing,"Women,Clothing,Jeans",XL,28,16.2
+14,Men's Jeans,White,Clothing,"Men,Clothing,Jeans",Small,28,15.14
+15,Women's Jeans,White,Clothing,"Women,Clothing,Jeans",Small,39,45.8
+14,Men's Jeans,Black,Clothing,"Men,Clothing,Jeans",Small,11,45.95
+15,Women's Jeans,Black,Clothing,"Women,Clothing,Jeans",Small,37,47.36
+16,Men's Dress,Red,Clothing,"Men,Clothing,Dress",XL,15,47.75
+17,Women's Dress,Red,Clothing,"Women,Clothing,Dress",XL,22,33.36
+16,Men's Dress,Blue,Clothing,"Men,Clothing,Dress",XL,46,25.14
+17,Women's Dress,Blue,Clothing,"Women,Clothing,Dress",XL,47,31.34
+16,Men's Dress,Green,Clothing,"Men,Clothing,Dress",Medium,3,15.03
+17,Women's Dress,Green,Clothing,"Women,Clothing,Dress",Medium,47,12.63
+16,Men's Dress,White,Clothing,"Men,Clothing,Dress",XL,33,45.38
+17,Women's Dress,White,Clothing,"Women,Clothing,Dress",XL,32,41.53
+16,Men's Dress,Green,Clothing,"Men,Clothing,Dress",XL,40,47.99
+17,Women's Dress,Green,Clothing,"Women,Clothing,Dress",XL,29,26.55
+16,Men's Dress,Green,Clothing,"Men,Clothing,Dress",Large,16,13.22
+17,Women's Dress,Green,Clothing,"Women,Clothing,Dress",Large,44,31.4
+16,Men's Dress,Green,Clothing,"Men,Clothing,Dress",Small,8,11.51
+17,Women's Dress,Green,Clothing,"Women,Clothing,Dress",Small,13,31.34
+16,Men's Dress,White,Clothing,"Men,Clothing,Dress",Large,14,33.49
+17,Women's Dress,White,Clothing,"Women,Clothing,Dress",Large,33,26.64
+16,Men's Dress,Blue,Clothing,"Men,Clothing,Dress",Large,42,31.4
+17,Women's Dress,Blue,Clothing,"Women,Clothing,Dress",Large,44,29.6
+16,Men's Dress,White,Clothing,"Men,Clothing,Dress",Medium,16,32.85
+17,Women's Dress,White,Clothing,"Women,Clothing,Dress",Medium,38,21.93
+16,Men's Dress,Blue,Clothing,"Men,Clothing,Dress",Medium,35,32.09
+17,Women's Dress,Blue,Clothing,"Women,Clothing,Dress",Medium,46,35.99
+16,Men's Dress,Black,Clothing,"Men,Clothing,Dress",XL,37,19.68
+17,Women's Dress,Black,Clothing,"Women,Clothing,Dress",XL,9,23.41
+16,Men's Dress,Blue,Clothing,"Men,Clothing,Dress",Small,28,37.06
+17,Women's Dress,Blue,Clothing,"Women,Clothing,Dress",Small,21,21.35
+16,Men's Dress,White,Clothing,"Men,Clothing,Dress",Small,33,45.22
+17,Women's Dress,White,Clothing,"Women,Clothing,Dress",Small,29,37.13
+16,Men's Dress,Black,Clothing,"Men,Clothing,Dress",Small,33,19.15
+17,Women's Dress,Black,Clothing,"Women,Clothing,Dress",Small,29,39.69
+16,Men's Dress,Red,Clothing,"Men,Clothing,Dress",Large,33,36.32
+17,Women's Dress,Red,Clothing,"Women,Clothing,Dress",Large,3,39.65
+16,Men's Dress,Red,Clothing,"Men,Clothing,Dress",Medium,22,13.34
+17,Women's Dress,Red,Clothing,"Women,Clothing,Dress",Medium,26,22.67
+16,Men's Dress,Black,Clothing,"Men,Clothing,Dress",Medium,15,35.14
+17,Women's Dress,Black,Clothing,"Women,Clothing,Dress",Medium,29,34.87
+16,Men's Dress,Red,Clothing,"Men,Clothing,Dress",Small,25,22.55
+17,Women's Dress,Red,Clothing,"Women,Clothing,Dress",Small,19,25.34
+16,Men's Dress,Black,Clothing,"Men,Clothing,Dress",Large,45,22.3
+17,Women's Dress,Black,Clothing,"Women,Clothing,Dress",Large,47,13.13
+18,Men's Sweater,Black,Clothing,"Men,Clothing,Sweater",Medium,2,39.77
+19,Women's Sweater,Black,Clothing,"Women,Clothing,Sweater",Medium,40,39.49
+18,Men's Sweater,Red,Clothing,"Men,Clothing,Sweater",Medium,45,16.74
+19,Women's Sweater,Red,Clothing,"Women,Clothing,Sweater",Medium,50,14.54
+18,Men's Sweater,Blue,Clothing,"Men,Clothing,Sweater",Large,14,47.99
+19,Women's Sweater,Blue,Clothing,"Women,Clothing,Sweater",Large,21,16.97
+18,Men's Sweater,Blue,Clothing,"Men,Clothing,Sweater",Medium,32,35.6
+19,Women's Sweater,Blue,Clothing,"Women,Clothing,Sweater",Medium,43,18.42
+18,Men's Sweater,Green,Clothing,"Men,Clothing,Sweater",Small,5,11.36
+19,Women's Sweater,Green,Clothing,"Women,Clothing,Sweater",Small,44,42.14
+18,Men's Sweater,Red,Clothing,"Men,Clothing,Sweater",Large,15,46.88
+19,Women's Sweater,Red,Clothing,"Women,Clothing,Sweater",Large,16,48.18
+18,Men's Sweater,Red,Clothing,"Men,Clothing,Sweater",XL,17,46.44
+19,Women's Sweater,Red,Clothing,"Women,Clothing,Sweater",XL,2,46.44
+18,Men's Sweater,Blue,Clothing,"Men,Clothing,Sweater",XL,13,33.73
+19,Women's Sweater,Blue,Clothing,"Women,Clothing,Sweater",XL,37,21.53
+18,Men's Sweater,Red,Clothing,"Men,Clothing,Sweater",Small,22,37.79
+19,Women's Sweater,Red,Clothing,"Women,Clothing,Sweater",Small,43,34.14
+18,Men's Sweater,Green,Clothing,"Men,Clothing,Sweater",Medium,3,10.14
+19,Women's Sweater,Green,Clothing,"Women,Clothing,Sweater",Medium,12,35.62
+18,Men's Sweater,White,Clothing,"Men,Clothing,Sweater",Large,10,22.53
+19,Women's Sweater,White,Clothing,"Women,Clothing,Sweater",Large,16,11.71
+18,Men's Sweater,White,Clothing,"Men,Clothing,Sweater",Small,17,45.74
+19,Women's Sweater,White,Clothing,"Women,Clothing,Sweater",Small,48,46.98
+18,Men's Sweater,Blue,Clothing,"Men,Clothing,Sweater",Small,38,35.2
+19,Women's Sweater,Blue,Clothing,"Women,Clothing,Sweater",Small,1,44.62
+18,Men's Sweater,Green,Clothing,"Men,Clothing,Sweater",Large,45,24.41
+19,Women's Sweater,Green,Clothing,"Women,Clothing,Sweater",Large,0,36.93
+18,Men's Sweater,White,Clothing,"Men,Clothing,Sweater",XL,18,13.38
+19,Women's Sweater,White,Clothing,"Women,Clothing,Sweater",XL,24,37.58
+18,Men's Sweater,White,Clothing,"Men,Clothing,Sweater",Medium,43,18.4
+19,Women's Sweater,White,Clothing,"Women,Clothing,Sweater",Medium,31,46.75
+18,Men's Sweater,Green,Clothing,"Men,Clothing,Sweater",XL,46,17.5
+19,Women's Sweater,Green,Clothing,"Women,Clothing,Sweater",XL,8,28.22
+18,Men's Sweater,Black,Clothing,"Men,Clothing,Sweater",XL,4,27.98
+19,Women's Sweater,Black,Clothing,"Women,Clothing,Sweater",XL,47,46.95
+18,Men's Sweater,Black,Clothing,"Men,Clothing,Sweater",Large,10,12.88
+19,Women's Sweater,Black,Clothing,"Women,Clothing,Sweater",Large,18,45.5
+18,Men's Sweater,Black,Clothing,"Men,Clothing,Sweater",Small,18,46.91
+19,Women's Sweater,Black,Clothing,"Women,Clothing,Sweater",Small,38,42.43
+20,Men's Shorts,Green,Clothing,"Men,Clothing,Shorts",Small,27,31.72
+21,Women's Shorts,Green,Clothing,"Women,Clothing,Shorts",Small,0,23.06
+20,Men's Shorts,Red,Clothing,"Men,Clothing,Shorts",XL,47,35.78
+21,Women's Shorts,Red,Clothing,"Women,Clothing,Shorts",XL,23,15.43
+20,Men's Shorts,White,Clothing,"Men,Clothing,Shorts",Small,15,42.94
+21,Women's Shorts,White,Clothing,"Women,Clothing,Shorts",Small,4,13.06
+20,Men's Shorts,White,Clothing,"Men,Clothing,Shorts",XL,28,33.22
+21,Women's Shorts,White,Clothing,"Women,Clothing,Shorts",XL,0,34.87
+20,Men's Shorts,Blue,Clothing,"Men,Clothing,Shorts",Large,29,41.42
+21,Women's Shorts,Blue,Clothing,"Women,Clothing,Shorts",Large,18,48.26
+20,Men's Shorts,White,Clothing,"Men,Clothing,Shorts",Medium,50,49.57
+21,Women's Shorts,White,Clothing,"Women,Clothing,Shorts",Medium,48,48.3
+20,Men's Shorts,Green,Clothing,"Men,Clothing,Shorts",Medium,25,18.88
+21,Women's Shorts,Green,Clothing,"Women,Clothing,Shorts",Medium,41,27.27
+20,Men's Shorts,Green,Clothing,"Men,Clothing,Shorts",Large,21,14.65
+21,Women's Shorts,Green,Clothing,"Women,Clothing,Shorts",Large,9,42.07
+20,Men's Shorts,Blue,Clothing,"Men,Clothing,Shorts",XL,43,47.99
+21,Women's Shorts,Blue,Clothing,"Women,Clothing,Shorts",XL,31,47.22
+20,Men's Shorts,Black,Clothing,"Men,Clothing,Shorts",Small,6,29.47
+21,Women's Shorts,Black,Clothing,"Women,Clothing,Shorts",Small,42,29.6
+20,Men's Shorts,Red,Clothing,"Men,Clothing,Shorts",Small,2,31.34
+21,Women's Shorts,Red,Clothing,"Women,Clothing,Shorts",Small,23,16.91
+20,Men's Shorts,Blue,Clothing,"Men,Clothing,Shorts",Small,33,44.12
+21,Women's Shorts,Blue,Clothing,"Women,Clothing,Shorts",Small,11,49.09
+20,Men's Shorts,Red,Clothing,"Men,Clothing,Shorts",Medium,6,15.42
+21,Women's Shorts,Red,Clothing,"Women,Clothing,Shorts",Medium,1,32.88
+20,Men's Shorts,White,Clothing,"Men,Clothing,Shorts",Large,41,45.85
+21,Women's Shorts,White,Clothing,"Women,Clothing,Shorts",Large,38,32.01
+20,Men's Shorts,Black,Clothing,"Men,Clothing,Shorts",XL,30,30.09
+21,Women's Shorts,Black,Clothing,"Women,Clothing,Shorts",XL,22,33.64
+20,Men's Shorts,Black,Clothing,"Men,Clothing,Shorts",Medium,38,38.23
+21,Women's Shorts,Black,Clothing,"Women,Clothing,Shorts",Medium,12,30.75
+20,Men's Shorts,Blue,Clothing,"Men,Clothing,Shorts",Medium,29,43.24
+21,Women's Shorts,Blue,Clothing,"Women,Clothing,Shorts",Medium,9,15.52
+20,Men's Shorts,Red,Clothing,"Men,Clothing,Shorts",Large,25,18.42
+21,Women's Shorts,Red,Clothing,"Women,Clothing,Shorts",Large,4,18.05
+20,Men's Shorts,Green,Clothing,"Men,Clothing,Shorts",XL,45,31.45
+21,Women's Shorts,Green,Clothing,"Women,Clothing,Shorts",XL,2,48.03
+20,Men's Shorts,Black,Clothing,"Men,Clothing,Shorts",Large,47,21.97
+21,Women's Shorts,Black,Clothing,"Women,Clothing,Shorts",Large,13,35.67
+22,Men's Shirt,Red,Clothing,"Men,Clothing,Shirt",Large,28,37.05
+23,Women's Shirt,Red,Clothing,"Women,Clothing,Shirt",Large,39,21.93
+22,Men's Shirt,Blue,Clothing,"Men,Clothing,Shirt",Medium,8,35.18
+23,Women's Shirt,Blue,Clothing,"Women,Clothing,Shirt",Medium,0,33.64
+22,Men's Shirt,Black,Clothing,"Men,Clothing,Shirt",XL,31,11.82
+23,Women's Shirt,Black,Clothing,"Women,Clothing,Shirt",XL,48,18.25
+22,Men's Shirt,Red,Clothing,"Men,Clothing,Shirt",Medium,3,14.43
+23,Women's Shirt,Red,Clothing,"Women,Clothing,Shirt",Medium,39,42.95
+22,Men's Shirt,Green,Clothing,"Men,Clothing,Shirt",XL,6,19.78
+23,Women's Shirt,Green,Clothing,"Women,Clothing,Shirt",XL,17,29.74
+22,Men's Shirt,Black,Clothing,"Men,Clothing,Shirt",Medium,35,47.33
+23,Women's Shirt,Black,Clothing,"Women,Clothing,Shirt",Medium,39,42.77
+22,Men's Shirt,Blue,Clothing,"Men,Clothing,Shirt",Small,29,48.62
+23,Women's Shirt,Blue,Clothing,"Women,Clothing,Shirt",Small,27,10.14
+22,Men's Shirt,White,Clothing,"Men,Clothing,Shirt",Large,45,46.98
+23,Women's Shirt,White,Clothing,"Women,Clothing,Shirt",Large,15,31.22
+22,Men's Shirt,Blue,Clothing,"Men,Clothing,Shirt",Large,40,33.52
+23,Women's Shirt,Blue,Clothing,"Women,Clothing,Shirt",Large,27,30.76
+22,Men's Shirt,Blue,Clothing,"Men,Clothing,Shirt",XL,43,24.62
+23,Women's Shirt,Blue,Clothing,"Women,Clothing,Shirt",XL,47,48.3
+22,Men's Shirt,White,Clothing,"Men,Clothing,Shirt",XL,9,31.22
+23,Women's Shirt,White,Clothing,"Women,Clothing,Shirt",XL,12,15.42
+22,Men's Shirt,Green,Clothing,"Men,Clothing,Shirt",Small,34,34.43
+23,Women's Shirt,Green,Clothing,"Women,Clothing,Shirt",Small,10,26.26
+22,Men's Shirt,Red,Clothing,"Men,Clothing,Shirt",XL,29,30.2
+23,Women's Shirt,Red,Clothing,"Women,Clothing,Shirt",XL,6,15.63
+22,Men's Shirt,White,Clothing,"Men,Clothing,Shirt",Medium,25,10.53
+23,Women's Shirt,White,Clothing,"Women,Clothing,Shirt",Medium,27,11.69
+22,Men's Shirt,White,Clothing,"Men,Clothing,Shirt",Small,40,43.25
+23,Women's Shirt,White,Clothing,"Women,Clothing,Shirt",Small,25,35.16
+22,Men's Shirt,Black,Clothing,"Men,Clothing,Shirt",Large,15,25.36
+23,Women's Shirt,Black,Clothing,"Women,Clothing,Shirt",Large,38,19.25
+22,Men's Shirt,Black,Clothing,"Men,Clothing,Shirt",Small,11,27.71
+23,Women's Shirt,Black,Clothing,"Women,Clothing,Shirt",Small,49,45.47
+22,Men's Shirt,Green,Clothing,"Men,Clothing,Shirt",Medium,49,10.76
+23,Women's Shirt,Green,Clothing,"Women,Clothing,Shirt",Medium,2,35.81
+22,Men's Shirt,Green,Clothing,"Men,Clothing,Shirt",Large,9,16.2
+23,Women's Shirt,Green,Clothing,"Women,Clothing,Shirt",Large,2,13.83
+22,Men's Shirt,Red,Clothing,"Men,Clothing,Shirt",Small,44,11.3
+23,Women's Shirt,Red,Clothing,"Women,Clothing,Shirt",Small,46,36.65
+24,Men's Cargo Pants,Blue,Clothing,"Men,Clothing,Pants",Medium,7,49.26
+25,Women's Cargo Pants,Blue,Clothing,"Women,Clothing,Pants",Medium,24,27.12
+24,Men's Cargo Pants,Black,Clothing,"Men,Clothing,Pants",Medium,9,33.43
+25,Women's Cargo Pants,Black,Clothing,"Women,Clothing,Pants",Medium,5,40.35
+24,Men's Cargo Pants,White,Clothing,"Men,Clothing,Pants",Small,46,39.9
+25,Women's Cargo Pants,White,Clothing,"Women,Clothing,Pants",Small,14,30.22
+24,Men's Cargo Pants,Red,Clothing,"Men,Clothing,Pants",XL,22,25.85
+25,Women's Cargo Pants,Red,Clothing,"Women,Clothing,Pants",XL,18,13.3
+24,Men's Cargo Pants,Black,Clothing,"Men,Clothing,Pants",Large,13,45.8
+25,Women's Cargo Pants,Black,Clothing,"Women,Clothing,Pants",Large,29,26.87
+24,Men's Cargo Pants,Blue,Clothing,"Men,Clothing,Pants",Large,3,44.12
+25,Women's Cargo Pants,Blue,Clothing,"Women,Clothing,Pants",Large,4,13.52
+24,Men's Cargo Pants,Blue,Clothing,"Men,Clothing,Pants",Small,21,30.63
+25,Women's Cargo Pants,Blue,Clothing,"Women,Clothing,Pants",Small,3,46.69
+24,Men's Cargo Pants,White,Clothing,"Men,Clothing,Pants",Large,32,20.34
+25,Women's Cargo Pants,White,Clothing,"Women,Clothing,Pants",Large,44,20.17
+24,Men's Cargo Pants,White,Clothing,"Men,Clothing,Pants",XL,47,19.78
+25,Women's Cargo Pants,White,Clothing,"Women,Clothing,Pants",XL,22,27.19
+24,Men's Cargo Pants,Green,Clothing,"Men,Clothing,Pants",Medium,47,34.13
+25,Women's Cargo Pants,Green,Clothing,"Women,Clothing,Pants",Medium,43,22.34
+24,Men's Cargo Pants,Red,Clothing,"Men,Clothing,Pants",Large,25,12.66
+25,Women's Cargo Pants,Red,Clothing,"Women,Clothing,Pants",Large,30,18.88
+24,Men's Cargo Pants,Green,Clothing,"Men,Clothing,Pants",Small,50,21.88
+25,Women's Cargo Pants,Green,Clothing,"Women,Clothing,Pants",Small,18,41.53
+24,Men's Cargo Pants,Red,Clothing,"Men,Clothing,Pants",Small,45,39.08
+25,Women's Cargo Pants,Red,Clothing,"Women,Clothing,Pants",Small,11,35.67
+24,Men's Cargo Pants,Black,Clothing,"Men,Clothing,Pants",Small,12,43.24
+25,Women's Cargo Pants,Black,Clothing,"Women,Clothing,Pants",Small,3,44.27
+24,Men's Cargo Pants,Green,Clothing,"Men,Clothing,Pants",XL,34,33.73
+25,Women's Cargo Pants,Green,Clothing,"Women,Clothing,Pants",XL,29,25.57
+24,Men's Cargo Pants,Black,Clothing,"Men,Clothing,Pants",XL,32,34.48
+25,Women's Cargo Pants,Black,Clothing,"Women,Clothing,Pants",XL,22,16.75
+24,Men's Cargo Pants,Red,Clothing,"Men,Clothing,Pants",Medium,9,43.84
+25,Women's Cargo Pants,Red,Clothing,"Women,Clothing,Pants",Medium,47,13.98
+24,Men's Cargo Pants,White,Clothing,"Men,Clothing,Pants",Medium,26,19.28
+25,Women's Cargo Pants,White,Clothing,"Women,Clothing,Pants",Medium,25,26.81
+24,Men's Cargo Pants,Green,Clothing,"Men,Clothing,Pants",Large,12,45.93
+25,Women's Cargo Pants,Green,Clothing,"Women,Clothing,Pants",Large,24,49.71
+24,Men's Cargo Pants,Blue,Clothing,"Men,Clothing,Pants",XL,2,11.4
+25,Women's Cargo Pants,Blue,Clothing,"Women,Clothing,Pants",XL,33,37.07
+26,Men's Khaki Pants,Blue,Clothing,"Men,Clothing,Pants",Small,0,41.64
+27,Women's Khaki Pants,Blue,Clothing,"Women,Clothing,Pants",Small,45,17.21
+26,Men's Khaki Pants,Green,Clothing,"Men,Clothing,Pants",XL,36,44.09
+27,Women's Khaki Pants,Green,Clothing,"Women,Clothing,Pants",XL,18,20.27
+26,Men's Khaki Pants,Red,Clothing,"Men,Clothing,Pants",Small,26,37.97
+27,Women's Khaki Pants,Red,Clothing,"Women,Clothing,Pants",Small,46,42.13
+26,Men's Khaki Pants,Red,Clothing,"Men,Clothing,Pants",Large,4,35.32
+27,Women's Khaki Pants,Red,Clothing,"Women,Clothing,Pants",Large,4,13.83
+26,Men's Khaki Pants,Green,Clothing,"Men,Clothing,Pants",Medium,23,10.51
+27,Women's Khaki Pants,Green,Clothing,"Women,Clothing,Pants",Medium,26,19.09
+26,Men's Khaki Pants,White,Clothing,"Men,Clothing,Pants",Medium,33,34.28
+27,Women's Khaki Pants,White,Clothing,"Women,Clothing,Pants",Medium,47,39.77
+26,Men's Khaki Pants,Black,Clothing,"Men,Clothing,Pants",Medium,18,34.71
+27,Women's Khaki Pants,Black,Clothing,"Women,Clothing,Pants",Medium,40,17.4
+26,Men's Khaki Pants,White,Clothing,"Men,Clothing,Pants",XL,15,15.27
+27,Women's Khaki Pants,White,Clothing,"Women,Clothing,Pants",XL,30,37.55
+26,Men's Khaki Pants,Black,Clothing,"Men,Clothing,Pants",XL,20,33.12
+27,Women's Khaki Pants,Black,Clothing,"Women,Clothing,Pants",XL,23,48.3
+26,Men's Khaki Pants,Blue,Clothing,"Men,Clothing,Pants",Large,29,14.97
+27,Women's Khaki Pants,Blue,Clothing,"Women,Clothing,Pants",Large,2,15.77
+26,Men's Khaki Pants,Red,Clothing,"Men,Clothing,Pants",XL,10,23.62
+27,Women's Khaki Pants,Red,Clothing,"Women,Clothing,Pants",XL,13,42.73
+26,Men's Khaki Pants,Black,Clothing,"Men,Clothing,Pants",Small,48,49.26
+27,Women's Khaki Pants,Black,Clothing,"Women,Clothing,Pants",Small,14,21.93
+26,Men's Khaki Pants,Green,Clothing,"Men,Clothing,Pants",Small,45,32.16
+27,Women's Khaki Pants,Green,Clothing,"Women,Clothing,Pants",Small,42,19.87
+26,Men's Khaki Pants,Green,Clothing,"Men,Clothing,Pants",Large,14,17.5
+27,Women's Khaki Pants,Green,Clothing,"Women,Clothing,Pants",Large,46,21.89
+26,Men's Khaki Pants,Black,Clothing,"Men,Clothing,Pants",Large,28,21.18
+27,Women's Khaki Pants,Black,Clothing,"Women,Clothing,Pants",Large,29,10.38
+26,Men's Khaki Pants,Blue,Clothing,"Men,Clothing,Pants",XL,28,38.47
+27,Women's Khaki Pants,Blue,Clothing,"Women,Clothing,Pants",XL,48,27.66
+26,Men's Khaki Pants,Blue,Clothing,"Men,Clothing,Pants",Medium,14,31.0
+27,Women's Khaki Pants,Blue,Clothing,"Women,Clothing,Pants",Medium,12,43.84
+26,Men's Khaki Pants,White,Clothing,"Men,Clothing,Pants",Large,34,39.08
+27,Women's Khaki Pants,White,Clothing,"Women,Clothing,Pants",Large,22,48.09
+26,Men's Khaki Pants,Red,Clothing,"Men,Clothing,Pants",Medium,24,45.8
+27,Women's Khaki Pants,Red,Clothing,"Women,Clothing,Pants",Medium,16,14.11
+26,Men's Khaki Pants,White,Clothing,"Men,Clothing,Pants",Small,26,21.26
+27,Women's Khaki Pants,White,Clothing,"Women,Clothing,Pants",Small,16,44.49
+28,Men's Denim Jeans,Green,Clothing,"Men,Clothing,Jeans",Large,4,29.21
+29,Women's Denim Jeans,Green,Clothing,"Women,Clothing,Jeans",Large,1,49.26
+28,Men's Denim Jeans,Blue,Clothing,"Men,Clothing,Jeans",Medium,37,42.05
+29,Women's Denim Jeans,Blue,Clothing,"Women,Clothing,Jeans",Medium,14,33.16
+28,Men's Denim Jeans,Red,Clothing,"Men,Clothing,Jeans",Small,24,40.4
+29,Women's Denim Jeans,Red,Clothing,"Women,Clothing,Jeans",Small,0,18.86
+28,Men's Denim Jeans,Black,Clothing,"Men,Clothing,Jeans",XL,0,37.97
+29,Women's Denim Jeans,Black,Clothing,"Women,Clothing,Jeans",XL,44,39.24
+28,Men's Denim Jeans,Blue,Clothing,"Men,Clothing,Jeans",Small,34,46.69
+29,Women's Denim Jeans,Blue,Clothing,"Women,Clothing,Jeans",Small,17,44.64
+28,Men's Denim Jeans,Red,Clothing,"Men,Clothing,Jeans",Medium,35,46.88
+29,Women's Denim Jeans,Red,Clothing,"Women,Clothing,Jeans",Medium,35,23.7
+28,Men's Denim Jeans,Blue,Clothing,"Men,Clothing,Jeans",Large,41,42.95
+29,Women's Denim Jeans,Blue,Clothing,"Women,Clothing,Jeans",Large,18,22.3
+28,Men's Denim Jeans,White,Clothing,"Men,Clothing,Jeans",Large,4,20.42
+29,Women's Denim Jeans,White,Clothing,"Women,Clothing,Jeans",Large,34,47.75
+28,Men's Denim Jeans,White,Clothing,"Men,Clothing,Jeans",Small,5,42.89
+29,Women's Denim Jeans,White,Clothing,"Women,Clothing,Jeans",Small,37,42.48
+28,Men's Denim Jeans,Black,Clothing,"Men,Clothing,Jeans",Medium,50,34.2
+29,Women's Denim Jeans,Black,Clothing,"Women,Clothing,Jeans",Medium,40,47.33
+28,Men's Denim Jeans,Red,Clothing,"Men,Clothing,Jeans",Large,11,29.35
+29,Women's Denim Jeans,Red,Clothing,"Women,Clothing,Jeans",Large,11,14.5
+28,Men's Denim Jeans,Black,Clothing,"Men,Clothing,Jeans",Small,37,21.89
+29,Women's Denim Jeans,Black,Clothing,"Women,Clothing,Jeans",Small,1,15.03
+28,Men's Denim Jeans,White,Clothing,"Men,Clothing,Jeans",XL,29,12.71
+29,Women's Denim Jeans,White,Clothing,"Women,Clothing,Jeans",XL,22,36.88
+28,Men's Denim Jeans,Green,Clothing,"Men,Clothing,Jeans",Small,41,46.88
+29,Women's Denim Jeans,Green,Clothing,"Women,Clothing,Jeans",Small,42,30.95
+28,Men's Denim Jeans,White,Clothing,"Men,Clothing,Jeans",Medium,0,19.68
+29,Women's Denim Jeans,White,Clothing,"Women,Clothing,Jeans",Medium,0,11.69
+28,Men's Denim Jeans,Green,Clothing,"Men,Clothing,Jeans",Medium,43,13.26
+29,Women's Denim Jeans,Green,Clothing,"Women,Clothing,Jeans",Medium,3,46.92
+28,Men's Denim Jeans,Green,Clothing,"Men,Clothing,Jeans",XL,8,42.05
+29,Women's Denim Jeans,Green,Clothing,"Women,Clothing,Jeans",XL,13,48.46
+28,Men's Denim Jeans,Red,Clothing,"Men,Clothing,Jeans",XL,35,26.8
+29,Women's Denim Jeans,Red,Clothing,"Women,Clothing,Jeans",XL,50,16.6
+28,Men's Denim Jeans,Black,Clothing,"Men,Clothing,Jeans",Large,40,40.08
+29,Women's Denim Jeans,Black,Clothing,"Women,Clothing,Jeans",Large,49,17.56
+28,Men's Denim Jeans,Blue,Clothing,"Men,Clothing,Jeans",XL,26,48.81
+29,Women's Denim Jeans,Blue,Clothing,"Women,Clothing,Jeans",XL,17,39.2
+30,Men's Chino Pants,Red,Clothing,"Men,Clothing,Pants",Small,9,27.45
+31,Women's Chino Pants,Red,Clothing,"Women,Clothing,Pants",Small,39,33.09
+30,Men's Chino Pants,Green,Clothing,"Men,Clothing,Pants",XL,22,19.14
+31,Women's Chino Pants,Green,Clothing,"Women,Clothing,Pants",XL,11,46.95
+30,Men's Chino Pants,Black,Clothing,"Men,Clothing,Pants",Medium,17,18.8
+31,Women's Chino Pants,Black,Clothing,"Women,Clothing,Pants",Medium,22,44.31
+30,Men's Chino Pants,Green,Clothing,"Men,Clothing,Pants",Small,2,20.44
+31,Women's Chino Pants,Green,Clothing,"Women,Clothing,Pants",Small,47,19.85
+30,Men's Chino Pants,Red,Clothing,"Men,Clothing,Pants",XL,8,17.27
+31,Women's Chino Pants,Red,Clothing,"Women,Clothing,Pants",XL,43,22.9
+30,Men's Chino Pants,Red,Clothing,"Men,Clothing,Pants",Large,25,41.0
+31,Women's Chino Pants,Red,Clothing,"Women,Clothing,Pants",Large,10,14.78
+30,Men's Chino Pants,White,Clothing,"Men,Clothing,Pants",Large,38,26.56
+31,Women's Chino Pants,White,Clothing,"Women,Clothing,Pants",Large,34,16.35
+30,Men's Chino Pants,Black,Clothing,"Men,Clothing,Pants",Large,26,27.71
+31,Women's Chino Pants,Black,Clothing,"Women,Clothing,Pants",Large,13,14.43
+30,Men's Chino Pants,White,Clothing,"Men,Clothing,Pants",Medium,5,15.63
+31,Women's Chino Pants,White,Clothing,"Women,Clothing,Pants",Medium,39,38.55
+30,Men's Chino Pants,Blue,Clothing,"Men,Clothing,Pants",Medium,26,11.73
+31,Women's Chino Pants,Blue,Clothing,"Women,Clothing,Pants",Medium,17,37.97
+30,Men's Chino Pants,Black,Clothing,"Men,Clothing,Pants",XL,31,19.83
+31,Women's Chino Pants,Black,Clothing,"Women,Clothing,Pants",XL,17,12.78
+30,Men's Chino Pants,Blue,Clothing,"Men,Clothing,Pants",Large,23,32.01
+31,Women's Chino Pants,Blue,Clothing,"Women,Clothing,Pants",Large,0,48.09
+30,Men's Chino Pants,Black,Clothing,"Men,Clothing,Pants",Small,25,46.71
+31,Women's Chino Pants,Black,Clothing,"Women,Clothing,Pants",Small,9,22.07
+30,Men's Chino Pants,White,Clothing,"Men,Clothing,Pants",XL,20,40.28
+31,Women's Chino Pants,White,Clothing,"Women,Clothing,Pants",XL,23,16.91
+30,Men's Chino Pants,White,Clothing,"Men,Clothing,Pants",Small,15,47.54
+31,Women's Chino Pants,White,Clothing,"Women,Clothing,Pants",Small,22,25.08
+30,Men's Chino Pants,Blue,Clothing,"Men,Clothing,Pants",XL,15,16.92
+31,Women's Chino Pants,Blue,Clothing,"Women,Clothing,Pants",XL,47,48.15
+30,Men's Chino Pants,Green,Clothing,"Men,Clothing,Pants",Large,37,25.34
+31,Women's Chino Pants,Green,Clothing,"Women,Clothing,Pants",Large,49,13.48
+30,Men's Chino Pants,Red,Clothing,"Men,Clothing,Pants",Medium,34,41.78
+31,Women's Chino Pants,Red,Clothing,"Women,Clothing,Pants",Medium,2,32.48
+30,Men's Chino Pants,Green,Clothing,"Men,Clothing,Pants",Medium,40,38.07
+31,Women's Chino Pants,Green,Clothing,"Women,Clothing,Pants",Medium,43,20.04
+30,Men's Chino Pants,Blue,Clothing,"Men,Clothing,Pants",Small,36,40.46
+31,Women's Chino Pants,Blue,Clothing,"Women,Clothing,Pants",Small,29,36.32
+32,Men's Striped Shirt,Black,Clothing,"Men,Clothing,Shirt",Small,14,23.72
+33,Women's Striped Shirt,Black,Clothing,"Women,Clothing,Shirt",Small,29,16.28
+32,Men's Striped Shirt,Green,Clothing,"Men,Clothing,Shirt",Medium,48,11.82
+33,Women's Striped Shirt,Green,Clothing,"Women,Clothing,Shirt",Medium,50,20.01
+32,Men's Striped Shirt,Black,Clothing,"Men,Clothing,Shirt",Large,11,36.93
+33,Women's Striped Shirt,Black,Clothing,"Women,Clothing,Shirt",Large,19,22.9
+32,Men's Striped Shirt,Green,Clothing,"Men,Clothing,Shirt",Large,9,21.35
+33,Women's Striped Shirt,Green,Clothing,"Women,Clothing,Shirt",Large,37,42.92
+32,Men's Striped Shirt,Red,Clothing,"Men,Clothing,Shirt",Large,11,20.62
+33,Women's Striped Shirt,Red,Clothing,"Women,Clothing,Shirt",Large,47,20.3
+32,Men's Striped Shirt,Blue,Clothing,"Men,Clothing,Shirt",Medium,24,17.29
+33,Women's Striped Shirt,Blue,Clothing,"Women,Clothing,Shirt",Medium,9,30.2
+32,Men's Striped Shirt,Black,Clothing,"Men,Clothing,Shirt",XL,50,47.36
+33,Women's Striped Shirt,Black,Clothing,"Women,Clothing,Shirt",XL,5,14.74
+32,Men's Striped Shirt,Black,Clothing,"Men,Clothing,Shirt",Medium,39,26.73
+33,Women's Striped Shirt,Black,Clothing,"Women,Clothing,Shirt",Medium,43,20.24
+32,Men's Striped Shirt,Blue,Clothing,"Men,Clothing,Shirt",XL,22,31.64
+33,Women's Striped Shirt,Blue,Clothing,"Women,Clothing,Shirt",XL,18,16.8
+32,Men's Striped Shirt,White,Clothing,"Men,Clothing,Shirt",XL,43,21.79
+33,Women's Striped Shirt,White,Clothing,"Women,Clothing,Shirt",XL,29,33.04
+32,Men's Striped Shirt,White,Clothing,"Men,Clothing,Shirt",Large,38,45.3
+33,Women's Striped Shirt,White,Clothing,"Women,Clothing,Shirt",Large,29,31.45
+32,Men's Striped Shirt,Green,Clothing,"Men,Clothing,Shirt",XL,5,41.79
+33,Women's Striped Shirt,Green,Clothing,"Women,Clothing,Shirt",XL,30,32.0
+32,Men's Striped Shirt,Red,Clothing,"Men,Clothing,Shirt",XL,11,33.65
+33,Women's Striped Shirt,Red,Clothing,"Women,Clothing,Shirt",XL,3,26.35
+32,Men's Striped Shirt,Blue,Clothing,"Men,Clothing,Shirt",Large,38,15.73
+33,Women's Striped Shirt,Blue,Clothing,"Women,Clothing,Shirt",Large,41,46.43
+32,Men's Striped Shirt,White,Clothing,"Men,Clothing,Shirt",Small,12,23.07
+33,Women's Striped Shirt,White,Clothing,"Women,Clothing,Shirt",Small,23,25.16
+32,Men's Striped Shirt,Red,Clothing,"Men,Clothing,Shirt",Small,46,32.0
+33,Women's Striped Shirt,Red,Clothing,"Women,Clothing,Shirt",Small,22,34.13
+32,Men's Striped Shirt,Red,Clothing,"Men,Clothing,Shirt",Medium,22,38.74
+33,Women's Striped Shirt,Red,Clothing,"Women,Clothing,Shirt",Medium,9,14.64
+32,Men's Striped Shirt,White,Clothing,"Men,Clothing,Shirt",Medium,44,22.46
+33,Women's Striped Shirt,White,Clothing,"Women,Clothing,Shirt",Medium,11,39.49
+32,Men's Striped Shirt,Blue,Clothing,"Men,Clothing,Shirt",Small,1,31.41
+33,Women's Striped Shirt,Blue,Clothing,"Women,Clothing,Shirt",Small,16,44.12
+32,Men's Striped Shirt,Green,Clothing,"Men,Clothing,Shirt",Small,44,44.96
+33,Women's Striped Shirt,Green,Clothing,"Women,Clothing,Shirt",Small,22,34.69
+34,Men's Polo Shirt,Black,Clothing,"Men,Clothing,Shirt",Large,34,46.4
+35,Women's Polo Shirt,Black,Clothing,"Women,Clothing,Shirt",Large,12,17.88
+34,Men's Polo Shirt,Blue,Clothing,"Men,Clothing,Shirt",XL,40,22.67
+35,Women's Polo Shirt,Blue,Clothing,"Women,Clothing,Shirt",XL,9,26.77
+34,Men's Polo Shirt,Black,Clothing,"Men,Clothing,Shirt",XL,48,18.23
+35,Women's Polo Shirt,Black,Clothing,"Women,Clothing,Shirt",XL,24,10.56
+34,Men's Polo Shirt,White,Clothing,"Men,Clothing,Shirt",XL,31,26.12
+35,Women's Polo Shirt,White,Clothing,"Women,Clothing,Shirt",XL,33,12.14
+34,Men's Polo Shirt,Red,Clothing,"Men,Clothing,Shirt",Small,16,41.41
+35,Women's Polo Shirt,Red,Clothing,"Women,Clothing,Shirt",Small,20,13.06
+34,Men's Polo Shirt,Green,Clothing,"Men,Clothing,Shirt",XL,18,16.89
+35,Women's Polo Shirt,Green,Clothing,"Women,Clothing,Shirt",XL,37,30.09
+34,Men's Polo Shirt,Green,Clothing,"Men,Clothing,Shirt",Large,6,40.46
+35,Women's Polo Shirt,Green,Clothing,"Women,Clothing,Shirt",Large,27,10.34
+34,Men's Polo Shirt,Blue,Clothing,"Men,Clothing,Shirt",Large,0,20.4
+35,Women's Polo Shirt,Blue,Clothing,"Women,Clothing,Shirt",Large,11,20.12
+34,Men's Polo Shirt,Red,Clothing,"Men,Clothing,Shirt",XL,16,13.34
+35,Women's Polo Shirt,Red,Clothing,"Women,Clothing,Shirt",XL,25,14.94
+34,Men's Polo Shirt,Red,Clothing,"Men,Clothing,Shirt",Large,35,29.21
+35,Women's Polo Shirt,Red,Clothing,"Women,Clothing,Shirt",Large,38,37.51
+34,Men's Polo Shirt,Blue,Clothing,"Men,Clothing,Shirt",Medium,34,33.33
+35,Women's Polo Shirt,Blue,Clothing,"Women,Clothing,Shirt",Medium,11,40.59
+34,Men's Polo Shirt,Black,Clothing,"Men,Clothing,Shirt",Medium,21,29.47
+35,Women's Polo Shirt,Black,Clothing,"Women,Clothing,Shirt",Medium,44,47.87
+34,Men's Polo Shirt,White,Clothing,"Men,Clothing,Shirt",Small,9,36.16
+35,Women's Polo Shirt,White,Clothing,"Women,Clothing,Shirt",Small,6,23.25
+34,Men's Polo Shirt,White,Clothing,"Men,Clothing,Shirt",Large,21,49.17
+35,Women's Polo Shirt,White,Clothing,"Women,Clothing,Shirt",Large,9,30.63
+34,Men's Polo Shirt,Blue,Clothing,"Men,Clothing,Shirt",Small,12,25.04
+35,Women's Polo Shirt,Blue,Clothing,"Women,Clothing,Shirt",Small,3,47.11
+34,Men's Polo Shirt,Black,Clothing,"Men,Clothing,Shirt",Small,49,23.16
+35,Women's Polo Shirt,Black,Clothing,"Women,Clothing,Shirt",Small,26,21.7
+34,Men's Polo Shirt,Green,Clothing,"Men,Clothing,Shirt",Medium,46,35.56
+35,Women's Polo Shirt,Green,Clothing,"Women,Clothing,Shirt",Medium,40,13.2
+34,Men's Polo Shirt,Red,Clothing,"Men,Clothing,Shirt",Medium,48,13.98
+35,Women's Polo Shirt,Red,Clothing,"Women,Clothing,Shirt",Medium,35,45.33
+34,Men's Polo Shirt,White,Clothing,"Men,Clothing,Shirt",Medium,1,29.24
+35,Women's Polo Shirt,White,Clothing,"Women,Clothing,Shirt",Medium,11,12.71
+34,Men's Polo Shirt,Green,Clothing,"Men,Clothing,Shirt",Small,18,20.17
+35,Women's Polo Shirt,Green,Clothing,"Women,Clothing,Shirt",Small,6,38.3
+36,Men's Flannel Shirt,Black,Clothing,"Men,Clothing,Shirt",Medium,0,38.06
+37,Women's Flannel Shirt,Black,Clothing,"Women,Clothing,Shirt",Medium,0,38.74
+36,Men's Flannel Shirt,Blue,Clothing,"Men,Clothing,Shirt",Large,8,11.78
+37,Women's Flannel Shirt,Blue,Clothing,"Women,Clothing,Shirt",Large,7,11.71
+36,Men's Flannel Shirt,Red,Clothing,"Men,Clothing,Shirt",XL,26,41.42
+37,Women's Flannel Shirt,Red,Clothing,"Women,Clothing,Shirt",XL,23,42.25
+36,Men's Flannel Shirt,Black,Clothing,"Men,Clothing,Shirt",XL,44,21.93
+37,Women's Flannel Shirt,Black,Clothing,"Women,Clothing,Shirt",XL,37,16.28
+36,Men's Flannel Shirt,Black,Clothing,"Men,Clothing,Shirt",Large,2,17.56
+37,Women's Flannel Shirt,Black,Clothing,"Women,Clothing,Shirt",Large,46,24.61
+36,Men's Flannel Shirt,Black,Clothing,"Men,Clothing,Shirt",Small,17,32.13
+37,Women's Flannel Shirt,Black,Clothing,"Women,Clothing,Shirt",Small,6,40.58
+36,Men's Flannel Shirt,Green,Clothing,"Men,Clothing,Shirt",Large,12,16.98
+37,Women's Flannel Shirt,Green,Clothing,"Women,Clothing,Shirt",Large,46,29.79
+36,Men's Flannel Shirt,White,Clothing,"Men,Clothing,Shirt",Medium,0,44.34
+37,Women's Flannel Shirt,White,Clothing,"Women,Clothing,Shirt",Medium,16,31.45
+36,Men's Flannel Shirt,White,Clothing,"Men,Clothing,Shirt",Small,40,36.88
+37,Women's Flannel Shirt,White,Clothing,"Women,Clothing,Shirt",Small,18,35.8
+36,Men's Flannel Shirt,Red,Clothing,"Men,Clothing,Shirt",Medium,4,42.4
+37,Women's Flannel Shirt,Red,Clothing,"Women,Clothing,Shirt",Medium,34,28.43
+36,Men's Flannel Shirt,Red,Clothing,"Men,Clothing,Shirt",Small,22,24.45
+37,Women's Flannel Shirt,Red,Clothing,"Women,Clothing,Shirt",Small,41,22.06
+36,Men's Flannel Shirt,White,Clothing,"Men,Clothing,Shirt",XL,2,45.74
+37,Women's Flannel Shirt,White,Clothing,"Women,Clothing,Shirt",XL,47,40.28
+36,Men's Flannel Shirt,White,Clothing,"Men,Clothing,Shirt",Large,43,28.24
+37,Women's Flannel Shirt,White,Clothing,"Women,Clothing,Shirt",Large,7,24.45
+36,Men's Flannel Shirt,Green,Clothing,"Men,Clothing,Shirt",Medium,8,36.62
+37,Women's Flannel Shirt,Green,Clothing,"Women,Clothing,Shirt",Medium,9,23.18
+36,Men's Flannel Shirt,Blue,Clothing,"Men,Clothing,Shirt",XL,40,14.97
+37,Women's Flannel Shirt,Blue,Clothing,"Women,Clothing,Shirt",XL,8,28.66
+36,Men's Flannel Shirt,Blue,Clothing,"Men,Clothing,Shirt",Medium,2,31.02
+37,Women's Flannel Shirt,Blue,Clothing,"Women,Clothing,Shirt",Medium,8,19.69
+36,Men's Flannel Shirt,Red,Clothing,"Men,Clothing,Shirt",Large,9,34.69
+37,Women's Flannel Shirt,Red,Clothing,"Women,Clothing,Shirt",Large,23,31.45
+36,Men's Flannel Shirt,Green,Clothing,"Men,Clothing,Shirt",Small,9,28.18
+37,Women's Flannel Shirt,Green,Clothing,"Women,Clothing,Shirt",Small,47,49.54
+36,Men's Flannel Shirt,Blue,Clothing,"Men,Clothing,Shirt",Small,28,17.12
+37,Women's Flannel Shirt,Blue,Clothing,"Women,Clothing,Shirt",Small,40,48.76
+36,Men's Flannel Shirt,Green,Clothing,"Men,Clothing,Shirt",XL,23,19.56
+37,Women's Flannel Shirt,Green,Clothing,"Women,Clothing,Shirt",XL,29,46.91
+38,Men's Sweatshirt,White,Clothing,"Men,Clothing,Sweatshirt",XL,2,47.91
+39,Women's Sweatshirt,White,Clothing,"Women,Clothing,Sweatshirt",XL,22,24.95
+38,Men's Sweatshirt,Green,Clothing,"Men,Clothing,Sweatshirt",Small,3,31.04
+39,Women's Sweatshirt,Green,Clothing,"Women,Clothing,Sweatshirt",Small,20,34.69
+38,Men's Sweatshirt,Blue,Clothing,"Men,Clothing,Sweatshirt",Large,29,46.88
+39,Women's Sweatshirt,Blue,Clothing,"Women,Clothing,Sweatshirt",Large,23,45.87
+38,Men's Sweatshirt,Black,Clothing,"Men,Clothing,Sweatshirt",Large,20,37.65
+39,Women's Sweatshirt,Black,Clothing,"Women,Clothing,Sweatshirt",Large,44,45.85
+38,Men's Sweatshirt,White,Clothing,"Men,Clothing,Sweatshirt",Small,22,28.32
+39,Women's Sweatshirt,White,Clothing,"Women,Clothing,Sweatshirt",Small,6,11.48
+38,Men's Sweatshirt,Green,Clothing,"Men,Clothing,Sweatshirt",Medium,21,33.63
+39,Women's Sweatshirt,Green,Clothing,"Women,Clothing,Sweatshirt",Medium,14,41.41
+38,Men's Sweatshirt,Black,Clothing,"Men,Clothing,Sweatshirt",XL,34,35.67
+39,Women's Sweatshirt,Black,Clothing,"Women,Clothing,Sweatshirt",XL,21,18.18
+38,Men's Sweatshirt,Blue,Clothing,"Men,Clothing,Sweatshirt",Small,3,18.88
+39,Women's Sweatshirt,Blue,Clothing,"Women,Clothing,Sweatshirt",Small,11,14.65
+38,Men's Sweatshirt,Red,Clothing,"Men,Clothing,Sweatshirt",Small,3,20.28
+39,Women's Sweatshirt,Red,Clothing,"Women,Clothing,Sweatshirt",Small,50,39.82
+38,Men's Sweatshirt,Black,Clothing,"Men,Clothing,Sweatshirt",Medium,37,13.55
+39,Women's Sweatshirt,Black,Clothing,"Women,Clothing,Sweatshirt",Medium,37,16.45
+38,Men's Sweatshirt,Red,Clothing,"Men,Clothing,Sweatshirt",Large,42,40.29
+39,Women's Sweatshirt,Red,Clothing,"Women,Clothing,Sweatshirt",Large,8,26.35
+38,Men's Sweatshirt,Black,Clothing,"Men,Clothing,Sweatshirt",Small,9,29.24
+39,Women's Sweatshirt,Black,Clothing,"Women,Clothing,Sweatshirt",Small,29,19.93
+38,Men's Sweatshirt,Blue,Clothing,"Men,Clothing,Sweatshirt",Medium,47,40.58
+39,Women's Sweatshirt,Blue,Clothing,"Women,Clothing,Sweatshirt",Medium,28,11.48
+38,Men's Sweatshirt,Red,Clothing,"Men,Clothing,Sweatshirt",XL,0,14.74
+39,Women's Sweatshirt,Red,Clothing,"Women,Clothing,Sweatshirt",XL,16,35.42
+38,Men's Sweatshirt,White,Clothing,"Men,Clothing,Sweatshirt",Medium,6,32.65
+39,Women's Sweatshirt,White,Clothing,"Women,Clothing,Sweatshirt",Medium,15,32.26
+38,Men's Sweatshirt,White,Clothing,"Men,Clothing,Sweatshirt",Large,2,40.72
+39,Women's Sweatshirt,White,Clothing,"Women,Clothing,Sweatshirt",Large,25,31.02
+38,Men's Sweatshirt,Green,Clothing,"Men,Clothing,Sweatshirt",Large,31,38.06
+39,Women's Sweatshirt,Green,Clothing,"Women,Clothing,Sweatshirt",Large,42,14.78
+38,Men's Sweatshirt,Green,Clothing,"Men,Clothing,Sweatshirt",XL,35,32.82
+39,Women's Sweatshirt,Green,Clothing,"Women,Clothing,Sweatshirt",XL,25,22.53
+38,Men's Sweatshirt,Blue,Clothing,"Men,Clothing,Sweatshirt",XL,16,32.78
+39,Women's Sweatshirt,Blue,Clothing,"Women,Clothing,Sweatshirt",XL,36,34.2
+38,Men's Sweatshirt,Red,Clothing,"Men,Clothing,Sweatshirt",Medium,25,27.65
+39,Women's Sweatshirt,Red,Clothing,"Women,Clothing,Sweatshirt",Medium,47,34.71

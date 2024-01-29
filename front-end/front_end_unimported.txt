@@ -1,0 +1,332 @@
+       summary               unimported v1.31.1 (node)
+────────────────────────────────────────────────────────────────────────────────
+       entry file          : src/index.js
+
+       unresolved imports  : 69
+       unused dependencies : 38
+       unimported files    : 197
+
+
+─────┬──────────────────────────────────────────────────────────────────────────
+     │ 69 unresolved imports
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │ logo.png at src/components/navigation/Header.js
+   2 │ common/PageAuth at src/components/navigation/Header.js, src/components/ecommerce/ProductList.js, src/components/user/User.js, src/components/ecommerce/Product.js, src/REVIEW/new/UserList.js, src/components/user/UserList.js
+   3 │ slices/auth/auth at src/components/navigation/Header.js
+   4 │ slices/notification/message at src/components/navigation/Header.js
+   5 │ common/EventBus at src/slices/auth/auth.js, src/slices/site/site.js, src/components/user/UserBoard.js
+   6 │ components/navigation/PageContainer at src/pages/Login.js, src/components/settings/SettingsDrawer.js
+   7 │ services/storage/file.service at src/slices/storage/file.js
+   8 │ services/storage/folder.service at src/slices/storage/folder.js
+   9 │ services/site/site.service at src/slices/site/site.js
+  10 │ services/site_building/page.service at src/slices/site_building/page.js
+  11 │ components/settings/SiteSettings at src/components/settings/SettingsDrawer.js
+  12 │ components/elements/CustomDrawer at src/components/settings/SettingsDrawer.js, src/REVIEW/new/PageTester.js
+  13 │ REVIEW/new/UserList at src/components/settings/SettingsDrawer.js, src/components/page_builder/PageBuilderComponent.js
+  14 │ components/page_builder/PageBuilder at src/components/settings/SettingsDrawer.js
+  15 │ components/settings/SettingsDrawer at src/REVIEW/new/PageTester.js
+  16 │ css/ProductList.css at src/components/ecommerce/ProductList.js
+  17 │ slices/scheduling/enrollment at src/components/ecommerce/ProductList.js, src/components/ecommerce/Product.js
+  18 │ slices/site/site_product_availability at src/components/ecommerce/ProductList.js
+  19 │ common/Site at src/components/ecommerce/ProductList.js, src/REVIEW/new/UserList.js, src/components/user/UserList.js
+  20 │ components/common/LoadingBar at src/components/ecommerce/ProductList.js, src/components/user/UserList.js
+  21 │ common/Product at src/components/ecommerce/ProductList.js, src/components/ecommerce/Product.js
+  22 │ components/elements/Hero at src/components/ecommerce/ProductList.js, src/components/user/UserList.js
+  23 │ components/common/SearchBar at src/components/ecommerce/ProductList.js, src/components/user/UserList.js
+  24 │ components/common//LazyImage at src/components/ecommerce/ProductList.js
+  25 │ components/common//Pagination at src/components/ecommerce/ProductList.js
+  26 │ components/ecommerce/Card at src/components/ecommerce/ProductList.js
+  27 │ components/form/Form at src/components/scheduling/EventCreation.js, src/components/ecommerce/ProductForm.js, src/components/site/SiteForm.js, src/components/user/UserForm.js, src/components/ecommerce/NewProductForm.js
+  28 │ slices/auth/user at src/components/user/User.js
+  29 │ components/common/SaveObjectForm at src/components/user/User.js, src/components/ecommerce/Product.js
+  30 │ components/tools/ToolBar at src/components/user/User.js, src/components/ecommerce/Product.js, src/components/user/UserList.js
+  31 │ slices/ecommerce/product at src/components/ecommerce/Product.js
+  32 │ slices/site_building/page.js at src/components/page_builder/PageBuilder.js
+  33 │ components/navigation/Header at src/components/page_builder/PageBuilderComponent.js, src/components/page_builder/components/HeaderElement.js
+  34 │ components/navigation/Footer at src/components/page_builder/PageBuilderComponent.js, src/components/page_builder/components/FooterElement.js
+  35 │ slices/site/style.js at src/components/page_builder/popover_menus/StyleEditor.js
+  36 │ components/storage/FileManager at src/components/page_builder/popover_menus/ComponentEditor.js
+  37 │ components/tools/markdown_editor/MarkdownEditor at src/components/page_builder/popover_menus/ComponentEditor.js, src/components/blog/PostManager.js
+  38 │ example.jpg at src/components/page_builder/components/ImageElement.js
+  39 │ components/common/WebpagePreview at src/components/page_builder/PageBuilder.js
+  40 │ slices/site/user_site_availability at src/REVIEW/new/UserList.js, src/components/user/UserList.js
+  41 │ common/User at src/REVIEW/new/UserList.js, src/components/user/UserList.js
+  42 │ components/elements/CustomTable at src/REVIEW/new/UserList.js
+  43 │ components/tools/SearchBar at src/REVIEW/new/UserList.js
+  44 │ components/navigation/SettingsDrawer at src/components/ecommerce/ProductManagement.js
+  45 │ slices/blog/post.js at src/components/blog/PostManager.js
+  46 │ slices/ecommerce/cart at src/components/ecommerce/todo/Cart.js, src/components/ecommerce/todo/SavedItems.js
+  47 │ css/UserList.css at src/components/user/UserList.js
+  48 │ App.css at src/components/user/UserList.js
+  49 │ components/common/Pagination at src/components/user/UserList.js
+  50 │ components/elements/Card at src/components/user/UserList.js
+  51 │ components/page_builder/components/TextElement at src/components/navigation/PageComponent.js
+  52 │ components/page_builder/components/ImageElement at src/components/navigation/PageComponent.js
+  53 │ components/page_builder/components/VideoElement at src/components/navigation/PageComponent.js
+  54 │ components/page_builder/components/ListElement at src/components/navigation/PageComponent.js
+  55 │ services/ecommerce/transaction.service at src/slices/ecommerce/transaction.js
+  56 │ services/ecommerce/purchase.service at src/slices/ecommerce/purchase.js
+  57 │ services/ecommerce/shipment.service at src/slices/ecommerce/shipment.js
+  58 │ services/ecommerce/variation.service at src/slices/ecommerce/variation.js
+  59 │ services/ecommerce/service.service at src/slices/ecommerce/service.js
+  60 │ services/ecommerce/commerce_category.service at src/slices/ecommerce/commerce_category.js
+  61 │ services/blog/post.service at src/slices/blog/post.js
+  62 │ services/blog/post_category.service at src/slices/blog/post_category.js
+  63 │ services/site/permission.service at src/slices/site/permission.js
+  64 │ services/site/navigation.service at src/slices/site/navigation.js
+  65 │ services/notification/notification.service at src/slices/notification/notification.js
+  66 │ services/scheduling/event.service at src/slices/scheduling/event.js
+  67 │ services/scheduling/booking.service at src/slices/scheduling/booking.js
+  68 │ services/site/style.service at src/slices/site/style.js
+  69 │ services/ecommerce/cart.service at src/slices/ecommerce/cart.js
+─────┴──────────────────────────────────────────────────────────────────────────
+
+
+─────┬──────────────────────────────────────────────────────────────────────────
+     │ 38 unused dependencies
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │ @blueprintjs/popover2
+   2 │ @dnd-kit/modifiers
+   3 │ @dnd-kit/sortable
+   4 │ @dnd-kit/utilities
+   5 │ @microsoft/microsoft-graph-client
+   6 │ @react-oauth/google
+   7 │ @stripe/stripe-js
+   8 │ @syncfusion/ej2-react-filemanager
+   9 │ @testing-library/jest-dom
+  10 │ @testing-library/react
+  11 │ @testing-library/user-event
+  12 │ @tinymce/tinymce-react
+  13 │ bson
+  14 │ classnames
+  15 │ crypto-browserify
+  16 │ currency.js
+  17 │ file-saver
+  18 │ gapi
+  19 │ gapi-script
+  20 │ immutability-helper
+  21 │ react-beautiful-dnd
+  22 │ react-dnd
+  23 │ react-dnd-html5-backend
+  24 │ react-file-drop
+  25 │ react-frame-component
+  26 │ react-intersection-observer
+  27 │ react-lazy-load-image-component
+  28 │ react-player
+  29 │ react-scripts
+  30 │ react-simplemde-editor
+  31 │ react-spinners
+  32 │ react-time-picker
+  33 │ react-youtube
+  34 │ resize-observer-polyfill
+  35 │ stripe
+  36 │ styled-components
+  37 │ tinymce
+  38 │ use-immer
+─────┴──────────────────────────────────────────────────────────────────────────
+
+
+─────┬──────────────────────────────────────────────────────────────────────────
+     │ 197 unimported files
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │ src/common/Auth.js
+   2 │ src/common/clientIds.js
+   3 │ src/common/googleCalendarFunctions.js
+   4 │ src/common/Product.js
+   5 │ src/common/Site.js
+   6 │ src/common/User.js
+   7 │ src/components/charity/CharitableCauseForm.js
+   8 │ src/components/charity/DonateForm.js
+   9 │ src/components/chat/ChatBox.js
+  10 │ src/components/chat/ExampleServiceProvider.js
+  11 │ src/components/chat/Inbox.js
+  12 │ src/components/chat/MessageInput.js
+  13 │ src/components/common/BreadcrumbSelector.js
+  14 │ src/components/common/FilterComponent.js
+  15 │ src/components/common/LazyImage.js
+  16 │ src/components/common/Notification.js
+  17 │ src/components/common/Pagination.js
+  18 │ src/components/common/Profile.js
+  19 │ src/components/common/ProfilePreview.js
+  20 │ src/components/common/SearchBar.js
+  21 │ src/components/common/usePagination.js
+  22 │ src/components/common/WebpagePreview.js
+  23 │ src/components/ecommerce/Card.js
+  24 │ src/components/ecommerce/ShippingForm.js
+  25 │ src/components/ecommerce/stripe/CheckoutForm.js
+  26 │ src/components/ecommerce/stripe/CheckoutFormContainer.js
+  27 │ src/components/ecommerce/todo/Checkout.js
+  28 │ src/components/ecommerce/todo/NewProduct.js
+  29 │ src/components/ecommerce/todo/OrderHistory.js
+  30 │ src/components/ecommerce/todo/Promotion.js
+  31 │ src/components/ecommerce/todo/PurchaseHistory.js
+  32 │ src/components/ecommerce/todo/Purchasing.js
+  33 │ src/components/ecommerce/todo/Rating.js
+  34 │ src/components/ecommerce/todo/RefundManagement.js
+  35 │ src/components/ecommerce/todo/Tracking.js
+  36 │ src/components/ecommerce/ToolBar.js
+  37 │ src/components/ecommerce/TransactionContainer.js
+  38 │ src/components/ecommerce/TransactionForm.js
+  39 │ src/components/elements/CardList.js
+  40 │ src/components/elements/Carousel.js
+  41 │ src/components/elements/CustomButton.js
+  42 │ src/components/elements/CustomCard.js
+  43 │ src/components/elements/CustomComponents.js
+  44 │ src/components/elements/CustomContainer.js
+  45 │ src/components/elements/CustomDrawer.js
+  46 │ src/components/elements/CustomPageBuilderComponents.js
+  47 │ src/components/elements/CustomStyleComponent.js
+  48 │ src/components/elements/CustomTable.js
+  49 │ src/components/elements/CustomText.js
+  50 │ src/components/elements/Gallery.js
+  51 │ src/components/elements/Toolbox.js
+  52 │ src/components/form/Checkbox.js
+  53 │ src/components/form/Dropdown.js
+  54 │ src/components/form/FormBuilder.js
+  55 │ src/components/form/Input.js
+  56 │ src/components/form/Slider.js
+  57 │ src/components/login/ExtraLoginOptions.js
+  58 │ src/components/login/GoogleLoginButton.js
+  59 │ src/components/login/LinkedInLoginButton.js
+  60 │ src/components/login/MicrosoftLoginButton.js
+  61 │ src/components/navigation/OldHeader.js
+  62 │ src/components/navigation/Page.js
+  63 │ src/components/navigation/PageContainer.js
+  64 │ src/components/navigation/PageEditor.js
+  65 │ src/components/navigation/SettingsDrawer.js
+  66 │ src/components/notifications/Messages.js
+  67 │ src/components/notifications/ProgressBar.js
+  68 │ src/components/page_builder/popover_menus/InfoEditor.js
+  69 │ src/components/scheduling/Booking.js
+  70 │ src/components/scheduling/Event.js
+  71 │ src/components/settings/AccountSettings.js
+  72 │ src/components/settings/AdminSettings.js
+  73 │ src/components/settings/SettingsPanel_2.js
+  74 │ src/components/settings/SettingsPanel.js
+  75 │ src/components/settings/SiteGlobalStyleMenu.js
+  76 │ src/components/settings/SiteSettings.js
+  77 │ src/components/site/SiteList.js
+  78 │ src/components/site/SiteObjectToolbox.js
+  79 │ src/components/storage/FileManager.js
+  80 │ src/components/storage/FilePreview.js
+  81 │ src/components/storage/FileUploader.js
+  82 │ src/components/storage/OldFileManager.js
+  83 │ src/components/style/Section.js
+  84 │ src/components/style/SectionEditor.js
+  85 │ src/components/style/ThemeChanger.js
+  86 │ src/components/tools/ContentManager.js
+  87 │ src/components/tools/SearchBar.js
+  88 │ src/components/tools/TestComponent.js
+  89 │ src/components/user/BoardAdmin.js
+  90 │ src/components/user/BoardGlobalAdmin.js
+  91 │ src/components/user/BoardSuperUser.js
+  92 │ src/components/user/BoardUser.js
+  93 │ src/components/user/Profile.js
+  94 │ src/components/user/UserPreview.js
+  95 │ src/css/theme.js
+  96 │ src/REVIEW/add/added/new_object_model.js
+  97 │ src/REVIEW/add/ShippingTracking.js
+  98 │ src/REVIEW/old/old_page_builder/Column.jsx
+  99 │ src/REVIEW/old/old_page_builder/Component.jsx
+ 100 │ src/REVIEW/old/old_page_builder/constants.js
+ 101 │ src/REVIEW/old/old_page_builder/DropZone.jsx
+ 102 │ src/REVIEW/old/old_page_builder/EditComponent.js
+ 103 │ src/REVIEW/old/old_page_builder/example.jsx
+ 104 │ src/REVIEW/old/old_page_builder/helpers.js
+ 105 │ src/REVIEW/old/old_page_builder/initial-data.js
+ 106 │ src/REVIEW/old/old_page_builder/PageBuilder.js
+ 107 │ src/REVIEW/old/old_page_builder/popovers/BackgroundPopover.js
+ 108 │ src/REVIEW/old/old_page_builder/popovers/BorderPopover.js
+ 109 │ src/REVIEW/old/old_page_builder/popovers/EditorComponent.js
+ 110 │ src/REVIEW/old/old_page_builder/popovers/FontPopover.js
+ 111 │ src/REVIEW/old/old_page_builder/popovers/renderColorPicker.js
+ 112 │ src/REVIEW/old/old_page_builder/popovers/renderNumericInput.js
+ 113 │ src/REVIEW/old/old_page_builder/popovers/SizePopover.js
+ 114 │ src/REVIEW/old/old_page_builder/popovers/SpacingPopover.js
+ 115 │ src/REVIEW/old/old_page_builder/Row.jsx
+ 116 │ src/REVIEW/old/old_page_builder/SideBar.js
+ 117 │ src/REVIEW/old/old_page_builder/SideBarItem.jsx
+ 118 │ src/REVIEW/old/old_page_builder/TrashDropZone.jsx
+ 119 │ src/REVIEW/old/OldFileManager.js
+ 120 │ src/REVIEW/old/services/auth/auth-header.js
+ 121 │ src/REVIEW/old/services/auth/auth.service.js
+ 122 │ src/REVIEW/old/services/auth/site_permissions.service.js
+ 123 │ src/REVIEW/old/services/auth/site.service.js
+ 124 │ src/REVIEW/old/services/auth/user.service.js
+ 125 │ src/REVIEW/old/services/ecommerce/product_permissions.service.js
+ 126 │ src/REVIEW/old/services/ecommerce/product.service.js
+ 127 │ src/REVIEW/old/services/ecommerce/transaction.service.js
+ 128 │ src/REVIEW/old/services/scheduling/attendance.service.js
+ 129 │ src/REVIEW/old/services/scheduling/enrollment.service.js
+ 130 │ src/REVIEW/old/services/scheduling/session.service.js
+ 131 │ src/REVIEW/old/services/site_building/site_object.service.js
+ 132 │ src/REVIEW/old/services/site/content.service.js
+ 133 │ src/REVIEW/old/services/site/file.service.js
+ 134 │ src/REVIEW/old/services/site/site_product_availability.service.js
+ 135 │ src/REVIEW/old/services/site/user_site_availability.service.js
+ 136 │ src/REVIEW/old/slices/auth/auth.js
+ 137 │ src/REVIEW/old/slices/auth/site_permissions.js
+ 138 │ src/REVIEW/old/slices/auth/user.js
+ 139 │ src/REVIEW/old/slices/ecommerce/product_permissions.js
+ 140 │ src/REVIEW/old/slices/ecommerce/product.js
+ 141 │ src/REVIEW/old/slices/ecommerce/transaction.js
+ 142 │ src/REVIEW/old/slices/scheduling/attendance.js
+ 143 │ src/REVIEW/old/slices/scheduling/enrollment.js
+ 144 │ src/REVIEW/old/slices/scheduling/session.js
+ 145 │ src/REVIEW/old/slices/site_building/site_object.js
+ 146 │ src/REVIEW/old/slices/site/file_form_data.js
+ 147 │ src/REVIEW/old/slices/site/file_queue.js
+ 148 │ src/REVIEW/old/slices/site/file.js
+ 149 │ src/REVIEW/old/slices/site/form.js
+ 150 │ src/REVIEW/old/slices/site/grouping.js
+ 151 │ src/REVIEW/old/slices/site/message.js
+ 152 │ src/REVIEW/old/slices/site/option.js
+ 153 │ src/REVIEW/old/slices/site/question.js
+ 154 │ src/REVIEW/old/slices/site/site_product_availability.js
+ 155 │ src/REVIEW/old/slices/site/site.js
+ 156 │ src/REVIEW/old/slices/site/user_form_response.js
+ 157 │ src/REVIEW/old/slices/site/user_site_availability.js
+ 158 │ src/REVIEW/old/slices/style/theme.js
+ 159 │ src/REVIEW/PageBuilder.js
+ 160 │ src/services/blog/post_category.service.js
+ 161 │ src/services/blog/post.service.js
+ 162 │ src/services/charity/charitable_cause.service.js
+ 163 │ src/services/charity/donation.service.js
+ 164 │ src/services/chat/chat.service.js
+ 165 │ src/services/ecommerce/cart.service.js
+ 166 │ src/services/ecommerce/commerce_category.service.js
+ 167 │ src/services/ecommerce/purchase.service.js
+ 168 │ src/services/ecommerce/service.service.js
+ 169 │ src/services/ecommerce/shipment.service.js
+ 170 │ src/services/ecommerce/transaction.service.js
+ 171 │ src/services/ecommerce/variation.service.js
+ 172 │ src/services/notification/notification.service.js
+ 173 │ src/services/scheduling/booking.service.js
+ 174 │ src/services/scheduling/event.service.js
+ 175 │ src/services/site_building/page.service.js
+ 176 │ src/services/site/content.service.js
+ 177 │ src/services/site/navigation.service.js
+ 178 │ src/services/site/permission.service.js
+ 179 │ src/services/site/site.service.js
+ 180 │ src/services/site/style.service.js
+ 181 │ src/services/site/theme.service.js
+ 182 │ src/services/storage/file.service.js
+ 183 │ src/services/storage/folder.service.js
+ 184 │ src/setupTests.js
+ 185 │ src/slices/charity/chartiable_cause.js
+ 186 │ src/slices/charity/donation.js
+ 187 │ src/slices/chat/chat.js
+ 188 │ src/slices/notification/message.js
+ 189 │ src/slices/notification/progress.js
+ 190 │ src/slices/site/file_form_data.js
+ 191 │ src/slices/site/file_queue.js
+ 192 │ src/slices/site/form.js
+ 193 │ src/slices/site/grouping.js
+ 194 │ src/slices/site/option.js
+ 195 │ src/slices/site/question.js
+ 196 │ src/slices/site/theme.js
+ 197 │ src/slices/site/user_form_response.js
+─────┴──────────────────────────────────────────────────────────────────────────
+
+
+       Inspect the results and run npx unimported -u to update ignore lists

@@ -13,8 +13,6 @@ export const FileUploader = ({folder_id}) => {
   const [uploadProgress, setUploadProgress] = useState({});
 
   const handleUploadProgress = (fileId, progress) => {
-    console.log("hit");
-    console.log(uploadProgress);
     const oldUploadProgress = {...uploadProgress};
     oldUploadProgress[fileId] = progress;
     setUploadProgress({...oldUploadProgress});
@@ -33,10 +31,7 @@ export const FileUploader = ({folder_id}) => {
             localFile: file,
           })
         );
-        console.log(folder_id);
-        console.log(file);
-        console.log(handleUploadProgress);
-        console.log(fileId);
+
         const oldFileProgress = uploadProgress;
         oldFileProgress[fileId] = 0;
         setUploadProgress(oldFileProgress);
@@ -45,7 +40,6 @@ export const FileUploader = ({folder_id}) => {
           if (response) {
             let createdFile = response.payload.savedFile;
 
-            console.log(createdFile);
             // Get upload progress
             const interval = setInterval(async () => {
               try {
@@ -115,8 +109,6 @@ export const FileUploader = ({folder_id}) => {
         </FileDrop>
         <div className="upload-progress-container">
           {uploadProgress && Object.keys(uploadProgress).map((fileId) => {
-            console.log(fileId);
-            console.log(uploadProgress[fileId]);
             if (uploadProgress[fileId] !== 100) {
               return (<div className="upload-progress" key={fileId}>
               <div>File ID: {fileId}</div>

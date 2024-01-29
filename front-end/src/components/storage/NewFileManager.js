@@ -12,6 +12,7 @@ import { ChonkyIconFA } from 'chonky-icon-fontawesome';
 import { Dialog, Classes } from '@blueprintjs/core';
 import { useDispatch, useSelector } from 'react-redux';
 import VideoThumbnail from 'react-video-thumbnail';
+import { FileUploader } from './FileUploader';
 // Set Chonky defaults
 setChonkyDefaults({ iconComponent: ChonkyIconFA });
 
@@ -154,6 +155,7 @@ const FileManager = ({ smallManager, onSelectFile }) => {
       <div className="file-manager">
         <div className="file-manager-window-container">
           <div style={{ maxHeight: '500px', overflow: 'auto' }}>
+            <FileUploader />
             <FileBrowser
               files={flatChonkyItems}
               folderChain={chonkyFolderChain}

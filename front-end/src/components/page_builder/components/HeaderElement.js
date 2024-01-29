@@ -1,7 +1,7 @@
 // HeaderElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import ComponentPopup from '../ComponentPopup';
+import ComponentPopup from '../ComponentSettings';
 import { useState } from 'react';
 import Header from 'components/navigation/Header';
 // const HeaderElement = ({ element, onRemoveItem, onSaveConfiguration }) => {

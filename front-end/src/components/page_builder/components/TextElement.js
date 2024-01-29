@@ -1,8 +1,9 @@
 // TextElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import ComponentPopup from '../ComponentPopup';
-import { useState } from 'react';
+import ComponentPopup from '../ComponentSettings';
+import { useState, useEffect } from 'react';
+import ComponentSettings from '../ComponentSettings';
 // const TextElement = ({ element, onAddItemType, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {
 //     e.stopPropagation();
@@ -129,13 +130,14 @@ const defaultElementStyle = {
 const TextElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
   const [style, setStyle] = useState(element.style || defaultElementStyle);
 
-  console.log(style);
+  useEffect(() => {
+    setStyle(element.style);
+  }, [element])
+  console.log(element);
   return (
     <div>
-      <ComponentPopup
+      <ComponentSettings
         type="text"
-        style={style}
-        setStyle={setStyle}
         setLockGrid={setLockGrid}
         setDraggable={setDraggable}
         editComponent={editComponent}
