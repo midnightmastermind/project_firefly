@@ -1,32 +1,100 @@
 const mongoose = require('mongoose');
-const { Types } = mongoose;
-// const Grid = require('gridfs-stream');
-
-// const conn = mongoose.createConnection('mongodb://localhost/my_database'); // Replace with your MongoDB connection string
-
-// let gfs;
-// conn.once('open', () => {
-//   // Init stream
-//   gfs = Grid(conn.db, mongoose.mongo);
-//   gfs.collection('photos'); // Set the collection name
-// });
 
 const productSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  color: String,
-  status: { type: String, enum: ['publish', 'not'], default: 'publish' },
-  price: { type: Number, required: true },
-  tax: { type: Number, required: true },
-  description: String,
-  dimensions: {
-    width: { type: Number, required: true },
-    height: { type: Number, required: true },
-    depth: { type: Number, required: true },
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: () => mongoose.Types.ObjectId("65b7dc54cf74c369c84be2b3")
   },
-  photo: { type: Types.ObjectId, ref: 'Photo' }, // Use ObjectId reference
-  // Add more fields as needed
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+  id: {
+    type: Number,
+    required: true
+  },
+  product_type: {
+    type: String,
+    required: true,
+    enum: ["variable"]
+  },
+  sku: {
+    type: String,
+    required: true
+  },
+  product_name: {
+    type: String,
+    required: true
+  },
+  is_published: {
+    type: Number,
+    required: true
+  },
+  is_featured: {
+    type: Number,
+    required: true
+  },
+  catalog_visibility: {
+    type: String,
+    required: true,
+    enum: ["visible"]
+  },
+  short_description: {
+    type: String,
+    required: true
+  },
+  product_description: {
+    type: String,
+    required: true
+  },
+  is_in_stock: {
+    type: Number,
+    required: true
+  },
+  stock_quantity: {
+    type: Number,
+    required: true
+  },
+  allow_backorders: {
+    type: Number,
+    required: true
+  },
+  is_sold_individually: {
+    type: Number,
+    required: true
+  },
+  allow_customer_reviews: {
+    type: Number,
+    required: true
+  },
+  product_price: {
+    type: Number,
+    required: true
+  },
+  product_categories: {
+    type: String,
+    required: true
+  },
+  product_images: {
+    type: String,
+    required: true
+  },
+  attribute_1_name: {
+    type: String,
+    required: true
+  },
+  attribute_1_values: {
+    type: [String],
+    required: true
+  },
+  attribute_2_name: {
+    type: String,
+    required: true
+  },
+  attribute_2_values: {
+    type: [String],
+    required: true
+  },
+  product_weight: {
+    type: Number,
+    required: true
+  }
 });
 
 const Product = mongoose.model('Product', productSchema);

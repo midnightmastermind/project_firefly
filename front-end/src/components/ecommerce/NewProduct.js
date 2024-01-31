@@ -6,7 +6,7 @@ const Variation = ({ data }) => {
   // Variation component rendering
   return (
     <div key={data.id}>
-      <h4>{data.name}</h4>
+      <h4>{data.Name}</h4>
       <p>{data.description}</p>
       {/* Additional content for each variation */}
       {data.content && <p>{data.content}</p>}
@@ -22,8 +22,8 @@ const Product = ({ data, displayParams }) => {
       {/* Product details */}
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <img
-          src={data.image}
-          alt={data.name}
+          src={data.Images}
+          alt={data.Name}
           style={{ width: '200px', height: '150px', objectFit: 'cover' }}
         />
 

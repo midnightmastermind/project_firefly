@@ -104,9 +104,9 @@ const Product = (props) => {
                 }   
                 {!showEditForm &&
                     <div>
-                        <div>{currentProduct.title}</div>
+                        <div>{currentProduct.Name}</div>
                         <div>{currentProduct.description}</div>
-                        <img src={`${currentProduct.product_image}`} />
+                        <img src={`${currentProduct.Images}`} />
                     </div>
                 }
 

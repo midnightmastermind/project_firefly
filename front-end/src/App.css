@@ -838,15 +838,21 @@ textarea.bp5-input {
 .product-image {
   width: 100%;
   height: 100%;
+  background-size: cover;
 }
 
 .product-header-container {
   display: flex;
-  justify-content: space-evenly;
-  margin-top: 10px;
+  justify-content: space-between;
+  align-items: start;
+  height: 45px;
+  padding: 5px;
+  border: 1px solid gray;
+  background-color: #3c4145 !important
 }
 .product-header {
   font-size: 14px;
+  width: 170px;
 }
 
 .product-header .bp5-tag {
@@ -862,9 +868,14 @@ textarea.bp5-input {
 
 .product-overlay-image {
   width: 300px;
-  height: 250px;
+  height: 342px;
 }
 
 .grid-locked {
   pointer-events: none;
+}
+
+.product-details {
+  width: 100%;
+  max-width: 300px;
 }

@@ -82,7 +82,8 @@ const exampleData = [{
 
 const Product = ({ product, onProductClick }) => {
     console.log(onProductClick);
-    const image = <div className="product-image" style={{ backgroundImage: `url(${product.product_image})` }} />
+    const images = product.Images.split(',');
+    const image = <div className="product-image" style={{ backgroundImage: `url(${images[0]})` }} />
   
     const content = (
       <div className="product-component-container" onClick={() => onProductClick(product)}>
@@ -90,8 +91,8 @@ const Product = ({ product, onProductClick }) => {
           {image}
         </div>
         <div className="product-header-container">
-          <div className="product-header">{product.title}</div>
-          <div className="product-price"><Tag>{`$${product.price}`}</Tag></div>
+          <div className="product-header">{product.Name}</div>
+          <div className="product-price"><Tag>{`$${product.product_price}`}</Tag></div>
         </div>
       </div>
     )
@@ -253,7 +254,11 @@ const ProductList = (props) => {
         }
     }
 
-    console.log(currentProductList);
+    const display_params = [
+        { type: 'text', key: 'name' },
+        { type: 'content', key: 'description' },
+        { type: 'text', key: 'price' },
+      ];
     return (
         <div>
             {(props.mode !== "global_admin" && props.mode !== "admin") &&
@@ -285,7 +290,7 @@ const ProductList = (props) => {
                                             // {props.mode == "global_admin" && props.site_id && belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => removeFromSite(product._id)} class="remove-from-site-card">Remove from Site</button>)}
                                             // {props.mode == "global_admin" && props.site_id && !belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => addToSite(product._id)} class="add-to-site-card">Add To Site</button>)} */
                                             // if (product.availability == true) {
-                                            return <Product product={product} onProductClick={openProductOverlay}/>
+                                            return <Product product={product} onProductClick={openProductOverlay} displayParams={display_params}/>
                                             // }
                                         })
                                     ) : (<div class="no-results">No Products Found</div>)

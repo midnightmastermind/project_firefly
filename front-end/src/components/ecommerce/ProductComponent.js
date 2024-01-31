@@ -2,16 +2,17 @@ import React from 'react';
 import { Card, Button, Classes, H4, H5, Intent } from '@blueprintjs/core';
 import { create as createCartItem, getAll as getAllCartItems, update as updateCartItem  } from 'slices/ecommerce/cart_item';
 import { useDispatch, useSelector } from "react-redux";
+import parse from 'html-react-parser';
 
 const ProductComponent = ({ product }) => {
-    const { title, description, price, availability, product_image } = product;
+    const { Name, description, product_price, availability, Images } = product;
     const { user: currentUser } = useSelector((state) => state.auth);
     const { cart_items } = useSelector((state) => state.cart_item);
     const dispatch = useDispatch();
     console.log(currentUser);
     const handleAddToCart = () => {
         // Add to cart logic goes here
-        console.log(`${title} added to cart`);
+        console.log(`${Name} added to cart`);
 
         const new_cart_item = {
             user_id: currentUser.id,
@@ -66,11 +67,11 @@ const ProductComponent = ({ product }) => {
 
     return (
         <Card className={Classes.ELEVATION_2}>
-            <img src={product_image} alt={title} className="product-overlay-image" />
+            <img src={Images.split(',')[0]} alt={Name} className="product-overlay-image" />
             <div className="product-details">
-                <H4>{title}</H4>
-                <p>{description}</p>
-                <H5>Price: ${price}</H5>
+                <H4>{Name}</H4>
+                {description && <p>{parse(description)}</p> }
+                <H5>Price: ${product_price}</H5>
                 <p>{availability ? 'In Stock' : 'Out of Stock'}</p>
                 <div className="product-actions">
                     <Button

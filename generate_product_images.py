@@ -1,38 +1,25 @@
-import tkinter as tk
-from tkinter import messagebox
 from diffusers import StableDiffusionPipeline
-from PIL import Image, ImageTk
+from PIL import Image
 import csv
 import os
+from torch import autocast
 
 # Machine Learning libraries
 import torch
-from torch import autocast
 
-# private modules
-from authtoken import auth_token
+# Limit GPU memory allocation to a percentage (e.g., 50%)
+torch.cuda.set_per_process_memory_fraction(0.5)
 
-# Create app user interface
-app = tk.Tk()
-app.geometry("532x632")
-app.title("Text to Image app")
-app.configure(bg='black')
-
-# Create a placeholder to show the generated image
-img_placeholder = tk.Label(app, height=512, width=512, text="")
-img_placeholder.place(x=10, y=110)
-
-# Download stable diffusion model from hugging face
-modelid = "CompVis/stable-diffusion-v1-4"
+# Download stable diffusion model from Hugging Face
+model_id = "CompVis/stable-diffusion-v1-4"
 device = "cuda"
-stable_diffusion_model = StableDiffusionPipeline.from_pretrained(modelid, variant="fp16", torch_dtype=torch.float16, use_auth_token=auth_token)
-stable_diffusion_model.to(device)
+pipe = StableDiffusionPipeline.from_pretrained(model_id, use_auth_token=True)
 
 # Function to generate image from text
 def generate_image(name, color):
-    """This function generates an image from text using stable diffusion"""
+    """This function generates an image from text with stable diffusion"""
     with autocast(device):
-        image = stable_diffusion_model(f"{name} {color}", guidance_scale=8.5)["sample"][0]
+        image = pipe(f"{name} {color}", guidance_scale=8.5).images[0]
 
     # Create a folder named 'product_images' if it doesn't exist
     os.makedirs('product_images', exist_ok=True)
@@ -60,14 +47,8 @@ try:
 
             # Generate image and get the file name
             generated_image_file = generate_image(name, color)
+            print(f"Generated image: {generated_image_file}")
 
-            # Display the generated image file name
-            img_placeholder.configure(text=generated_image_file)
-            img_placeholder.update_idletasks()
-
-    messagebox.showinfo("Success", "Generated images have been saved to the 'product_images' folder.")
 except Exception as e:
-    messagebox.showerror("Error", f"An error occurred: {str(e)}")
+    print(f"An error occurred: {str(e)}")
 
-# Optional: Close the Tkinter window after processing all rows
-app.destroy()
