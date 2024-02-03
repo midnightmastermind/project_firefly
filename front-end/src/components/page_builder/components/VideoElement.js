@@ -77,31 +77,43 @@ import ComponentSettings from '../ComponentSettings';
 // export default VideoElement;
 
 
+// const VideoElement = ({ element, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
+//   return (
+//     <div style={{height: "100%"}} className="my-context-menu-target">
+//       <ComponentSettings editComponent={editComponent} type="video" style={{height: "100%"}} content={(
+//         <div style={{height: "100%"}}>
+//           <iframe
+//             style={{ overflow: 'hidden', pointerEvents: 'none' }}
+//             width="100%"
+//             height="100%"
+//             src={element.source || "https://www.youtube.com/embed/dQw4w9WgXcQ"} // Sample video source
+//             title={`Video ${element.i}`}
+//             frameBorder="0"
+//             allowFullScreen
+//           ></iframe>
+//         </div>
+//       )} element={element} setLockGrid={setLockGrid}/>
+//     </div>
+//   );
+// }
+
 const VideoElement = ({ element, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
   return (
-    <div style={{height: "100%"}} className="my-context-menu-target">
-      <ComponentSettings editComponent={editComponent} type="video" style={{height: "100%"}} content={(
-        <div style={{height: "100%"}}>
-          <iframe
-            style={{ overflow: 'hidden', pointerEvents: 'none' }}
-            width="100%"
-            height="100%"
-            src={element.source || "https://www.youtube.com/embed/dQw4w9WgXcQ"} // Sample video source
-            title={`Video ${element.i}`}
-            frameBorder="0"
-            allowFullScreen
-          ></iframe>
-          <span
-            className="remove"
-            style={{ position: "absolute", right: "2px", top: 0, cursor: "pointer" }}
-            onClick={() => onRemoveItem(element.i)}
-          >
-            x
-          </span>
-        </div>
-      )} element={element} setLockGrid={setLockGrid}/>
+    <div style={{ height: "100%" }} className="my-context-menu-target">
+      <div style={{ height: "100%" }}>
+        <iframe
+          style={{ overflow: 'hidden', pointerEvents: 'none' }}
+          width="100%"
+          height="100%"
+          src={element.source || "https://www.youtube.com/embed/dQw4w9WgXcQ"} // Sample video source
+          title={`Video ${element.i}`}
+          frameBorder="0"
+          allowFullScreen
+        ></iframe>
+      </div>
     </div>
   );
 }
+
 
 export default VideoElement;

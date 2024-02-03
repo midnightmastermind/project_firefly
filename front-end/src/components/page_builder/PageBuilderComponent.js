@@ -1,27 +1,32 @@
-import React, { useMemo, useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
-import _, { update } from "lodash";
+import _ from "lodash";
 import "./styles.css";
 import PropTypes from "prop-types";
-import { Popover, PopoverInteractionKind, Position, Button, Menu, MenuItem, FormGroup, Tag, Switch, } from "@blueprintjs/core";
+import { Popover, PopoverInteractionKind, Position, Button, Menu, MenuItem, FormGroup, Tag, Switch, Divider, Collapse, Tab } from "@blueprintjs/core";
 import Footer from "components/navigation/Footer";
 import TextElement from "./components/TextElement";
 import VideoElement from "./components/VideoElement";
 import ImageElement from "./components/ImageElement";
 import ListElement from "./components/ListElement";
+import CogButton from "./CogButton";
 import PageForm from "./PageForm";
 import { v4 as uuidv4 } from 'uuid';
+import ComponentHeader from "./component_settings/ComponentHeader";
 
 const PageBuilderComponent = React.memo((props) => {
     const ReactGridLayout = WidthProvider(RGL);
 
     const [items, setItems] = useState([]);
+    const [draggedItemType, setDraggedItemType] = useState(null);
 
     const updatedLayout = useRef([]);
     const [editable, setEditable] = useState(false);
     const [newCounter, setNewCounter] = useState(0);
     const [currentBreakpoint, setCurrentBreakpoint] = useState("lg");
     const [currentData, setCurrentData] = useState(null);
+    const [isToolboxOpen, setIsToolboxOpen] = useState(false);
+    const [isPageSettingsOpen, setIsPageSettingsOpen] = useState(false);
 
     useEffect(() => {
         if (props.page) {
@@ -37,7 +42,6 @@ const PageBuilderComponent = React.memo((props) => {
         }
     }, [props.layout])
 
-
     const onInputChange = (variable, value, isStyle) => {
         let editedData = structuredClone(currentData);
         if (isStyle) {
@@ -47,6 +51,10 @@ const PageBuilderComponent = React.memo((props) => {
         }
 
         setCurrentData(editedData);
+    }
+
+    const handleTabChange = () => {
+
     }
 
     const editComponent = (i, variable, value, isStyle) => {
@@ -71,16 +79,20 @@ const PageBuilderComponent = React.memo((props) => {
         setItems(editedData);
     }
 
-    const createElement = (el, onRemoveItem, onAddItemType) => {
-
+    const createElement = (el, onRemoveItem, onAddItemType, onDragStart, isNew) => {
+        if (!el.i) {
+            el.i = uuidv4();
+        }
+        
         return (
             <div
-                className={`test`}
+                className={`test component ${isNew ? 'droppable-element toolbox-item' : ''}`}
                 key={el.i}
-                data-grid={el}
+                draggable={true}
+                data-grid={el ? el : null}
                 style={{ position: "relative", height: "100%" }}
             >
-                {/* <span className={`react-grid-dragHandleExample`}>[DRAG HERE]</span> */}
+                <ComponentHeader />
                 {el.type === "text" || !el.type ? (
                     <TextElement editComponent={editComponent} onAddItemType={onAddItemType} onRemoveItem={onRemoveItem} element={el} />
                 ) : el.type === "image" ? (
@@ -88,7 +100,6 @@ const PageBuilderComponent = React.memo((props) => {
                 ) : el.type === "video" ? (
                     <VideoElement editComponent={editComponent} style={{ height: "100%" }} onAddItemType={onAddItemType} onRemoveItem={onRemoveItem} element={el} />
                 ) : el.type === "container" ? (
-                    // <ShowcaseLayout iteration={iteration + 1} onLayoutChange={props.onLayoutChange} />
                     <ListElement editComponent={editComponent} onAddItemType={onAddItemType} onRemoveItem={onRemoveItem} element={el} />
                 ) : null}
             </div>
@@ -98,19 +109,16 @@ const PageBuilderComponent = React.memo((props) => {
     const onSavePage = () => {
         let updated_page = { ...currentData, layout: updatedLayout.current };
         props.savePage(updated_page);
-        //setItems((prevItems) => [...prevItems]);
     }
 
     const onAddItemType = (type) => {
-        // const cols = props.cols || { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 };
         const cols = 12;
         const currentLayout = items;
-        console.log(currentLayout);
 
         const newItem = {
-            i: uuidv4(), 
+            i: uuidv4(),
             x: (currentLayout.length * 2) % (cols[currentBreakpoint] || 12),
-            y: currentLayout.length, // puts it at the bottom
+            y: currentLayout.length,
             w: 2,
             h: 2,
             type: type,
@@ -121,9 +129,9 @@ const PageBuilderComponent = React.memo((props) => {
             newItem.w = Infinity;
         }
         if (type === "image" || type === "video") {
-            newItem.src = ""; // Provide the source for the image or video here
+            newItem.src = "";
         }
-        console.log(newItem);
+
         setItems([...items, newItem]);
         setNewCounter(newCounter + 1);
     };
@@ -147,62 +155,138 @@ const PageBuilderComponent = React.memo((props) => {
                 const current_item = items.find(item => item.i == object.i);
                 return { ...current_item, ...object }
             });
-            console.log(new_layout);
             updatedLayout.current = new_layout;
         }
     }
 
-    const displayMenu = () => {
-        const menuItems = [
-            { id: "text", label: "Add Text" },
-            { id: "image", label: "Add Image" },
-            { id: "video", label: "Add Video" },
-            { id: "container", label: "Add Container" },
-            { id: "footer", label: "Add Footer" },
-            { id: "header", label: "Add Header" },
-        ];
+    // const onDragStart = (event) => {
+    //     event.dataTransfer.setData("text/plain", "");
+    //     // setDraggedItemType(type);
+    //     // console.log(type);
+    //     const pointerType = event.pointerType || 'mouse';
+    //     console.log("Pointer Type:", pointerType);
 
-        return (
-            <Menu>
-                {menuItems.map((menuItem) => (
-                    <MenuItem
-                        key={menuItem.id}
-                        text={menuItem.label}
-                        onClick={() => {
-                            onAddItemClick(menuItem.id);
-                        }}
-                    />
-                ))}
-            </Menu>
-        );
-    };
+    //     console.log("onDragStart");
+    // };
+
+    // const onDrop = (event) => {
+    //     console.log("onDrop");
+    //     event.preventDefault();
+    //     // if (draggedItemType) {
+    //     //     onAddItemType(draggedItemType);
+    //     //     setDraggedItemType(null);
+    //     // }
+    // };
+
+    // const onDragOver = (event) => {
+    //     console.log("onDragOver");
+    //     event.preventDefault();
+    // };
+    
+    // const onDrag = (event, { element, x, y }) => {
+    //     const updatedItems = items.map((item) => {
+    //         if (item.i === element.i) {
+    //             // Update the x and y positions of the dragged element
+    //             return { ...item, x, y };
+    //         }
+    //         return item;
+    //     });
+    
+    //     setItems(updatedItems);
+    // };
+
+    const [draggedItem, setDraggedItem] = useState(null);
+
+// ...
+
+const onDragStart = (event, { i }) => {
+    setDraggedItem(i);
+};
+
+const onDragStop = () => {
+    setDraggedItem(null);
+};
+
+const onDrag = (event, { x, y }) => {
+    if (draggedItem) {
+        const updatedItems = items.map((item) => {
+            if (item.i === draggedItem) {
+                return { ...item, x, y };
+            }
+            return item;
+        });
+
+        setItems(updatedItems);
+    }
+};
 
     return (
-        <div className="grid">
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Popover
-                    content={displayMenu()}
-                    placement="bottom"
-                >
-                    <Button icon="add" text="Add Item" />
-                </Popover>
-                <Button onClick={() => onSavePage()}>Save</Button>
+        <div className="grid page-builder-app">
+            <div className="page-builder-header-topbar">
+                <div className="page-builder-header" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Button icon="add" onClick={() => { setIsToolboxOpen(!isToolboxOpen); setIsPageSettingsOpen(false);}} >
+                        Add Item
+                    </Button>
+                    <Button icon="cog" onClick={() => { setIsPageSettingsOpen(!isPageSettingsOpen); setIsToolboxOpen(false); }}>
+                        Settings
+                    </Button>
+                    <Button icon="save" onClick={() => onSavePage()}>Save</Button>
+                </div>
+                <Divider vertical={true} />
+                <Collapse className="page-settings" isOpen={isPageSettingsOpen}>
+                    { currentData && (<PageForm callbackFunction={onInputChange} page={{ name: currentData.name, route: currentData.route, status: currentData.status, style: currentData.style }} />) }
+                    <Divider vertical={true} />
+                </Collapse>
+                <Collapse className="page-toolbox" isOpen={isToolboxOpen}>
+                    <div className="droppable-element toolbox-item"
+                        draggable={true}
+                        unselectable="on"
+                        // this is a hack for firefox
+                        // Firefox requires some kind of initialization
+                        // which we can do by adding this attribute
+                        // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+                        key="new-element-text"
+                        >
+                        {createElement({ type: 'text' }, null, onAddItemType, onDragStart, true)}
+                    </div>
+                    <div className="droppable-element toolbox-item"
+                        draggable={true}
+                        unselectable="on"
+                        key="new-element-video"
+                        >
+                        {createElement({ type: 'video' }, null, onAddItemType, onDragStart, true)}
+                    </div>
+                    <div className="droppable-element toolbox-item"
+                        draggable={true}
+                        unselectable="on"
+                        key="new-element-image"
+                        >
+                        {createElement({ type: 'image' }, null, onAddItemType, onDragStart, true)}
+                    </div>
+                    <div className="droppable-element toolbox-item"
+                        draggable={true}
+                        unselectable="on"
+                        key="new-element-container"
+                        >
+                        {createElement({ type: 'container' }, null, onAddItemType, onDragStart, true)}
+                    </div>
+                </Collapse>
             </div>
-            {currentData && (<PageForm callbackFunction={onInputChange} page={{ name: currentData.name, route: currentData.route, status: currentData.status, style: currentData.style }} />)}
             {currentData && (<div className="grid-layout-container">
                 <ReactGridLayout
                     onLayoutChange={changeLayout}
-                    // onResize={onResize}
-                    // onBreakpointChange={onBreakpointChange}
+                    onDragStart={onDragStart}
+                    onDragStop={onDragStop}
+                    onDrag={onDrag}
                     disabled={editable}
                     isDraggable={true}
+                    onDrag={onDrag}
                     isResizable={true}
                     {...props}
                     style={{ height: (currentData.style ? currentData.style.height : '100%') }}
                 >
                     {items && _.map(items, (el) => createElement(el, onRemoveItem, onAddItemType))}
                 </ReactGridLayout>
-                <Footer />
             </div>)}
         </div>
     );
@@ -213,7 +297,6 @@ PageBuilderComponent.propTypes = {
     rowHeight: PropTypes.number,
     cols: PropTypes.object,
     initialLayout: PropTypes.array,
-    verticalCompact: PropTypes.bool,
     compactType: PropTypes.string,
     portalContainer: PropTypes.element,
     usePortal: PropTypes.bool,
@@ -226,7 +309,6 @@ PageBuilderComponent.defaultProps = {
     className: "layout",
     rowHeight: 60,
     cols: 12,
-    verticalCompact: false,
     compactType: null,
     usePortal: true,
     margin: [0, 0],
@@ -236,6 +318,5 @@ PageBuilderComponent.defaultProps = {
     autoSize: true,
     initialLayout: [{ i: "text-0", x: 0, y: 0, w: 2, h: 1, static: false }],
 };
-
 
 export default PageBuilderComponent;

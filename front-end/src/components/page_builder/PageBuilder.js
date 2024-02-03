@@ -110,7 +110,6 @@ const PageBuilder = () => {
 
   return (
     <div className="page-builder-container" >
-      <div><h4>Page Builder</h4></div>
       {
         !isModalOpen && (
           <div className="page-builder-page-selection">

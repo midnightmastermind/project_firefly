@@ -246,6 +246,9 @@
 
 .page-builder-page-selection {
   height: 100%;
+  max-width: 800px;
+  position: relative;
+  margin: 50px auto;
 }
 
 .page-builder-pages-container {
@@ -255,7 +258,7 @@
   border-radius: 5px;
   height: 100%;
   padding: 20px;
-  min-height: 500px;
+  min-height: 80vh;
 }
 
 .page-preview-block {
@@ -327,6 +330,11 @@
   border-right: 1px solid gray;
   padding: 3px;
 }
+
+.page-container {
+  width: 100%;
+}
+
 .page-container-content {
   margin-top: 50px;
   margin-left: 20px;
@@ -437,6 +445,7 @@
 }
 
 .bp5-tag {
+  background-color: rgba(89, 96, 105, 0.15) !important;
   color: white !important;
 }
 
@@ -468,36 +477,11 @@
 .bp5-tree-node-content-3 {
   padding-left: 30px !important;
 }
-.bp5-tree-node-content-4 {
-  padding-left: 35px !important;
-}
-.bp5-tree-node-content-5 {
-  padding-left: 40px !important;
-}
-.bp5-tree-node-caret-none {
-  min-width: 15px !important;
-}
-
-.card {
-  width: 265px;
-  height: 288px;
-  margin-bottom: 20px;
-  border: 1px solid gray;
-  border-radius: 10px;
-  overflow: hidden;
-  padding: 10px;
-  background-color: #2F343C !important;
-}
-
-.card:hover {
-  border: 1px solid white;
-  background-color: #363b44 !important;
-  cursor: pointer;
-}
 
 .container {
   width: 100%;
   max-width: 1020px;
+  margin: 60px auto;
 }
 .markdown-editor, .rendered-output { 
   height: 100%; 
@@ -743,7 +727,6 @@
 }
 
 .bp5-form-group .bp5-control {
-  margin-top: 0px !important;
   margin-left: 10px;
 }
 
@@ -776,6 +759,11 @@ textarea.bp5-input {
 .page-form-group {
   flex-direction: row;
   display: flex;
+  margin-top: 20px;
+}
+
+.page-form-group .bp5-form-group {
+  margin: 0px;
 }
 
 .preview-box {
@@ -878,4 +866,173 @@ textarea.bp5-input {
 .product-details {
   width: 100%;
   max-width: 300px;
+}
+
+.cart-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #3c4145 !important;
+  border: 1px solid gray;
+}
+
+.cart-item-img {
+  width: 100px;
+  height: 120px;
+  background-size: cover;
+}
+
+.sub-total-box {
+  width: 100%;
+  text-align: end;
+  margin-top: 20px;
+}
+
+.cart-item div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-item-name,
+.cart-item-qty,
+.cart-item-subtotal,
+.cart-remove-button {
+  padding: 20px;
+  width: 20%;
+}
+
+.cart-action-buttons {
+  display: flex;
+  justify-content: end;
+}
+
+.checkout-forms {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.checkout-forms .bp5-form-group{
+  margin-right: 10px;
+}
+
+.checkout-forms .bp5-label {
+  align-items: start;
+  display: flex;
+}
+
+.checkout-forms .bp5-control {
+  display: flex;
+}
+
+.cart {
+  margin-bottom: 20px;
+}
+
+.bp5-divider {
+  border-right: 2px solid #3c4145 !important;
+  height: 100%;
+  border-bottom: 2px solid #3c4145 !important;
+}
+
+.checkout-forms .checkout-form-divider {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 60px;
+}
+
+.total-box {
+  width: 100%;
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.billing-form .form-component,
+.shipping-form .form-component {
+  justify-content: start;
+}
+
+.form-component .bp5-form-group {
+  margin: 0 0 30px !important;
+}
+
+.checkout-forms .bp5-card {
+  width: 100%;
+}
+
+.checkout-forms .bp5-switch {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.complete-checkout-button {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+}
+
+.bp5-input-group .bp5-input-left-container {
+  left: 10px !important;
+  top: 6px !important;
+  color: gray;
+}
+
+.route-input .bp5-input {
+  padding-left: 104px !important;
+}
+
+.page-form-container {
+  margin-bottom: 20px;
+}
+
+/* 
+.page-builder-container {
+  max-width: 1300px;
+  position: relative;
+  margin: auto 50px 50px 50px;
+} */
+
+.product-list .card {
+  height: 206px;
+  margin-bottom: 20px;
+}
+
+.page-builder-header {
+  margin: 5px 10px 0px;
+  position: relative;
+  display: flex !important;
+  width: 100%;
+  justify-content: flex-start !important;
+}
+
+.page-builder-app .grid-layout-container {
+  width: 100%;
+}
+
+.page-settings {
+  margin: 0px 40px;
+}
+
+.page-toolbox .bp5-collapse-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.page-toolbox .component {
+  width: 150px;
+  height: 112px !important;
+  margin: 10px;
+  border: 1px solid white;
 }

@@ -73,27 +73,34 @@ import example from 'example.jpg';
 // export default ImageElement;
 
 
+// const ImageElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
+//   return (
+//     <div>
+//       <ComponentPopup type="image" content={(
+//         <div>
+//           <img
+//             src={element.src || example} // Sample image source
+//             alt={`Image ${element.i}`}
+//             style={{ maxWidth: "100%", height: "auto" }}
+//           />
+//         </div>
+//       )} element={element}        
+//       setLockGrid={setLockGrid}
+//       />
+//     </div>
+//   );
+// }
+
 const ImageElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
   return (
     <div>
-      <ComponentPopup type="image" content={(
         <div>
           <img
             src={element.src || example} // Sample image source
             alt={`Image ${element.i}`}
             style={{ maxWidth: "100%", height: "auto" }}
           />
-          <span
-            className="remove"
-            style={{ position: "absolute", right: "2px", top: 0, cursor: "pointer" }}
-            onClick={() => onRemoveItem(element.i)}
-          >
-            x
-          </span>
         </div>
-      )} element={element}        
-      setLockGrid={setLockGrid}
-      />
     </div>
   );
 }

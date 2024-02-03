@@ -90,24 +90,35 @@ import { useState } from 'react';
 
 // export default ListElement;
 
+// const ListElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
+
+//     return (
+//         <div>
+//             <ComponentPopup content={(
+//                 <div>
+//                     <span className="text">{element.i}</span>
+//                     <span
+//                         className="remove"
+//                         style={{ position: "absolute", right: "2px", top: 0, cursor: "pointer" }}
+//                         onClick={() => onRemoveItem(element.i)}
+//                     >
+//                         x
+//                     </span>
+//                 </div>
+//             )} element={element} 
+//             setLockGrid={setLockGrid}
+//             />
+//         </div>
+//     );
+// }
+
 const ListElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
 
     return (
         <div>
-            <ComponentPopup content={(
-                <div>
-                    <span className="text">{element.i}</span>
-                    <span
-                        className="remove"
-                        style={{ position: "absolute", right: "2px", top: 0, cursor: "pointer" }}
-                        onClick={() => onRemoveItem(element.i)}
-                    >
-                        x
-                    </span>
-                </div>
-            )} element={element} 
-            setLockGrid={setLockGrid}
-            />
+            <div>
+                <span className="text">{element.i}</span>
+            </div>
         </div>
     );
 }

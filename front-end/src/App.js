@@ -8,6 +8,7 @@ import 'App.css';
 import 'css/global.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import { Card } from "@blueprintjs/core";
+
 import Header from 'components/navigation/Header';
 import Footer from "components/navigation/Footer";
 import Login from "./pages/Login";
@@ -61,6 +62,7 @@ import UserForm from "components/user/UserForm";
 import PageComponent from "components/navigation/PageComponent";
 import CsvMappingComponent from "components/storage/CSVMapper";
 import ProductForm from "components/ecommerce/NewProductForm";
+import CheckoutComponent from "components/ecommerce/CheckoutComponent";
 
 const main_routes = [
   { path: "/", element: <HomePage /> },
@@ -68,6 +70,7 @@ const main_routes = [
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "/products", element: <ProductList /> },
+  { path: "/checkout", element: <CheckoutComponent />},
   { path: "/users", element: <UserList2 /> },
   { path: "/calendar", element: <Calendar /> },
   { path: "/product/:id", element: <Product /> },
@@ -78,6 +81,7 @@ const main_routes = [
   { path: "/markdown", element: <MarkdownEditor /> },
   { path: "/header", element: <HeaderBuilder /> },
   { path: "/csvtest", element: <CsvMappingComponent /> },
+  { path: "/page-builder", element: <PageBuilder /> },
 ];
 
 function App() {
@@ -293,7 +297,7 @@ function App() {
           id: 'calendar',
           label: 'Calendar',
           icon: 'calendar',
-          panel: <div>Calendar</div>,
+          panel: <Calendar />,
         },
         {
           type: 'label',
@@ -343,7 +347,7 @@ function App() {
           id: 'cart',
           label: 'Cart',
           icon: 'shopping-cart',
-          panel: <Cart />,
+          panel: <Cart hasCheckoutButton={true} isEditable={true} title={'Shopping Cart'} />,
         },
         {
           type: 'panel',
@@ -435,17 +439,23 @@ function App() {
       label: 'Users',
       link: '/users'
     },
-    {
-      type: 'link',
-      icon: 'calendar',
-      label: 'Calendar',
-      link: '/calendar'
-    },
+    // {
+    //   type: 'link',
+    //   icon: 'calendar',
+    //   label: 'Calendar',
+    //   link: '/calendar'
+    // },
     {
       type: 'link',
       icon: 'edit',
       label: 'CSV Upload',
       link: '/csvtest'
+    },
+    {
+      type: 'link',
+      icon: 'edit',
+      label: 'Page Builder',
+      link: '/page-builder'
     },
     // {
     //   type: 'link',

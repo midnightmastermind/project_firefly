@@ -35,7 +35,7 @@ const PageComponent = (props) => {
   };
 
   return (
-    <div className="grid page-component">
+    <div className="page-component">
       {props.page.layout &&
         <ReactGridLayout
           disabled={false}

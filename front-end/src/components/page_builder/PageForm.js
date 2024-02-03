@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { InputGroup, FormGroup, Tag, Switch } from '@blueprintjs/core';
+import { InputGroup, FormGroup, Tag, Switch, Icon } from '@blueprintjs/core';
 
 const PageForm = ({ callbackFunction, page }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -23,7 +23,7 @@ const PageForm = ({ callbackFunction, page }) => {
     setIsFullScreen(isFullScreen);
   }
   return (
-    <div>
+    <div className="page-form-container">
       <div className="page-form-group">
         <FormGroup label={
           <Tag
@@ -42,12 +42,13 @@ const PageForm = ({ callbackFunction, page }) => {
             minimal
             className="dynamic-form-label"
           >Route</Tag>}
-          style={{marginLeft: '10px'}}
+          style={{paddingLeft: '10px'}}
         >
           <InputGroup
             type="text"
             value={page.route}
-            leftIcon={'slash'}
+            className="route-input"
+            leftElement={<div>jpoms.com <Icon icon='slash' /></div>}
             onChange={(e) => handleInputChange('route', e.target.value)}
           />
         </FormGroup>
