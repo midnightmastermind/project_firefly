@@ -571,7 +571,6 @@
 
 .prose {
   color: white;
-  max-height: 330px;
   overflow-y: scroll;
 }
 

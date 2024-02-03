@@ -1,13 +1,19 @@
 // models/Post.js
 const mongoose = require("mongoose");
 
-const Post = mongoose.model(
-  "Post",
-  new mongoose.Schema({
-    title: String,
-    content: String,
-    // Add any other fields as needed
-  })
-);
+const PostSchema = new mongoose.Schema({
+  type: { type: String, default: "post" },
+  parent_id: { type: mongoose.Schema.Types.ObjectId, default: null },
+  post_properties: {
+    title: { type: String, default: "Untitled Post" },
+    content: { type: String, default: "" },
+  },
+  children: { type: [mongoose.Schema.Types.ObjectId], default: [] },
+  status: { type: Boolean, default: false },
+  timestamp: { type: Date, default: Date.now },
+  // Add any other fields as needed
+});
+
+const Post = mongoose.model("Post", PostSchema);
 
 module.exports = Post;

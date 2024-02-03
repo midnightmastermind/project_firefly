@@ -12,7 +12,7 @@ module.exports = function (app) {
 
     app.post("/api/post", controller.createPost);
     app.get("/api/post", controller.getPosts);
-    app.get("/api/post/:id", controller.getPost);
+    app.get("/api/post/:id", controller.getPostById);
     app.put("/api/post/:id", controller.updatePost);
     app.delete("/api/post/:id", controller.deletePost);
     // Add other routes as needed
