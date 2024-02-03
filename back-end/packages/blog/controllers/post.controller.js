@@ -73,3 +73,23 @@ exports.updatePost = (req, res) => {
             res.status(200).send(post);
         });
 };
+
+exports.deletePost = (req, res) => {
+    const post_updates = {
+        ...req.body
+    };
+
+    Post.findOneAndUpdate({ _id: req.params.id }, {status: 'deleted'})
+        .exec((err, post) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+
+            if (!post) {
+                return res.status(404).send({ message: "Post Not found." });
+            }
+
+            res.status(200).send(post);
+        });
+};

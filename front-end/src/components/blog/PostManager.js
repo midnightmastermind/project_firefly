@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { create as createPost, update as updatePost, getAll as getAllPosts } from 'slices/blog/post.js';
-import { Tabs, Tab, Button } from '@blueprintjs/core';
+import { Tabs, Tab, Button, Card } from '@blueprintjs/core';
 import MarkdownEditor from 'components/tools/markdown_editor/MarkdownEditor';
 
 const newPost = {
@@ -16,11 +16,9 @@ const newPost = {
 };
 
 const PostManager = () => {
-  const [layout, setLayout] = useState([]);
   const [currentSiteId, setCurrentSiteId] = useState(false);
   const [allPosts, setAllPosts] = useState([]); // Renamed allPosts to allPosts
   const [selectedPost, setSelectedPost] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
 
   const posts = useSelector((state) => state.post.posts);
   const dispatch = useDispatch();
@@ -30,10 +28,6 @@ const PostManager = () => {
       setAllPosts(posts.filter((post) => post.type === 'post'));
     }
   }, [posts]);
-
-  const onLayoutChange = (layout) => {
-    setLayout(layout);
-  };
 
   const addNewPost = (post) => {
     const new_post = post;
@@ -58,7 +52,6 @@ const PostManager = () => {
       .unwrap()
       .then((data) => {
         dispatch(getAllPosts());
-        setIsEditing(false); // Reset editing mode after saving
       })
       .catch((e) => {
         console.log(e);
@@ -67,7 +60,6 @@ const PostManager = () => {
 
   const toggleContentEditor = (post) => {
     setSelectedPost(post);
-    setIsEditing(true); // Set editing mode to true when edit is clicked
   };
 
   const PostEditor = ({ post }) => {
@@ -78,12 +70,15 @@ const PostManager = () => {
           {/* Add your post details editing components here */}
         </div>
         {/* Toolbar with "Edit Post" and "Save" buttons */}
-        <div className="toolbar">
-          <Button text="Edit Post" onClick={() => setIsEditing(true)} />
+        <div className="post-toolbox">
           <Button text="Save" onClick={() => savePost(post)} />
         </div>
         {/* Markdown editor (displayed only when isEditing is true) */}
-        {isEditing && <MarkdownEditor content={post.content} />}
+        <div className="markdown-editor-container">
+          <Card className="markdown-editor" elevation={4}>
+            <MarkdownEditor content={post.content} />
+          </Card>
+        </div>
       </div>
     );
   };
@@ -101,18 +96,18 @@ const PostManager = () => {
 
   return (
     <div className="post-manager-container">
-      <div>
+      <div className="post-manager-header">
         <h4>Post Manager</h4>
       </div>
       {!selectedPost && (
         <div className="post-manager-post-selection">
-        <div className="posts-toolbox">
+          <div className="posts-toolbox">
           <Button
             icon="plus"
             text="New Post"
             className="post-manager-plus-button"
             onClick={() => addNewPost(newPost)}
-          ></Button>
+          />
         </div>
         <Tabs id="toolbox-tabs" renderActiveTabPanelOnly={true}>
           <Tab

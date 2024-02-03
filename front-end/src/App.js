@@ -30,6 +30,8 @@ import { getAll as getAllSitePermissions } from "./slices/auth/site_permissions"
 import { getAll as getAllSessions } from "./slices/scheduling/session";
 import { getAll as getAllCartItems } from "./slices/ecommerce/cart_item";
 import { getAll as getAllPages } from "./slices/site_building/page";
+import { getAll as getAllPosts } from "./slices/blog/post";
+
 import SettingsDrawer from 'components/settings/SettingsDrawer';
 import CustomOverlay from 'components/elements/CustomOverlay';
 import { Menu, MenuDivider, Tab, Tree, Position, DrawerSize, Overlay, MenuItem } from '@blueprintjs/core';
@@ -82,6 +84,7 @@ const main_routes = [
   { path: "/header", element: <HeaderBuilder /> },
   { path: "/csvtest", element: <CsvMappingComponent /> },
   { path: "/page-builder", element: <PageBuilder /> },
+  { path: "/post-manager", element: <PostManager /> }, 
 ];
 
 function App() {
@@ -115,6 +118,7 @@ function App() {
       dispatch(getAllFiles());
       dispatch(getAllFolders());
       dispatch(getAllCartItems());
+      dispatch(getAllPosts());
       //needs all users
       //needs all products
       //needs all sites
@@ -304,13 +308,19 @@ function App() {
           id: 'content',
           label: 'content'
         },
+        // {
+        //   type: 'panel',
+        //   onClickHandler: setPanel,
+        //   id: 'posts',
+        //   label: 'Posts',
+        //   icon: 'book',
+        //   panel: <PostManager />,
+        // },
         {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'posts',
-          label: 'Posts',
+          type: 'link',
           icon: 'book',
-          panel: <PostManager />,
+          label: 'Posts',
+          link: '/post-manager'
         },
         {
           type: 'panel',

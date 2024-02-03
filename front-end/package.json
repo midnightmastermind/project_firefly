@@ -21,7 +21,7 @@
     "@fullcalendar/interaction": "^6.1.8",
     "@fullcalendar/react": "^6.1.8",
     "@fullcalendar/timegrid": "^6.1.8",
-    "@mdxeditor/editor": "^1.10.1",
+    "@mdxeditor/editor": "^2.7.0",
     "@microsoft/microsoft-graph-client": "^3.0.6",
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.8.5",

@@ -353,12 +353,21 @@
   color: white;
 }
 
-.post-manager-post-selection .bp5-tab {
+/* .post-manager-post-selection .bp5-tab {
   color: white;
 }
 
 .post-manager-post-selection .bp5-button, 
 .post-manager-post-selection .bp5-menu {
+  background-color: #30404D !important;
+} */
+
+.post-manager-container .bp5-tab {
+  color: white;
+}
+
+.post-manager-container .bp5-button, 
+.post-manager-container .bp5-menu {
   background-color: #30404D !important;
 }
 
@@ -679,10 +688,9 @@
 }
 
 .prose {
-  height: 100vh;
+  height: 60vh;
   text-align: left;
-  width: 75% !important;
-  margin: 0 auto;
+  padding: 20px 30px !important;
 }
 
 .page-container {
@@ -691,6 +699,8 @@
   margin: 0 auto;
   box-shadow: 0 0 0 10px rgba(12, 14, 16, 0.3) !important; */
   padding: 0px;
+  height: 100%;
+  min-height: 83vh;
 }
 
 .settings-menu {
@@ -1035,4 +1045,32 @@ textarea.bp5-input {
   height: 112px !important;
   margin: 10px;
   border: 1px solid white;
+}
+.post-manager-container {
+  margin: 0px auto 30px;
+  width: 90vw;
+  max-width: 1075px;
+  min-height: 83vh;
+}
+
+.post-manager-header {
+  display: flex;
+}
+
+.posts-toolbox {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.post-toolbox {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.post-toolbox button {
+  margin-right: 10px;
+}
+
+.markdown-editor {
+  padding: 0px !important;
 }
