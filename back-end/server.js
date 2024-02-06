@@ -69,6 +69,8 @@ require("./packages/site/routes/site_product_availability.routes")(app);
 require("./packages/site_builder/routes/page.routes")(app);
 require("./packages/site/routes/content.routes")(app);
 
+require("./packages/blog/routes/post.routes")(app);
+
 require("./packages/storage/routes/file.routes")(app);
 require("./packages/storage/routes/folder.routes")(app);
 
@@ -80,7 +82,7 @@ require("./packages/ecommerce/routes/transaction.routes")(app);
 require("./packages/ecommerce/routes/product_permissions.routes")(app);
 require("./packages/ecommerce/routes/product.routes")(app);
 require("./packages/ecommerce/routes/cart_item.routes")(app);
-
+require("./packages/ecommerce/routes/stripe.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

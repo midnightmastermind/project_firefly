@@ -129,7 +129,7 @@ export const removeAll = createAsyncThunk(
 );
 
 const initialState = {
-    posts: null,
+    posts: [],
     fetched: false,
     fetching: false,
     currentPost: null

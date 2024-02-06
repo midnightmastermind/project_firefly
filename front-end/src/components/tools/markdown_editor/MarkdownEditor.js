@@ -116,14 +116,13 @@ const YoutubeDirectiveDescriptor = {
   },
 };
 
-const MarkdownEditor = () => {
-  const [content, setContent] = useState('');
+const MarkdownEditor = ({updateContent, content}) => {
 
   return (
     <MDXEditor
       className="editor"
       markdown={content}
-      onChange={setContent}
+      onChange={updateContent}
       contentEditableClassName="prose"
       plugins={[
         toolbarPlugin({ toolbarContents: () => <KitchenSinkToolbar /> }),

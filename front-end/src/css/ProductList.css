@@ -19,15 +19,18 @@
 .product-list-container {
     display: flex;
     width: 100%;
-    max-width: 950px;
+    max-width: 1050px;
     flex-direction: column;
     margin: 0 auto;
 }
 
+.product-list-container .search-bar {
+    padding: 0px !important;
+}
 .product-list {
     flex-direction: row;
     justify-content: space-between;
-    margin: 0 auto;
+    margin: 40px auto;
     flex-wrap: wrap;
     padding: 0;
     min-height: 350px;

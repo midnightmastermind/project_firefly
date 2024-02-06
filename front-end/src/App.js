@@ -85,6 +85,7 @@ const main_routes = [
   { path: "/csvtest", element: <CsvMappingComponent /> },
   { path: "/page-builder", element: <PageBuilder /> },
   { path: "/post-manager", element: <PostManager /> }, 
+  { path: "/blog", element: <Blog /> },
 ];
 
 function App() {

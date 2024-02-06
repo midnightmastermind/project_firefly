@@ -79,7 +79,7 @@ const PageBuilderComponent = React.memo((props) => {
         setItems(editedData);
     }
 
-    const createElement = (el, onRemoveItem, onAddItemType, onDragStart, isNew) => {
+    const createElement = (el, onRemoveItem, isNew) => {
         if (!el.i) {
             el.i = uuidv4();
         }
@@ -91,6 +91,9 @@ const PageBuilderComponent = React.memo((props) => {
                 draggable={true}
                 data-grid={el ? el : null}
                 style={{ position: "relative", height: "100%" }}
+                onDrag={onDrag}
+                onDragStart={onDragStart}
+                onDragStop={onDragStop}
             >
                 <ComponentHeader />
                 {el.type === "text" || !el.type ? (
@@ -199,25 +202,45 @@ const PageBuilderComponent = React.memo((props) => {
 
 // ...
 
-const onDragStart = (event, { i }) => {
-    setDraggedItem(i);
+const onDragStart = (event) => {
+    console.log("drag start");
+    console.log(event);
+    // setDraggedItem(i);
 };
 
 const onDragStop = () => {
-    setDraggedItem(null);
+    console.log("drag stop");
+    // setDraggedItem(null);
 };
 
-const onDrag = (event, { x, y }) => {
-    if (draggedItem) {
-        const updatedItems = items.map((item) => {
-            if (item.i === draggedItem) {
-                return { ...item, x, y };
-            }
-            return item;
-        });
+const onDrag = (event) => {
+    console.log("dragging");
+    console.log(event);
+    // if (draggedItem) {
+    //     const updatedItems = items.map((item) => {
+    //         if (item.i === draggedItem) {
+    //             return { ...item, x, y };
+    //         }
+    //         return item;
+    //     });
 
-        setItems(updatedItems);
-    }
+    //     setItems(updatedItems);
+    // }
+};
+
+const onDragOver = (event) => {
+    console.log("drag over");
+    console.log(event);
+    // if (draggedItem) {
+    //     const updatedItems = items.map((item) => {
+    //         if (item.i === draggedItem) {
+    //             return { ...item, x, y };
+    //         }
+    //         return item;
+    //     });
+
+    //     setItems(updatedItems);
+    // }
 };
 
     return (
@@ -247,40 +270,37 @@ const onDrag = (event, { x, y }) => {
                         // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
                         key="new-element-text"
                         >
-                        {createElement({ type: 'text' }, null, onAddItemType, onDragStart, true)}
+                        {createElement({ type: 'text' }, null, true)}
                     </div>
                     <div className="droppable-element toolbox-item"
                         draggable={true}
                         unselectable="on"
                         key="new-element-video"
                         >
-                        {createElement({ type: 'video' }, null, onAddItemType, onDragStart, true)}
+                        {createElement({ type: 'video' }, null, true)}
                     </div>
                     <div className="droppable-element toolbox-item"
                         draggable={true}
                         unselectable="on"
                         key="new-element-image"
                         >
-                        {createElement({ type: 'image' }, null, onAddItemType, onDragStart, true)}
+                        {createElement({ type: 'image' }, null, true)}
                     </div>
                     <div className="droppable-element toolbox-item"
                         draggable={true}
                         unselectable="on"
                         key="new-element-container"
                         >
-                        {createElement({ type: 'container' }, null, onAddItemType, onDragStart, true)}
+                        {createElement({ type: 'container' }, null, true)}
                     </div>
                 </Collapse>
             </div>
             {currentData && (<div className="grid-layout-container">
                 <ReactGridLayout
                     onLayoutChange={changeLayout}
-                    onDragStart={onDragStart}
-                    onDragStop={onDragStop}
-                    onDrag={onDrag}
+                    onDragOver={onDragOver}
                     disabled={editable}
                     isDraggable={true}
-                    onDrag={onDrag}
                     isResizable={true}
                     {...props}
                     style={{ height: (currentData.style ? currentData.style.height : '100%') }}

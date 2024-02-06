@@ -5,7 +5,6 @@ import React from "react";
 import { Button } from '@blueprintjs/core';
 import { Link } from "react-router-dom";
 const Card = ({content, element}) => {
-    console.log(content);
     return (
         <div
             className="card"

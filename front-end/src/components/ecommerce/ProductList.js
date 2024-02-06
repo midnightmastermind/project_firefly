@@ -23,7 +23,7 @@ import Pagination from "components/common//Pagination";
 import Card from "components/ecommerce/Card";
 import { Tag, Overlay, Classes } from "@blueprintjs/core";
 import ProductComponent from "./ProductComponent";
-const searchFields = ["title", "description"];
+const searchFields = ["Name", "description"];
 
 const exampleData = [{
     "name": "Cozy Knit Sweater",
@@ -81,18 +81,26 @@ const exampleData = [{
 }]
 
 const Product = ({ product, onProductClick }) => {
-    console.log(onProductClick);
-    const images = product.Images.split(',');
-    const image = <div className="product-image" style={{ backgroundImage: `url(${images[0]})` }} />
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      
+        // These options are needed to round to whole numbers if that's what you want.
+        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+        //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+      });
+      
+    const image = <div className="product-image" style={{ backgroundImage: `url(${product.images[0]})` }} />
   
+    const price = product.sale_price ? ( <span className="sale-tag"><span style={{color: 'red', textDecoration: 'line-through'}}>{`${formatter.format(product.regular_price)}`}</span>{`${formatter.format(product.sale_price)}`}</span> ) : (<span>{`${formatter.format(product.regular_price)}`}</span>)
     const content = (
       <div className="product-component-container" onClick={() => onProductClick(product)}>
         <div className="product-image-container">
           {image}
         </div>
         <div className="product-header-container">
-          <div className="product-header">{product.Name}</div>
-          <div className="product-price"><Tag>{`$${product.product_price}`}</Tag></div>
+          <div className="product-header">{product.name}</div>
+          <div className="product-price"><Tag>{price}</Tag></div>
         </div>
       </div>
     )
@@ -132,7 +140,7 @@ const ProductList = (props) => {
 
     const dispatch = useDispatch();
 
-    let PageSize = 30;
+    let PageSize = 32;
 
     const heroPageInfo = {
         page: 'products',
@@ -156,24 +164,26 @@ const ProductList = (props) => {
 
         if (products) {
             let filtered = [];
+            let organized_products = organizeProducts(products);
+            console.log(organized_products);
             if (props.mode == "enrolled") {
                 //filter to only enrolled
-                filtered = filterProducts(products, enrollments, currentUser.id, 'user_id');
+                filtered = filterProducts(organized_products, enrollments, currentUser.id, 'user_id');
                 setFilteredProducts(filtered);
                 setSearchData(filtered);
             } else if (props.mode == "owned") {
-                filtered = filterProducts(products, product_permissions, currentUser.id, 'user_id');
+                filtered = filterProducts(organized_products, product_permissions, currentUser.id, 'user_id');
                 setFilteredProducts(filtered);
                 setSearchData(filtered);
             } else if (props.mode == "admin") {
-                setFilteredProducts(products);
-                setSearchData(products);
+                setFilteredProducts(organized_products);
+                setSearchData(organized_products);
             } else if (props.mode == "global_admin") {
-                setFilteredProducts(products);
-                setSearchData(products);
+                setFilteredProducts(organized_products);
+                setSearchData(organized_products);
             } else {
-                setFilteredProducts(products);
-                setSearchData(products);
+                setFilteredProducts(organized_products);
+                setSearchData(organized_products);
             }
         }
     }, [dispatch, products, product_permissions, enrollments]);
@@ -241,7 +251,6 @@ const ProductList = (props) => {
 
 
     const onChangeSite = (site) => {
-        console.log(site);
         if (site !== "All") {
             setCurrentSite(site);
             let filtered = filterProducts(products, site_product_availability, site, 'site_id');
@@ -254,11 +263,40 @@ const ProductList = (props) => {
         }
     }
 
+    const organizeProducts = (products) => {
+
+        let variable_products = products.filter(someobject => someobject.type == 'variable');
+        let variable_products_with_variations = variable_products.map((v, index) => {
+            let variations = products.filter((product_child) => (product_child.type == 'variation' && product_child.parent == v.sku));
+            return {...v, variations: variations};
+        });
+        // const variable_products = products.map((product_parent, index) => {
+        //     if (product_parent.Type == "variable") {
+        //         console.log("Product:", product_parent);
+        //         let variations = products.map((product_child) => {
+        //             if (product_child.Type == "variation" && product_child.sku == product_parent.parent) {
+        //                 console.log("hit");
+        //                 return product_child;
+        //             }
+        //             return false;
+        //         });
+                
+        //         return {...product_parent, variations: variations};
+        //     }
+        //     return null;
+
+        // });
+        console.log(variable_products_with_variations);
+        return variable_products_with_variations;   
+    }
+
     const display_params = [
         { type: 'text', key: 'name' },
-        { type: 'content', key: 'description' },
-        { type: 'text', key: 'price' },
+        { type: 'content', key: 'short_description' },
+        { type: 'text', key: 'product_price' },
       ];
+
+    console.log(currentProductList);
     return (
         <div>
             {(props.mode !== "global_admin" && props.mode !== "admin") &&
@@ -286,11 +324,12 @@ const ProductList = (props) => {
                                 {
                                     currentProductList.length > 0 ? (
                                         currentProductList.map((product, index) => {
-
                                             // {props.mode == "global_admin" && props.site_id && belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => removeFromSite(product._id)} class="remove-from-site-card">Remove from Site</button>)}
                                             // {props.mode == "global_admin" && props.site_id && !belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => addToSite(product._id)} class="add-to-site-card">Add To Site</button>)} */
                                             // if (product.availability == true) {
-                                            return <Product product={product} onProductClick={openProductOverlay} displayParams={display_params}/>
+                                            // if (product.Type == "variable") {
+                                                return <Product product={product} onProductClick={openProductOverlay} displayParams={display_params}/>
+                                            // }
                                             // }
                                         })
                                     ) : (<div class="no-results">No Products Found</div>)

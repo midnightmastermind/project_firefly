@@ -9,20 +9,20 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  product_type: {
+  type: {
     type: String,
     required: true,
-    enum: ["variable"]
+    enum: ["variable", "variation"]
   },
   sku: {
     type: String,
     required: true
   },
-  product_name: {
+  name: {
     type: String,
     required: true
   },
-  is_published: {
+  published: {
     type: Number,
     required: true
   },
@@ -30,7 +30,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  catalog_visibility: {
+  visibility_in_catalog: {
     type: String,
     required: true,
     enum: ["visible"]
@@ -39,61 +39,185 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  product_description: {
+  description: {
     type: String,
     required: true
   },
-  is_in_stock: {
+  date_sale_price_starts: {
+    type: String, // Change this to the appropriate type based on your actual data
+    required: false
+  },
+  date_sale_price_ends: {
+    type: String, // Change this to the appropriate type based on your actual data
+    required: false
+  },
+  tax_status: {
+    type: String,
+    required: false
+  },
+  tax_class: {
+    type: String,
+    required: false
+  },
+  in_stock: {
     type: Number,
     required: true
   },
-  stock_quantity: {
+  stock: {
     type: Number,
     required: true
   },
-  allow_backorders: {
+  backorders_allowed: {
     type: Number,
     required: true
   },
-  is_sold_individually: {
+  sold_individually: {
     type: Number,
     required: true
+  },
+  weight_lbs: {
+    type: Number,
+    required: true
+  },
+  length_in: {
+    type: Number,
+    required: false
+  },
+  width_in: {
+    type: Number,
+    required: false
+  },
+  height_in: {
+    type: Number,
+    required: false
   },
   allow_customer_reviews: {
     type: Number,
-    required: true
+    required: false
   },
-  product_price: {
+  purchase_note: {
+    type: String,
+    required: false
+  },
+  sale_price: {
     type: Number,
-    required: true
+    required: false
   },
-  product_categories: {
-    type: String,
-    required: true
+  regular_price: {
+    type: Number,
+    required: false
   },
-  product_images: {
+  categories: {
     type: String,
-    required: true
+    required: false
+  },
+  tags: {
+    type: String,
+    required: false
+  },
+  shipping_class: {
+    type: String,
+    required: false
+  },
+  images: {
+    type: [String],
+    required: false
+  },
+  download_limit: {
+    type: Number,
+    required: false
+  },
+  download_expiry_days: {
+    type: Number,
+    required: false
+  },
+  parent: {
+    type: String,
+    required: false
+  },
+  grouped_products: {
+    type: String,
+    required: false
+  },
+  upsells: {
+    type: String,
+    required: false
+  },
+  cross_sells: {
+    type: String,
+    required: false
+  },
+  external_url: {
+    type: String,
+    required: false
+  },
+  button_text: {
+    type: String,
+    required: false
+  },
+  position: {
+    type: Number,
+    required: false
   },
   attribute_1_name: {
     type: String,
-    required: true
+    required: false
   },
   attribute_1_values: {
     type: [String],
-    required: true
+    required: false
   },
   attribute_2_name: {
     type: String,
-    required: true
+    required: false
   },
   attribute_2_values: {
     type: [String],
-    required: true
+    required: false
   },
-  product_weight: {
-    type: Number,
-    required: true
+  attribute_3_name: {
+    type: String,
+    required: false
+  },
+  attribute_3_values: {
+    type: [String],
+    required: false
+  },
+  attribute_4_name: {
+    type: String,
+    required: false
+  },
+  attribute_4_values: {
+    type: [String],
+    required: false
+  },
+  attribute_5_name: {
+    type: String,
+    required: false
+  },
+  attribute_5_values: {
+    type: [String],
+    required: false
+  },
+  meta_wpcom_is_markdown: {
+    type: Boolean,
+    required: false
+  },
+  download_1_name: {
+    type: String,
+    required: false
+  },
+  download_1_url: {
+    type: String,
+    required: false
+  },
+  download_2_name: {
+    type: String,
+    required: false
+  },
+  download_2_url: {
+    type: String,
+    required: false
   }
 });
 
