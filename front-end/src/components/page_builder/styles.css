@@ -574,14 +574,13 @@
   align-items: center;
 }
 
-.component:hover .component-header {
+.component .component-header {
   display: flex;
 }
 
 .component-header {
-  display: none;
   z-index: 50;
 }
 .component-header .bp5-icon {
-  color: white !important;
+  color: black !important;
 }

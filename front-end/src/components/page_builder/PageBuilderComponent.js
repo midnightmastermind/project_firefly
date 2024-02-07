@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 import _ from "lodash";
 import "./styles.css";
@@ -14,10 +14,10 @@ import PageForm from "./PageForm";
 import { v4 as uuidv4 } from 'uuid';
 import ComponentHeader from "./component_settings/ComponentHeader";
 
-const PageBuilderComponent = React.memo((props) => {
-    const ReactGridLayout = WidthProvider(RGL);
-
+const PageBuilderComponent = (props) => {
+    const ReactGridLayout = useMemo(() => WidthProvider(RGL, []));
     const [items, setItems] = useState([]);
+
     const [draggedItemType, setDraggedItemType] = useState(null);
 
     const updatedLayout = useRef([]);
@@ -79,21 +79,20 @@ const PageBuilderComponent = React.memo((props) => {
         setItems(editedData);
     }
 
-    const createElement = (el, onRemoveItem, isNew) => {
+    const createElement = (el, isNew) => {
         if (!el.i) {
             el.i = uuidv4();
         }
-        
+
         return (
             <div
                 className={`test component ${isNew ? 'droppable-element toolbox-item' : ''}`}
                 key={el.i}
-                draggable={true}
+                draggable={isNew}
                 data-grid={el ? el : null}
                 style={{ position: "relative", height: "100%" }}
-                onDrag={onDrag}
-                onDragStart={onDragStart}
-                onDragStop={onDragStop}
+                unselectable={true}
+                onDragStart={(event) => {onDragStart(event, el.type)}}
             >
                 <ComponentHeader />
                 {el.type === "text" || !el.type ? (
@@ -114,26 +113,19 @@ const PageBuilderComponent = React.memo((props) => {
         props.savePage(updated_page);
     }
 
-    const onAddItemType = (type) => {
+    const onAddItemType = (type, element) => {
         const cols = 12;
         const currentLayout = items;
-
+        console.log(element);
         const newItem = {
-            i: uuidv4(),
-            x: (currentLayout.length * 2) % (cols[currentBreakpoint] || 12),
-            y: currentLayout.length,
-            w: 2,
-            h: 2,
+            i: element.i,
+            x: element.x,
+            y: element.y,
+            h: element.h,
+            w: element.w,
             type: type,
             style: {}
         };
-
-        if (type === "header" || type === "footer" || type === "container") {
-            newItem.w = Infinity;
-        }
-        if (type === "image" || type === "video") {
-            newItem.src = "";
-        }
 
         setItems([...items, newItem]);
         setNewCounter(newCounter + 1);
@@ -153,6 +145,8 @@ const PageBuilderComponent = React.memo((props) => {
     };
 
     const changeLayout = (layout) => {
+        console.log(layout);
+        console.log("layout");
         if (layout.length > 0) {
             const new_layout = layout.map(object => {
                 const current_item = items.find(item => item.i == object.i);
@@ -185,7 +179,7 @@ const PageBuilderComponent = React.memo((props) => {
     //     console.log("onDragOver");
     //     event.preventDefault();
     // };
-    
+
     // const onDrag = (event, { element, x, y }) => {
     //     const updatedItems = items.map((item) => {
     //         if (item.i === element.i) {
@@ -194,60 +188,37 @@ const PageBuilderComponent = React.memo((props) => {
     //         }
     //         return item;
     //     });
-    
+
     //     setItems(updatedItems);
     // };
 
-    const [draggedItem, setDraggedItem] = useState(null);
+    // ...
 
-// ...
+    const onDragStart = (event, type) => {
+        event.dataTransfer.setData("text/plain", "");
+        console.log(type);
+        if (event.target.classList.contains('droppable-element')) {
+            event.dataTransfer.setData("type", type);
+        }
+        // event.stopPropagation();
+		// event.preventDefault();
+    };
 
-const onDragStart = (event) => {
-    console.log("drag start");
-    console.log(event);
-    // setDraggedItem(i);
-};
+    const onDrop = (layout, layoutItem, _event) => {
+        const type = _event.dataTransfer.getData("type");
+        // console.log(type);
+        // if (type !== "") {
+            onAddItemType(type, layoutItem);
+        // }
 
-const onDragStop = () => {
-    console.log("drag stop");
-    // setDraggedItem(null);
-};
-
-const onDrag = (event) => {
-    console.log("dragging");
-    console.log(event);
-    // if (draggedItem) {
-    //     const updatedItems = items.map((item) => {
-    //         if (item.i === draggedItem) {
-    //             return { ...item, x, y };
-    //         }
-    //         return item;
-    //     });
-
-    //     setItems(updatedItems);
-    // }
-};
-
-const onDragOver = (event) => {
-    console.log("drag over");
-    console.log(event);
-    // if (draggedItem) {
-    //     const updatedItems = items.map((item) => {
-    //         if (item.i === draggedItem) {
-    //             return { ...item, x, y };
-    //         }
-    //         return item;
-    //     });
-
-    //     setItems(updatedItems);
-    // }
-};
-
+        //console.log(`Dropped element type: ${type}`);
+        console.log(`Dropped element props:\n${JSON.stringify(layoutItem, ['x', 'y', 'w', 'h'], 2)}`);
+    };
     return (
         <div className="grid page-builder-app">
             <div className="page-builder-header-topbar">
                 <div className="page-builder-header" style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Button icon="add" onClick={() => { setIsToolboxOpen(!isToolboxOpen); setIsPageSettingsOpen(false);}} >
+                    <Button icon="add" onClick={() => { setIsToolboxOpen(!isToolboxOpen); setIsPageSettingsOpen(false); }} >
                         Add Item
                     </Button>
                     <Button icon="cog" onClick={() => { setIsPageSettingsOpen(!isPageSettingsOpen); setIsToolboxOpen(false); }}>
@@ -257,60 +228,35 @@ const onDragOver = (event) => {
                 </div>
                 <Divider vertical={true} />
                 <Collapse className="page-settings" isOpen={isPageSettingsOpen}>
-                    { currentData && (<PageForm callbackFunction={onInputChange} page={{ name: currentData.name, route: currentData.route, status: currentData.status, style: currentData.style }} />) }
+                    {currentData && (<PageForm callbackFunction={onInputChange} page={{ name: currentData.name, route: currentData.route, status: currentData.status, style: currentData.style }} />)}
                     <Divider vertical={true} />
                 </Collapse>
                 <Collapse className="page-toolbox" isOpen={isToolboxOpen}>
-                    <div className="droppable-element toolbox-item"
-                        draggable={true}
-                        unselectable="on"
-                        // this is a hack for firefox
-                        // Firefox requires some kind of initialization
-                        // which we can do by adding this attribute
-                        // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-                        key="new-element-text"
-                        >
-                        {createElement({ type: 'text' }, null, true)}
-                    </div>
-                    <div className="droppable-element toolbox-item"
-                        draggable={true}
-                        unselectable="on"
-                        key="new-element-video"
-                        >
-                        {createElement({ type: 'video' }, null, true)}
-                    </div>
-                    <div className="droppable-element toolbox-item"
-                        draggable={true}
-                        unselectable="on"
-                        key="new-element-image"
-                        >
-                        {createElement({ type: 'image' }, null, true)}
-                    </div>
-                    <div className="droppable-element toolbox-item"
-                        draggable={true}
-                        unselectable="on"
-                        key="new-element-container"
-                        >
-                        {createElement({ type: 'container' }, null, true)}
-                    </div>
+                    {createElement({ type: 'text' }, true)}
+                    {createElement({ type: 'video' }, true)}
+                    {createElement({ type: 'image' }, true)}
+                    {createElement({ type: 'container' }, true)}
                 </Collapse>
             </div>
             {currentData && (<div className="grid-layout-container">
                 <ReactGridLayout
                     onLayoutChange={changeLayout}
-                    onDragOver={onDragOver}
-                    disabled={editable}
                     isDraggable={true}
                     isResizable={true}
+                    isDroppable={true}
                     {...props}
+                    cols={12}
+                    droppingItem={{i: uuidv4(), w: 1, h: 2}}
+                    onDrop={onDrop}
+                    // onDropDragOver={(event) => {return {w:2, h:2}}}
                     style={{ height: (currentData.style ? currentData.style.height : '100%') }}
                 >
-                    {items && _.map(items, (el) => createElement(el, onRemoveItem, onAddItemType))}
+                    {items && _.map(items, (el) => createElement(el, false))}
                 </ReactGridLayout>
             </div>)}
         </div>
     );
-});
+};
 
 PageBuilderComponent.propTypes = {
     className: PropTypes.string,
