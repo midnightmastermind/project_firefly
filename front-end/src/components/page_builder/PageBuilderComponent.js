@@ -14,8 +14,9 @@ import PageForm from "./PageForm";
 import { v4 as uuidv4 } from 'uuid';
 import ComponentHeader from "./component_settings/ComponentHeader";
 
+const ReactGridLayout = WidthProvider(RGL);
+
 const PageBuilderComponent = (props) => {
-    const ReactGridLayout = useMemo(() => WidthProvider(RGL, []));
     const [items, setItems] = useState([]);
 
     const [draggedItemType, setDraggedItemType] = useState(null);
@@ -91,7 +92,7 @@ const PageBuilderComponent = (props) => {
                 draggable={isNew}
                 data-grid={el ? el : null}
                 style={{ position: "relative", height: "100%" }}
-                unselectable={true}
+                unselectable='true'
                 onDragStart={(event) => {onDragStart(event, el.type)}}
             >
                 <ComponentHeader />
@@ -195,11 +196,12 @@ const PageBuilderComponent = (props) => {
     // ...
 
     const onDragStart = (event, type) => {
-        event.dataTransfer.setData("text/plain", "");
         console.log(type);
         if (event.target.classList.contains('droppable-element')) {
             event.dataTransfer.setData("type", type);
         }
+        event.dataTransfer.setData("text/plain", "");
+
         // event.stopPropagation();
 		// event.preventDefault();
     };
@@ -240,6 +242,7 @@ const PageBuilderComponent = (props) => {
             </div>
             {currentData && (<div className="grid-layout-container">
                 <ReactGridLayout
+                    layout={items}
                     onLayoutChange={changeLayout}
                     isDraggable={true}
                     isResizable={true}
@@ -256,19 +259,6 @@ const PageBuilderComponent = (props) => {
             </div>)}
         </div>
     );
-};
-
-PageBuilderComponent.propTypes = {
-    className: PropTypes.string,
-    rowHeight: PropTypes.number,
-    cols: PropTypes.object,
-    initialLayout: PropTypes.array,
-    compactType: PropTypes.string,
-    portalContainer: PropTypes.element,
-    usePortal: PropTypes.bool,
-    preventCollision: PropTypes.bool,
-    margin: PropTypes.array,
-    containerPadding: PropTypes.array
 };
 
 PageBuilderComponent.defaultProps = {
