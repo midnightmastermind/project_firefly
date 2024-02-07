@@ -1095,12 +1095,27 @@ textarea.bp5-input {
 }
 
 .page-toolbox .component {
-  width: 150px;
-  height: 112px !important;
+  width: 8%;
+  height: 120px !important;
   margin: 10px;
   border: 1px solid white;
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 }
 
+.page-toolbox .component:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.page-toolbox .component-header {
+  display: none !important;
+}
+
+.page-toolbox
 .post-manager-container {
   min-height: 85vh;
 }
@@ -1267,10 +1282,28 @@ textarea.bp5-input {
   background: #fdd;
   border: 1px solid black;
   margin: 10px 0;
-  padding: 10px;
 }
 
 .react-grid-item {
-  background-color: red;
   border: 1px solid white;
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 }
+
+.react-grid-item:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.component-header button {
+  cursor: pointer !important;
+}
+
+.react-grid-item.react-grid-placeholder {
+	pointer-events: none;
+}
+
+
