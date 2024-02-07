@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Popover, PopoverInteractionKind, Position } from '@blueprintjs/core';
+import ComponentSettings from './NewComponentSettings';
 
 const CogButton = () => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -20,7 +21,9 @@ const CogButton = () => {
         position="auto"
         interactionKind={PopoverInteractionKind.HOVER}
         onClose={() => setIsPopoverOpen(false)}
-        content={<div style={{ padding: '10px' }}>Hi!</div>}
+        content={<div style={{ padding: '10px' }}>
+          <ComponentSettings />
+        </div>}
       >
         <div style={{ width: '0', height: '0', overflow: 'hidden' }}></div>
       </Popover>
