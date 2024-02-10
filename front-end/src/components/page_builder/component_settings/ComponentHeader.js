@@ -2,14 +2,14 @@ import React from 'react';
 import { Button } from '@blueprintjs/core';
 import CogButton from '../CogButton'; // Assuming the CogButton component is in a separate file
 
-const ComponentHeader = ({ onDelete }) => {
+const ComponentHeader = ({ element, editComponent, onRemoveItem }) => {
   return (
-    <div className="component-header" style={{ position: 'absolute', width: '100%', justifyContent: 'space-between' }}>
+    <div className="component-header">
       {/* CogButton */}
-      <CogButton />
+      <CogButton element={element} editComponent={editComponent}/>
 
       {/* Delete Button */}
-      <Button icon="delete" minimal onClick={onDelete} />
+      <Button className="delete-button" icon="delete" minimal onClick={() => onRemoveItem(element.i)} />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Button, Popover } from '@blueprintjs/core';
 import ComponentPopup from '../ComponentSettings';
 import { useState, useEffect } from 'react';
 import ComponentSettings from '../ComponentSettings';
+import ReactMarkdown from 'react-markdown';
 // const TextElement = ({ element, onAddItemType, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {
 //     e.stopPropagation();
@@ -91,41 +92,41 @@ import ComponentSettings from '../ComponentSettings';
 
 // export default TextElement;
 
-const defaultElementStyle = {
-  color: 'red',
-  fontFamily: 'Arial, sans-serif',
-  fontSize: 16,
-  margin: '10',
-  marginRight: '10',
-  marginTop: '10',
-  marginBottom: '10',
-  marginLeft: '10',
-  padding: '20',
-  paddingRight: '20',
-  paddingTop: '20',
-  paddingBottom: '20',
-  paddingLeft: '20',
-  borderSize: '2',
-  borderSizeRight: '2',
-  borderSizeTop: '2',
-  borderSizeBottom: '2',
-  borderSizeLeft: '2',
-  borderColor: 'red',
-  borderColorRight: 'red',
-  borderColorTop: 'red',
-  borderColorBottom: 'red',
-  borderColorLeft: 'red',
-  borderType: 'solid',
-  borderTypeTop: 'solid',
-  borderTypeBottom: 'solid',
-  borderTypeRight: 'solid',
-  borderTypeLeft: 'solid',
-  borderRadius: '5',
-  width: 200,
-  height: 100,
-  opacity: 1,
-  backgroundColor: 'red',
-};
+// const defaultElementStyle = {
+//   color: 'red',
+//   fontFamily: 'Arial, sans-serif',
+//   fontSize: 16,
+//   margin: '10',
+//   marginRight: '10',
+//   marginTop: '10',
+//   marginBottom: '10',
+//   marginLeft: '10',
+//   padding: '20',
+//   paddingRight: '20',
+//   paddingTop: '20',
+//   paddingBottom: '20',
+//   paddingLeft: '20',
+//   borderSize: '2',
+//   borderSizeRight: '2',
+//   borderSizeTop: '2',
+//   borderSizeBottom: '2',
+//   borderSizeLeft: '2',
+//   borderColor: 'red',
+//   borderColorRight: 'red',
+//   borderColorTop: 'red',
+//   borderColorBottom: 'red',
+//   borderColorLeft: 'red',
+//   borderType: 'solid',
+//   borderTypeTop: 'solid',
+//   borderTypeBottom: 'solid',
+//   borderTypeRight: 'solid',
+//   borderTypeLeft: 'solid',
+//   borderRadius: '5',
+//   width: 200,
+//   height: 100,
+//   opacity: 1,
+//   backgroundColor: 'red',
+// };
 
 // const TextElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
 //   const [style, setStyle] = useState(element.style || defaultElementStyle);
@@ -150,18 +151,16 @@ const defaultElementStyle = {
 //   );
 // }
 
-const TextElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
-  const [style, setStyle] = useState(element.style || defaultElementStyle);
+const TextElement = ({ setDraggable, element, style, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
+  const [styleState, setStyleState] = useState(style);
 
   useEffect(() => {
-    setStyle(element.style);
-  }, [element])
-  console.log(element);
+    setStyleState(style);
+  }, [style])
+
   return (
-    <div>
-      <div>
-        <span style={style} className="text">{element.i}</span>
-      </div>
+    <div style={{ ...styleState }} className="text">
+      <ReactMarkdown>{element.content || "### This is a Text Element"}</ReactMarkdown>
     </div>
   );
 }

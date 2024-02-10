@@ -37,25 +37,28 @@ const Cart = ({ hasCheckoutButton, isEditable, title }) => {
   const proceedToCheckout = () => {
     navigate('/checkout');
   };
+  console.log(items);
   return (
     <div>
       {title && title !== '' && <h2>{title}</h2> }
-      {items && items.map((item) => (
+
+      {items && items.length > 0 && items.map((item) => (
         <div className="cart-item" key={item._id}>
-          
-          <div className="cart-item-img" style={{backgroundImage: `url(${item.product.Images.split(',')[0]}`}} />
-          <div className="cart-item-name">{item.product.Name}</div>
+        
+          <div className="cart-item-img" style={{backgroundImage: `url(${item.product.images[0]}`}} />
+          <div className="cart-item-name">{item.product.name}</div>
           <div className="cart-item-qty">qty: {item.quantity}</div>
           <div className="cart-item-subtotal">{`$${item.sub_total}`}</div>
           <div className="cart-remove-button"><button onClick={() => dispatch(removeFromCart(item._id))}>Remove</button></div>
         </div>
       ))}
-      <div className="sub-total-box">Sub Total: {`$${subTotal}`}</div>
-      { hasCheckoutButton && 
+      {items && items.length > 0 && <div className="sub-total-box">Sub Total: {`$${subTotal}`}</div>}
+      {items && items.length > 0 && hasCheckoutButton && 
         <div className="cart-action-buttons">
           <button className="checkout-button" onClick={proceedToCheckout}>Proceed to Checkout</button>
         </div>
       }
+      {(!items || items.length == 0) && <div>0 Products</div>}
     </div>
   );
 };

@@ -97,12 +97,12 @@ import ComponentSettings from '../ComponentSettings';
 //   );
 // }
 
-const VideoElement = ({ element, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
+const VideoElement = ({ element, onAddItemType, onRemoveItem, setLockGrid, editComponent, isNew }) => {
   return (
     <div style={{ height: "100%" }} className="my-context-menu-target">
       <div style={{ height: "100%" }}>
         <iframe
-          style={{ overflow: 'hidden', pointerEvents: 'none' }}
+          style={{ overflow: 'hidden' }}
           width="100%"
           height="100%"
           src={element.source || "https://www.youtube.com/embed/dQw4w9WgXcQ"} // Sample video source

@@ -17,7 +17,7 @@ db.post_category = require("../packages/blog/models/post_category.model");
 
 
 //ecommerce models
-db.product = require("../packages/ecommerce/models/product2.model");
+db.product = require("../packages/ecommerce/models/product3.model");
 db.product_permissions = require("../packages/ecommerce/models/product_permissions.model");
 db.transaction = require("../packages/ecommerce/models/transaction.model");
 db.purchase = require("../packages/ecommerce/models/purchase.model");

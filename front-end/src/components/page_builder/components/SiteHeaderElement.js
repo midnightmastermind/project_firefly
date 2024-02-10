@@ -1,11 +1,10 @@
-// ImageElement.js
+// HeaderElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
 import ComponentPopup from '../ComponentSettings';
 import { useState } from 'react';
-import example from 'example.jpg';
-
-// const ImageElement = ({ element, onRemoveItem, onSaveConfiguration }) => {
+import Header from 'components/navigation/Header';
+// const HeaderElement = ({ element, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {
 //     e.stopPropagation();
 //     // Handle cog button click
@@ -21,7 +20,7 @@ import example from 'example.jpg';
 //     >
 //       <img
 //         src={element.src || 'https://via.placeholder.com/150'}
-//         alt={`Image ${element.i}`}
+//         alt={`Header ${element.i}`}
 //         style={{ maxWidth: '100%', height: 'auto' }}
 //       />
 //       <div
@@ -70,40 +69,27 @@ import example from 'example.jpg';
 //   );
 // };
 
-// export default ImageElement;
+// export default HeaderElement;
 
 
-// const ImageElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
-//   return (
-//     <div>
-//       <ComponentPopup type="image" content={(
-//         <div>
-//           <img
-//             src={element.src || example} // Sample image source
-//             alt={`Image ${element.i}`}
-//             style={{ maxWidth: "100%", height: "auto" }}
-//           />
-//         </div>
-//       )} element={element}        
-//       setLockGrid={setLockGrid}
-//       />
-//     </div>
-//   );
-// }
-
-const ImageElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
-  return (
-    <div>
+const HeaderElement = ({ setDraggable, element, onAddItemType, onRemoveItem }) => {
+    return (
         <div>
-          <img
-            draggable="false"
-            src={element.src || example} // Sample image source
-            alt={`Image ${element.i}`}
-            style={{ maxWidth: "100%", height: "auto" }}
-          />
+            <ComponentPopup content={(
+                <div>
+                    <div className="header" style={{ width: "100%", height: "100%" }}>
+                        <Header />
+                    </div>
+                    <span
+                        className="remove"
+                        style={{ position: "absolute", right: "2px", top: 0, cursor: "pointer", zIndex: '100', color: 'white' }}
+                        onClick={() => onRemoveItem(element.i)}
+                    >
+                        x
+                    </span>
+                </div>)} element={element} />
         </div>
-    </div>
-  );
+    );
 }
 
-export default ImageElement
+export default HeaderElement

@@ -4,6 +4,7 @@ import { Icon } from '@blueprintjs/core';
 import StyleEditor from './component_settings/StyleEditor';
 import ComponentEditor from './component_settings/ComponentEditor';
 import CustomDrawer from 'components/common/CustomDrawer';
+import { MarkdownEditor } from 'components/tools/markdown_editor/MarkdownEditor';
 
 const ComponentSettings = ({ type, content, element, setLockGrid, editComponent }) => {
   const selectedItemRef = useRef(null);
@@ -66,7 +67,7 @@ const ComponentSettings = ({ type, content, element, setLockGrid, editComponent 
   const menuItems = [
     {
       title: "Info",
-      content: "Info",
+      content: <MarkdownEditor />,
     },
     {
       title: "Style",

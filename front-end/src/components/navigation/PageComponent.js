@@ -16,37 +16,48 @@ const PageComponent = (props) => {
       <div
         className="test"
         key={custom_element.i}
+        isDraggable={false}
+        draggable={false}
+        unselectable={true}
         data-grid={custom_element}
-        style={{ position: "relative", height: "100%" }}
+
+        style={{ position: "relative", height: "100%", pointerEvents: el.type == "text" ? 'none' : "" }}
       >
         {/* <span className={`react-grid-dragHandleExample`}>[DRAG HERE]</span> */}
         {el.type === "text" || !custom_element.type ? (
-          <TextElement element={custom_element} />
+          <TextElement element={custom_element} style={custom_element.style} />
         ) : el.type === "image" ? (
-          <ImageElement element={custom_element} />
+          <ImageElement element={custom_element} style={custom_element.style} />
         ) : el.type === "video" ? (
-          <VideoElement style={{ height: "100%" }} element={custom_element} />
+          <VideoElement style={{ height: "100%", ...custom_element.style }} element={custom_element} />
         ) : el.type === "container" ? (
           // <ShowcaseLayout iteration={iteration + 1} onLayoutChange={props.onLayoutChange} />
-          <ListElement element={custom_element} />
+          <ListElement element={custom_element} style={custom_element.style} />
         ) : null}
       </div>
     );
   };
 
   return (
-    <div className="page-component">
+    <div>
+    <div className="page-component-container">
       {props.page.layout &&
+      <div className="page-component">
         <ReactGridLayout
           disabled={false}
           isDraggable={false}
           isResizable={false}
+          draggable={false}
+          isDroppable={false}
+          autoSize={true}
           {...props}
-          style={{ height: (props.page.style ? props.page.style.height : '100%') }}
+          // style={{ height: (props.page.style ? props.page.style.height : '100%') }}
         >
           {props.page.layout.map((element) => createElement(element))}
         </ReactGridLayout>
+      </div>
       }
+    </div>
     </div>
   );
 };

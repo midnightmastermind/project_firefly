@@ -289,7 +289,7 @@ function App() {
           id: 'product_management',
           label: 'Product Form Test',
           icon: 'shopping-cart',
-          panel: <ProductForm productData={{}} onUpdateProduct={() => { console.log("test")}} />, // Placeholder for the actual component
+          panel: <ProductForm onUpdateProduct={() => { console.log("test")}} />, // Placeholder for the actual component
         },
         {
           type: 'label',

@@ -10,18 +10,19 @@ const Card = ({content, element}) => {
         <div
             className="card"
             key={element._id || element.id}
+            onClick={()=> alert(element.id)}
             >
             {content.image && <div className="card-image-container"><div className="card-image" style={{backgroundImage: `url(${content.image})`}} /> </div>}
             {content.header && <div className="card-header">{content.header}</div>}
             {content.info && <div className="card-info">{content.info}</div>}
-            {content.link && <Button className="card-info">
+            {/* {content.link && <Button className="card-info">
             <Link
                 className="link"
                 to={content.link.src}
             >
                 {content.link.text}
             </Link>
-</Button>}
+    </Button> */} 
         </div>
     )
 }

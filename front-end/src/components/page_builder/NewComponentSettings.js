@@ -1,78 +1,64 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { ContextMenu, MenuItem, Icon, Button, Menu } from '@blueprintjs/core';
-import { INTENT_SUCCESS } from '@blueprintjs/core/lib/esm/common/classes';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Tabs, Tab } from '@blueprintjs/core';
 import StyleEditor from './component_settings/StyleEditor';
 import ComponentEditor from './component_settings/ComponentEditor';
+import MarkdownEditor from 'components/tools/markdown_editor/MarkdownEditor';
 
 const ComponentSettings = ({ type, element, setLockGrid, editComponent }) => {
-  const selectedItemRef = useRef(null);
-  const [activeMenuItem, setActiveMenuItem] = useState(null);
+  const [activeTabId, setActiveTabId] = useState("info");
+  const [infoContent, setInfoContent] = useState("info");
 
-  const menuItems = [
+  console.log(element);
+  const updateContent = (content) => {
+    editComponent(element.i, 'content', content, false);
+  }
+  
+  useEffect(() => {
+    if (element.type == "text") {
+      setInfoContent(<div className="text-component-editor"><MarkdownEditor updateContent={updateContent} content={element.content || "### This is a Text Element"} /></div>);
+    }
+  }, [element])
+  const tabs = [
     {
+      id: "info",
       title: "Info",
-      content: "Info",
+      content: infoContent,
     },
     {
+      id: "style",
       title: "Style",
       content: (
         <StyleEditor
           editComponent={editComponent}
           element={element}
           styleCategory="font"
-          selectedItem={selectedItemRef.current}
         />
       ),
     },
     {
+      id: "properties",
       title: "Properties",
       content: <ComponentEditor type={type} />,
     },
-    // ... (other menu items can be added here)
+    // ... (other tabs can be added here)
   ];
 
-  const handleMenuItemClick = useCallback((menuItem, index, event) => {
-    menuItem.i = index;
-    setActiveMenuItem(menuItem);
-    selectedItemRef.current = menuItem;
+  const handleTabChange = useCallback((newTabId) => {
+    setActiveTabId(newTabId);
   }, []);
 
-  useEffect(() => {
-    // Update selectedItemRef.current after the editComponent operation is completed
-    selectedItemRef.current = activeMenuItem;
-  }, [activeMenuItem]);
-
   return (
-    <div style={{ height: '100%' }}>
-      <ContextMenu style={{ height: '100%' }} content={(
-        <Menu>
-          {menuItems.map((menuItem, index) => (
-            <MenuItem
-              key={index}
-              text={menuItem.title}
-              onClick={(event) => handleMenuItemClick(menuItem, index, event)}
-            />
-          ))}
-        </Menu>
-      )}>
-
-        {/* Render the content within the parent popover */}
-        {activeMenuItem && (
-          <div
-            style={{
-              backgroundColor: '#2F343C',
-              border: '1px solid white',
-              borderRadius: '5px',
-              color: 'white',
-              width: '50vw',
-              height: 'auto',
-            }}
-          >
-            {/* Render the specific content based on the active menu item */}
-            {activeMenuItem.content}
-          </div>
-        )}
-      </ContextMenu>
+    <div className="component-settings" style={{ height: '100%' }}>
+      <Tabs
+        vertical
+        onChange={handleTabChange}
+        selectedTabId={activeTabId}
+        renderActiveTabPanelOnly
+      >
+        {tabs.map(tab => (
+          <Tab key={tab.id} id={tab.id} title={tab.title} panel={tab.content} />
+        ))}
+      </Tabs>
     </div>
   );
 };

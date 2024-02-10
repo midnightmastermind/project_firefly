@@ -116,7 +116,7 @@ const YoutubeDirectiveDescriptor = {
   },
 };
 
-const MarkdownEditor = ({updateContent, content}) => {
+export const MarkdownEditor = ({updateContent, content}) => {
 
   return (
     <MDXEditor

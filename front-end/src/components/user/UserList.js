@@ -20,7 +20,7 @@ import "App.css";
 import Pagination from "components/common/Pagination";
 import ToolBar from "components/tools/ToolBar";
 import Card from "components/elements/Card";
-const PageSize = 9;
+const PageSize = 18;
 
 const heroPageInfo = {
     page: 'contact',
@@ -213,7 +213,7 @@ const UserList = (props) => {
     }
 
     return (
-        <div>
+        <div className="user-page-container">
             <SearchBar callBackFunction={findByName} fields={searchFields} data={searchData} />
             {/* {(showSuperUserTools || showSiteAdminTools || showGlobalAdminTools) &&
                 <ToolBar toolList={toolList} />

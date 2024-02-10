@@ -272,6 +272,7 @@
 .page-preview-block {
   width: 150px;
   height: 200px;
+  margin-right: 10px;
   background-color: #2F343C !important;
   border: 1px solid gray;
   border-radius: 5px;
@@ -342,6 +343,7 @@
 }
 
 .page-container {
+  height: 100%;
   width: 100%;
 }
 
@@ -725,7 +727,7 @@ textarea,
 }
 
 .prose {
-  height: 60vh;
+  min-height: 30vh;
   text-align: left;
   padding: 20px 30px !important;
 }
@@ -799,10 +801,17 @@ textarea.bp5-input {
   padding: 0px !important;
 }
 
-/* .page-component {
-  width: 76% !important;
+.page-grid {
+  height: 100%;
+  width: 100%;
+}
+
+.page-component {
+  width: 98%;
   margin: 0 auto;
-} */
+  position: relative;
+  overflow: hidden;
+}
 
 .page-form-group {
   flex-direction: row;
@@ -842,7 +851,8 @@ textarea.bp5-input {
 
 .solo-form-group {
   flex-direction: row !important;
-  justify-content: space-between;
+  margin: 5px 0px !important;
+  
 }
 
 .variations .form-component {
@@ -856,7 +866,6 @@ textarea.bp5-input {
 .solo-form-group .bp5-form-content {
   flex-direction: row;
   display: flex;
-  margin-left: 10px;
 }
 
 .product-component-container {
@@ -1016,9 +1025,9 @@ textarea.bp5-input {
   justify-content: start;
 }
 
-.form-component .bp5-form-group {
+/* .form-component .bp5-form-group {
   margin: 0 0 30px !important;
-}
+} */
 
 .checkout-forms .bp5-card {
   width: 100%;
@@ -1081,15 +1090,13 @@ textarea.bp5-input {
 
 .page-builder-app .grid-layout-container {
   width: 100%;
+  height: 100%;
+  position: relative;
+  top: 90px;
 }
 
-.page-settings {
-  margin: 0px 40px;
-}
 
 .page-toolbox .bp5-collapse-body {
-  display: flex;
-  flex-direction: row;
   justify-content: flex-start;
   width: 100%;
 }
@@ -1103,6 +1110,7 @@ textarea.bp5-input {
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
+  text-align: center;
 }
 
 .page-toolbox .component:active {
@@ -1151,10 +1159,15 @@ textarea.bp5-input {
   width: 50%;
 }
 
+.mdxeditor-toolbar button {
+  cursor: pointer;
+  max-width: 893px;
+}
+
 .mdxeditor-toolbar,
 .mdxeditor-toolbar button {
-  color: rgb(96, 100, 108) !important;
   background-color: unset !important;
+  z-index: 1000;
 }
 
 .post-container {
@@ -1279,31 +1292,334 @@ textarea.bp5-input {
 .droppable-element {
   width: 150px;
   text-align: center;
-  background: #fdd;
-  border: 1px solid black;
   margin: 10px 0;
+  color: white;
 }
 
-.react-grid-item {
-  border: 1px solid white;
+.page-builder-app .react-grid-item {
   cursor: move; /* fallback if grab cursor is unsupported */
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
 }
 
-.react-grid-item:active {
+.page-builder-app .react-grid-item:active {
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
 }
 
-.component-header button {
+.component-header .bp5-button {
   cursor: pointer !important;
+  color: white !important;
 }
 
 .react-grid-item.react-grid-placeholder {
 	pointer-events: none;
 }
 
+.spacing-category {
+  display: flex;
+}
 
+
+.spacing-category .category {
+  margin: 0px 20px 10px 10px;
+}
+.font-category {
+  display: flex;
+  flex-direction: column;
+}
+
+.font-category .category {
+  margin: 0px 20px 10px 10px;
+}
+
+.border-category {
+  display: flex;
+  flex-direction: column;
+}
+
+.border-category .category {
+  margin: 0px 20px 10px 10px;
+}
+
+.color-category {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}
+.color-category .category {
+  margin: 0px 0px 10px 10px;
+}
+
+.size-category .category {
+  margin: 0px 20px 10px 10px;
+}
+
+.component-settings .bp5-tab {
+  color: white !important;
+}
+
+.mdxeditor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  color: white !important;
+
+}
+
+.component:hover {
+  border: 1px solid red;
+}
+
+.droppable-element {
+  contain: content;
+}
+
+.page-builder-app iframe {
+  pointer-events: none;
+}
+
+
+.react-grid-layout {
+  min-height: 94vh !important;
+}
+
+/* styles.css */
+
+.page-builder-header-topbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 50px;
+  background-color: rgb(28, 33, 39) !important;
+  z-index: 1000;
+  height: 37px;
+}
+
+
+.page-builder-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-settings,
+.page-toolbox {
+	position: fixed;
+  top: 79px;
+  left: 0;
+  right: 0;
+  background-color: rgb(28, 33, 39) !important;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-drag-elements {
+  display: flex;
+}
+.page-settings .bp5-collapse-body,
+.page-toolbox .bp5-collapse-body {
+  margin: 0 20px;
+}
+
+.page-toolbox .bp5-collapse-body {
+  padding-top: 30px;
+}
+.page-toolbox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.page-toolbox > * {
+  margin: 5px;
+}
+
+/* }
+.category,
+.title,
+.footer {
+	position: -webkit-sticky;
+	position: sticky;
+	height: 50px;
+}
+
+.title {
+	top: 0;
+	font: 50px/60px "Crimson Text";
+	color: #fdef67;
+	text-shadow: 2px 2px 0 #f83d23;
+	background-color: dodgerblue;
+	margin: 0;
+} */
+
+.header-nav {
+  position: fixed !important;
+}
+
+.user-page-container {
+  margin-top: 50px;
+}
+
+.user-list-container {
+  min-height: 88vh;
+}
+
+.user-list .card {
+  width: 150px;
+  margin-bottom: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.user-list .card .card-info {
+  font-size: 12px;
+}
+
+.user-list .card:hover {
+  border: 1px solid white;
+}
+
+.fields-container .fields-list {
+  max-height: 220px
+}
+.variations-container .variations-list {
+  max-height: 250px;
+}
+.fields-container .fields-list,
+.variations-container .variations-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.fields-container .fields-list .field {
+  padding: 10px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+.fields-container .bp5-form-group {
+  margin: 0 !important;
+}
+
+.fields-container .fields-list-headers {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.fields-container .fields-list-headers .name-column,
+.fields-container .fields-list-headers .type-column,
+.fields-container .fields-list-headers .value-column {
+ padding-right: 10px;
+}
+
+.fields-container .fields-list-headers .trash-column {
+  opacity: 0;
+}
+
+.fields-container .fields-list .bp5-form-content {
+  display: flex;
+  justify-content: center;
+}
+.fields-container .fields-list .field:nth-child(even){
+  background-color: #1c2026;
+  color:#fff;
+  }
+  
+  .fields-container .fields-list .field:nth-child(odd){
+    background-color: #13171c;
+  }
+
+  .fields-container .fields-list-headers .bp5-label {
+    display: flex;
+    justify-content: center;
+  }
+
+  .fields-container .name-column,
+  .fields-container .type-column,
+  .fields-container .variant-column,
+  .fields-container .value-column {
+    width: 20%;
+}
+
+.fields-container .trash-column {
+  margin-right: 10px;
+}
+
+.variations-container {
+  margin-top: 10px;
+  display: flex;
+}
+.variations-container .bp5-divider {
+  height: 280px;
+  margin: 20px 56px;
+}
+
+.variations-list-container {
+  flex-grow: 1;
+}
+
+.variations-container .variations-list .variation {
+  display: flex;
+  justify-content: space-between;
+}
+.variations-container .variations-list .form-component {
+  margin: 0;
+  width: 100%;
+  max-height: 118px;
+  height: 100%;
+  flex-wrap: wrap;
+}
+
+.variations-container .variations-list .bp5-card {
+  padding: 10px;
+}
+
+.variations-container .variations-list .variation:nth-child(even){
+  background-color: #1c2026 !important;
+  color:#fff;
+  }
+  
+  .variations-container .variations-list .variation .delete-button {
+    margin-right: -10px;
+    margin-top: -10px;
+  }
+  .variations-container .variations-list .variation:nth-child(odd){
+    background-color: #13171c !important;
+  }
+
+  .variations-container .container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .fields-container .container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+  }
+
+  .fields-container h3,
+  .variation-container h3 {
+    margin: 0px;   
+  } 
+
+.product-form-container .action-buttons {
+  display: flex;
+  justify-content: end;
+}
+
+.form-component .bp5-label {
+  margin-bottom: 0px !important;
+  display: flex;
+}
+
+.bp5-numeric-input .bp5-button {
+  background-color: rgba(89, 96, 105, 0.15) !important;
+  color: white !important;
+  right: 7px;
+}

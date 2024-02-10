@@ -1,31 +1,49 @@
 import React, { useState } from 'react';
-import { Button, Popover, PopoverInteractionKind, Position } from '@blueprintjs/core';
+import { Button, Popover, Slider } from '@blueprintjs/core';
 import ComponentSettings from './NewComponentSettings';
 
-const CogButton = () => {
+// ... (other imports)
+
+const CogButton = ({ element, setEditable, editComponent }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const handleButtonClick = () => {
     setIsPopoverOpen(!isPopoverOpen);
   };
 
+  const closePopover = () => {
+    setIsPopoverOpen(false);
+  };
+
+  const handlePopoverDrag = (event) => {
+    event.stopPropagation();
+  };
+
   return (
     <div style={{ position: 'relative' }}>
-      <Button
-        icon="cog"
-        minimal
-        onClick={handleButtonClick}
-      />
+      <Button icon="cog" className="cog-button" minimal onClick={handleButtonClick} />
       <Popover
         isOpen={isPopoverOpen}
-        position="auto"
-        interactionKind={PopoverInteractionKind.HOVER}
-        onClose={() => setIsPopoverOpen(false)}
-        content={<div style={{ padding: '10px' }}>
-          <ComponentSettings />
-        </div>}
+        position="auto-start"
+        enforceFocus={true}
+        usePortal={true}
+        onInteraction={(nextOpenState) => {
+          if (!nextOpenState) {
+            closePopover();
+          }
+        }}
+        content={
+          <div
+            className=""
+            style={{ padding: '10px', width: '100%'}}
+            onMouseDown={handlePopoverDrag}
+            onMouseMove={handlePopoverDrag}
+          >
+            <ComponentSettings editComponent={editComponent} element={element} />
+          </div>
+        }
       >
-        <div style={{ width: '0', height: '0', overflow: 'hidden' }}></div>
+        <div className="testeroo" style={{ width: '0', height: '0', overflow: 'hidden' }}></div>
       </Popover>
     </div>
   );
