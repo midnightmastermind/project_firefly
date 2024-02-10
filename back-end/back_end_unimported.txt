@@ -1,0 +1,89 @@
+
+─────┬──────────────────────────────────────────────────────────────────────────
+     │ 8 unused dependencies
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │ @babel/cli
+   2 │ @babel/node
+   3 │ @babel/preset-env
+   4 │ concurrently
+   5 │ dotenv
+   6 │ mongodb
+   7 │ nodemailer
+   8 │ nodemon
+─────┴──────────────────────────────────────────────────────────────────────────
+
+
+─────┬──────────────────────────────────────────────────────────────────────────
+     │ 67 unimported files
+─────┼──────────────────────────────────────────────────────────────────────────
+   1 │ helper/emailService.js
+   2 │ middlewares/checkPermissions.js
+   3 │ packages/blog/controllers/media_source.controller.js
+   4 │ packages/blog/controllers/post_category.controller.js
+   5 │ packages/blog/controllers/post.controller.js
+   6 │ packages/blog/models/media_source.model.js
+   7 │ packages/blog/routes/media_source.routes.js
+   8 │ packages/blog/routes/post_category.routes.js
+   9 │ packages/blog/routes/post.routes.js
+  10 │ packages/charity/controllers/charitable_cause.controller.js
+  11 │ packages/charity/controllers/donation.controller.js
+  12 │ packages/charity/models/charitable_cause.model.js
+  13 │ packages/charity/models/donation.model.js
+  14 │ packages/charity/routes/charitable_cause.routes.js
+  15 │ packages/charity/routes/donation.routes.js
+  16 │ packages/chat/controllers/chat.controller.js
+  17 │ packages/chat/models/chat_message.model.js
+  18 │ packages/chat/routes/chat.routes.js
+  19 │ packages/ecommerce/controllers/commerce_category.controller.js.js
+  20 │ packages/ecommerce/controllers/purchase.controller.js
+  21 │ packages/ecommerce/controllers/service.controller.js
+  22 │ packages/ecommerce/controllers/shipment.controller.js
+  23 │ packages/ecommerce/controllers/variation.controller.js
+  24 │ packages/ecommerce/models/cart.model.js
+  25 │ packages/ecommerce/models/order.model.js
+  26 │ packages/ecommerce/models/payment_info.model.js
+  27 │ packages/ecommerce/models/product2.model.js
+  28 │ packages/ecommerce/models/promotion.model.js
+  29 │ packages/ecommerce/models/refund.model.js
+  30 │ packages/ecommerce/models/review.model.js
+  31 │ packages/ecommerce/routes/commerce_category.routes.js
+  32 │ packages/ecommerce/routes/purchase.routes.js
+  33 │ packages/ecommerce/routes/service.routes.js
+  34 │ packages/ecommerce/routes/shipment.routes.js
+  35 │ packages/ecommerce/routes/variation.routes.js
+  36 │ packages/scheduling/controllers/booking.controller.js
+  37 │ packages/scheduling/controllers/event.controller.js
+  38 │ packages/scheduling/routes/booking.routes.js
+  39 │ packages/scheduling/routes/event.routes.js
+  40 │ packages/site_builder/controllers/site_object.controller.js
+  41 │ packages/site_builder/routes/site_object.routes.js
+  42 │ packages/site/controllers/file.controller.js
+  43 │ packages/site/controllers/form.controller.js
+  44 │ packages/site/controllers/grouping.controller.js
+  45 │ packages/site/controllers/navigation.controller.js
+  46 │ packages/site/controllers/notification.controller.js
+  47 │ packages/site/controllers/option.controller.js
+  48 │ packages/site/controllers/permission.controller.js
+  49 │ packages/site/controllers/question.controller.js
+  50 │ packages/site/controllers/style.controller.js
+  51 │ packages/site/controllers/theme.controller.js
+  52 │ packages/site/controllers/user_form_response.controller.js
+  53 │ packages/site/models/file.model.js
+  54 │ packages/site/models/notification.model.js
+  55 │ packages/site/routes/file.routes.js
+  56 │ packages/site/routes/form.routes.js
+  57 │ packages/site/routes/grouping.routes.js
+  58 │ packages/site/routes/navigation.routes.js
+  59 │ packages/site/routes/notification.routes.js
+  60 │ packages/site/routes/option.routes.js
+  61 │ packages/site/routes/permission.routes.js
+  62 │ packages/site/routes/question.routes.js
+  63 │ packages/site/routes/style.routes.js
+  64 │ packages/site/routes/theme.routes.js
+  65 │ packages/site/routes/user_form_response.routes.js
+  66 │ packages/storage/helper/uploadToDrive.js
+  67 │ server.compiled.js
+─────┴──────────────────────────────────────────────────────────────────────────
+
+
+       Inspect the results and run npx unimported -u to update ignore lists
