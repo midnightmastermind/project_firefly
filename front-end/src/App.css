@@ -1623,3 +1623,72 @@ textarea.bp5-input {
   color: white !important;
   right: 7px;
 }
+
+
+.product-panel-stack {
+  position: unset !important;
+}
+
+.product-panel-stack .bp5-panel-stack-view {
+  background-color: #1C2127;
+  padding: 10px 30px 30px 30px;
+}
+
+.product-panel-stack .product-form-container {
+  margin-top: 20px;
+}
+
+.product-panel-list .product-list {
+  max-height: 550px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: unset;
+  margin: 0px;
+}
+
+.product-panel-list .bp5-button {
+  background-color: #30404D !important;
+}
+
+.product-panel-list .product-list .product-card {
+  width: 100%;
+  overflow-y: unset;
+  display: flex;
+}
+
+.product-panel-list .product-list .product-card .view-button {
+  align-self: end;
+  overflow-y: hidden;
+}
+
+.product-panel-list .product-list .product-card .form-component {
+  margin: 10px 0px 0px 10px;
+  flex-grow: 1;
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.product-panel-list .product-list .product-card:nth-child(even){
+  background-color: #1c2026 !important;
+  color:#fff;
+  }
+  
+  /* .variations-container .variations-list .variation .delete-button {
+    margin-right: -10px;
+    margin-top: -10px;
+  } */
+  .product-panel-list .product-list .product-card:nth-child(odd){
+    background-color: #13171c !important;
+  }
+
+  .product-panel-list .product-list .product-card .form-component h2 {
+    margin: 2px 0px;
+  }
+
+  .ecommerce-section {
+    padding: 0px !important;
+  }
+
+  .ecommerce-section h3 {
+    margin: 5px 0px;
+  }

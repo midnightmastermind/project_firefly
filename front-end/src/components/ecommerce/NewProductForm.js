@@ -94,7 +94,6 @@ const ProductForm = ({ productData = default_product_data, onUpdateProduct }) =>
     console.log(variations);
     return (
         <div className="product-form-container" style={{ width: '100%' }}>
-            <h2>Product Form</h2>
             <div>
                 <FormGroup label="Product Name">
                     <InputGroup value={productName} onChange={(e) => setProductName(e.target.value)} />
