@@ -97,8 +97,8 @@ const PageBuilderComponent = (props) => {
                 data-grid={el ? el : null}
                 style={{ position: "relative", height: "100%" }} // Include the component's style
                 unselectable="true"
-                onMouseDown={onMouseDown}
-                onMouseUp={onMouseUp}
+                // onMouseDown={onMouseDown}
+                // onMouseUp={onMouseUp}
                 onDragStart={(event) => {
                     onDragStart(event, el.type);
                 }}
@@ -359,7 +359,7 @@ const PageBuilderComponent = (props) => {
 PageBuilderComponent.defaultProps = {
     className: "layout",
     rowHeight: 60,
-    cols: 12,
+    cols: {lg: 12},
     compactType: null,
     usePortal: true,
     margin: [0, 0],

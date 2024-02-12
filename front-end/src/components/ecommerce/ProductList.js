@@ -21,7 +21,7 @@ import LazyImage from "components/common//LazyImage";
 import Pagination from "components/common//Pagination";
 // import ToolBar from "navigation/ToolBar";
 import Card from "components/ecommerce/Card";
-import { Tag, Overlay, Classes } from "@blueprintjs/core";
+import { Tag, Overlay2, Classes } from "@blueprintjs/core";
 import ProductComponent from "./ProductComponent";
 const searchFields = ["Name", "description"];
 
@@ -82,33 +82,45 @@ const exampleData = [{
 
 const Product = ({ product, onProductClick }) => {
     const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      
-        // These options are needed to round to whole numbers if that's what you want.
-        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-        //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
-      });
-      
-    const image = <div className="product-image" style={{ backgroundImage: `url(${product.images[0]})` }} />
+      style: 'currency',
+      currency: 'USD',
+    });
   
-    const price = product.sale_price ? ( <span className="sale-tag"><span style={{color: 'red', textDecoration: 'line-through'}}>{`${formatter.format(product.regular_price)}`}</span>{`${formatter.format(product.sale_price)}`}</span> ) : (<span>{`${formatter.format(product.regular_price)}`}</span>)
+    const getFieldByName = (name) => {
+      const field = product.fields.find((f) => f.name === name);
+      return field ? field.value : null;
+    };
+  
+    const image = (
+      <div className="product-image" style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
+    );
+  
+    const salePrice = getFieldByName('sale_price');
+    const regularPrice = getFieldByName('regular_price');
+    const price = salePrice ? (
+      <span className="sale-tag">
+        <span style={{ color: 'red', textDecoration: 'line-through' }}>{`${formatter.format(regularPrice)}`}</span>
+        {`${formatter.format(salePrice)}`}
+      </span>
+    ) : (
+      <span>{`${formatter.format(regularPrice)}`}</span>
+    );
+  
     const content = (
       <div className="product-component-container" onClick={() => onProductClick(product)}>
-        <div className="product-image-container">
-          {image}
-        </div>
+        <div className="product-image-container">{image}</div>
         <div className="product-header-container">
-          <div className="product-header">{product.name}</div>
-          <div className="product-price"><Tag>{price}</Tag></div>
+          <div className="product-header">{getFieldByName('name')}</div>
+          <div className="product-price">
+            <Tag>{price}</Tag>
+          </div>
         </div>
       </div>
-    )
+    );
   
-    return (
-      <Card element={product} content={content} />
-    )
-  }
+    return <Card element={product} content={content} />;
+  };
+  
 
 const ProductList = (props) => {
     const [showLoadingBar, setShowLoadingBar] = useState(true);
@@ -143,7 +155,7 @@ const ProductList = (props) => {
     let PageSize = 32;
 
     const heroPageInfo = {
-        page: 'products',
+        image: 'http://localhost:8081/products.jpg',
         heading: 'Browse Products',
         search: false
     }
@@ -164,26 +176,26 @@ const ProductList = (props) => {
 
         if (products) {
             let filtered = [];
-            let organized_products = organizeProducts(products);
-            console.log(organized_products);
+            // let organized_products = organizeProducts(products);
+            console.log(products);
             if (props.mode == "enrolled") {
                 //filter to only enrolled
-                filtered = filterProducts(organized_products, enrollments, currentUser.id, 'user_id');
+                filtered = filterProducts(products, enrollments, currentUser.id, 'user_id');
                 setFilteredProducts(filtered);
                 setSearchData(filtered);
             } else if (props.mode == "owned") {
-                filtered = filterProducts(organized_products, product_permissions, currentUser.id, 'user_id');
+                filtered = filterProducts(products, product_permissions, currentUser.id, 'user_id');
                 setFilteredProducts(filtered);
                 setSearchData(filtered);
             } else if (props.mode == "admin") {
-                setFilteredProducts(organized_products);
-                setSearchData(organized_products);
+                setFilteredProducts(products);
+                setSearchData(products);
             } else if (props.mode == "global_admin") {
-                setFilteredProducts(organized_products);
-                setSearchData(organized_products);
+                setFilteredProducts(products);
+                setSearchData(products);
             } else {
-                setFilteredProducts(organized_products);
-                setSearchData(organized_products);
+                setFilteredProducts(products);
+                setSearchData(products);
             }
         }
     }, [dispatch, products, product_permissions, enrollments]);
@@ -263,32 +275,6 @@ const ProductList = (props) => {
         }
     }
 
-    const organizeProducts = (products) => {
-
-        let variable_products = products.filter(someobject => someobject.type == 'variable');
-        let variable_products_with_variations = variable_products.map((v, index) => {
-            let variations = products.filter((product_child) => (product_child.type == 'variation' && product_child.parent == v.sku));
-            return {...v, variations: variations};
-        });
-        // const variable_products = products.map((product_parent, index) => {
-        //     if (product_parent.Type == "variable") {
-        //         console.log("Product:", product_parent);
-        //         let variations = products.map((product_child) => {
-        //             if (product_child.Type == "variation" && product_child.sku == product_parent.parent) {
-        //                 console.log("hit");
-        //                 return product_child;
-        //             }
-        //             return false;
-        //         });
-                
-        //         return {...product_parent, variations: variations};
-        //     }
-        //     return null;
-
-        // });
-        console.log(variable_products_with_variations);
-        return variable_products_with_variations;   
-    }
 
     const display_params = [
         { type: 'text', key: 'name' },
@@ -328,7 +314,7 @@ const ProductList = (props) => {
                                             // {props.mode == "global_admin" && props.site_id && !belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => addToSite(product._id)} class="add-to-site-card">Add To Site</button>)} */
                                             // if (product.availability == true) {
                                             // if (product.Type == "variable") {
-                                                return <Product product={product} onProductClick={openProductOverlay} displayParams={display_params}/>
+                                                return <Product key={product._id} product={product} onProductClick={openProductOverlay} displayParams={display_params}/>
                                             // }
                                             // }
                                         })
@@ -349,15 +335,15 @@ const ProductList = (props) => {
                 }
             </div>
             {selectedProduct && (
-                <Overlay
+                <Overlay2
                 isOpen={!!selectedProduct}
                 onClose={closeProductOverlay}
-                className={Classes.OVERLAY_SCROLL_CONTAINER}
+                className={`card-overlay ${Classes.OVERLAY_SCROLL_CONTAINER}`}
                 >
                 <div className={`${Classes.CARD} ${Classes.ELEVATION_4} product-overlay`}>
                     <ProductComponent product={selectedProduct} />
                 </div>
-                </Overlay>
+                </Overlay2>
       )}
         </div>
 

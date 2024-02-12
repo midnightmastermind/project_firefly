@@ -6,10 +6,31 @@ import DynamicForm from 'components/form/Form';
 import Pagination from 'components/common/Pagination';
 import SearchBar from 'components/common/SearchBar';
 import LoadingBar from 'components/common/LoadingBar';
+import Carousel from 'components/elements/Carousel';
 
 const Product = ({ data, onProductClick }) => {
+  const getFieldByName = (name) => {
+    const field = data.fields.find((f) => f.name === name);
+    return field ? field.value : null;
+  };
+
+  const images = getFieldByName('images', 'value');
+  const imagesArray = images.map(image => {
+      return {
+          type: 'image',
+          src: image
+      }
+  });
+
+
+  const image = (
+    <div className="product-image"><Carousel items={imagesArray} /></div>//style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
+  );
+
   return (
-      <div className="product-card">
+    <div className="product-card">
+      {image}
+      <div className="product-info">
         <DynamicForm
           schema={data.fields.map((field) => ({
             ...field,
@@ -22,10 +43,13 @@ const Product = ({ data, onProductClick }) => {
           noSave={true}
           callbackFunction={(formData) => console.log(formData)}
         />
-        <Button className="view-button" onClick={() => onProductClick(data)} style={{ marginLeft: '10px', cursor: 'pointer' }}>
-        View
-      </Button>
       </div>
+      <div className="view-button">
+        <Button onClick={() => onProductClick(data)} style={{ marginLeft: '10px', cursor: 'pointer' }}>
+          View
+        </Button>
+      </div>
+    </div>
   );
 };
 
@@ -95,13 +119,13 @@ const ProductListWithPanelStack = ({ productList, displayParams }) => {
       //   </div>
       // </div>
       <PanelStack2
-      className="product-panel-stack"
-      onOpen={addToPanelStack}
-      onClose={handleBackClick}
-      renderPanelHeader={true}
-      renderActivePanelOnly={true}
-      stack={currentPanelStack}
-    />
+        className="product-panel-stack"
+        onOpen={addToPanelStack}
+        onClose={handleBackClick}
+        renderPanelHeader={true}
+        renderActivePanelOnly={true}
+        stack={currentPanelStack}
+      />
     );
   };
   console.log(selectedProduct);

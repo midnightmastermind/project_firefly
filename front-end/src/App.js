@@ -184,6 +184,7 @@ function App() {
   const logOut = useCallback(() => {
     dispatch(logout());
   }, [dispatch]);
+
   const userLoggedInMenu = [
     {
       type: 'dropdown',
@@ -286,7 +287,7 @@ function App() {
         {
           type: 'panel',
           onClickHandler: setPanel,
-          id: 'product_management',
+          id: 'product_form',
           label: 'Product Form Test',
           icon: 'shopping-cart',
           panel: <ProductForm onUpdateProduct={() => { console.log("test")}} />, // Placeholder for the actual component
@@ -413,6 +414,237 @@ function App() {
     },
     // ... Add more items as needed
   ];
+
+  const userMobileLoggedInMenu = [
+    {
+      type: 'collapse',
+      id: 'profile',
+      label: currentUser ? currentUser.username : 'Profile',
+      icon: 'user',
+      hasCaret: true,
+      children: [
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'profileInfo',
+          label: 'Profile',
+          icon: 'info-sign',
+          panel: <Profile />,
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'userInfo',
+          label: 'User Info',
+          icon: 'info-sign',
+          panel: <UserForm data={currentUser} />,
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'calendar',
+          label: 'Calendar',
+          icon: 'calendar',
+          panel: <Calendar />,
+        },
+        {
+          type: 'onClick',
+          id: 'logout',
+          label: 'Logout',
+          icon: 'log-out',
+          onClickHandler: () => logOut()
+        },
+        // Add more user sub-items as needed
+      ],
+    },
+    {
+      type: 'collapse',
+      id: 'inbox',
+      label: 'Inbox',
+      icon: 'box',
+      hasCaret: true,
+      children: [
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'chat',
+          label: 'Chat',
+          icon: 'chat',
+          hasCaret: false,
+          panel: <ChatComponent />, // Placeholder for the actual component
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'messages',
+          label: 'Messages',
+          icon: 'envelope',
+          hasCaret: false,
+          panel: <div>Messages</div>,
+        },
+      ],
+    },
+    {
+      type: 'collapse',
+      id: 'settings',
+      label: 'Settings',
+      icon: 'cog',
+      hasCaret: true,
+      children: [
+        {
+          type: 'label',
+          id: 'style',
+          label: 'style',
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'styling',
+          label: 'Styling',
+          icon: 'style',
+          panel: <div>Main Styling</div>,
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'global_styles',
+          label: 'Global Styling',
+          icon: 'globe',
+          panel: <GlobalStyleSettings />,
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'pages',
+          label: 'Site Layout',
+          hasCaret: false,
+          icon: 'document',
+          panel: <PageBuilder />, // Placeholder for the actual component
+        },
+        {
+          type: 'label',
+          id: 'admin',
+          label: 'admin',
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'site_information',
+          label: 'Site Info',
+          icon: 'info-sign',
+          panel: <SiteForm data={currentSite} />,
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'users',
+          label: 'Users',
+          icon: 'people',
+          panel: <UserList />, // Placeholder for the actual component
+        },
+        {
+          type: 'label',
+          id: 'ecommerce',
+          label: 'ecommerce',
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'product_management',
+          label: 'Products',
+          icon: 'shopping-cart',
+          panel: <ProductManagementDashboard />, // Placeholder for the actual component
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'product_form',
+          label: 'Product Form Test',
+          icon: 'shopping-cart',
+          panel: <ProductForm onUpdateProduct={() => { console.log("test")}} />, // Placeholder for the actual component
+        },
+        {
+          type: 'label',
+          id: 'scheduling',
+          label: 'scheduling',
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'calendar',
+          label: 'Calendar',
+          icon: 'calendar',
+          panel: <Calendar />,
+        },
+        {
+          type: 'label',
+          id: 'content',
+          label: 'content'
+        },
+        // {
+        //   type: 'panel',
+        //   onClickHandler: setPanel,
+        //   id: 'posts',
+        //   label: 'Posts',
+        //   icon: 'book',
+        //   panel: <PostManager />,
+        // },
+        {
+          type: 'link',
+          icon: 'book',
+          label: 'Posts',
+          link: '/post-manager'
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'file_manager',
+          label: 'File Manager',
+          icon: 'folder-close',
+          panel: <FileManager />, // Placeholder for the actual component
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'example form',
+          label: 'Example Form',
+          icon: 'form',
+          panel: <Form />, // Placeholder for the actual component
+        },
+        {
+          type: 'label',
+          id: 'marketing',
+          label: 'marketing'
+        }],
+    },
+    {
+      type: 'collapse',
+      id: 'store',
+      label: 'Cart',
+      icon: 'shopping-cart',
+      hasCaret: true,
+      children: [
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'cart',
+          label: 'Cart',
+          icon: 'shopping-cart',
+          panel: <Cart hasCheckoutButton={true} isEditable={true} title={'Shopping Cart'} />,
+        },
+        {
+          type: 'panel',
+          onClickHandler: setPanel,
+          id: 'saved-items',
+          label: 'Saved Items',
+          icon: 'bookmark',
+          panel: <SavedItems />,
+        },
+      ],
+    }
+    // ... Add more items as needed
+  ];
+
   const userLoggedOutMenu = [
     {
       type: 'onClick',
@@ -436,19 +668,22 @@ function App() {
       type: 'link',
       icon: 'home',
       label: 'Home',
-      link: '/'
+      link: '/',
+      id: 'home'
     },
     {
       type: 'link',
       icon: 'shop',
       label: 'Store',
-      link: '/products'
+      link: '/products',
+      id: 'store'
     },
     {
       type: 'link',
       icon: 'user',
       label: 'Users',
-      link: '/users'
+      link: '/users',
+      id: 'users'
     },
     // {
     //   type: 'link',
@@ -459,14 +694,9 @@ function App() {
     {
       type: 'link',
       icon: 'edit',
-      label: 'CSV Upload',
-      link: '/csvtest'
-    },
-    {
-      type: 'link',
-      icon: 'edit',
       label: 'Page Builder',
-      link: '/page-builder'
+      link: '/page-builder',
+      id: 'page-builder'
     },
     // {
     //   type: 'link',
@@ -476,13 +706,91 @@ function App() {
     // },
   ];
 
+  const footerMenu = [
+    {
+      type: 'link',
+      icon: 'home',
+      label: 'Home',
+      link: '/'
+    },
+    {
+      type: 'link',
+      icon: 'shop',
+      label: 'Products',
+      link: '/products'
+    },
+    {
+      type: 'link',
+      icon: 'shopping-cart',
+      label: 'Checkout',
+      link: '/checkout'
+    },
+    {
+      type: 'link',
+      icon: 'user',
+      label: 'Users',
+      link: '/users'
+    },
+    {
+      type: 'link',
+      icon: 'calendar',
+      label: 'Calendar',
+      link: '/calendar'
+    },
+    {
+      type: 'link',
+      icon: 'user',
+      label: 'User Board',
+      link: '/user-board'
+    },
+    {
+      type: 'link',
+      icon: 'book',
+      label: 'Markdown',
+      link: '/markdown'
+    },
+    {
+      type: 'link',
+      icon: 'book',
+      label: 'Header Builder',
+      link: '/header'
+    },
+    {
+      type: 'link',
+      icon: 'book',
+      label: 'CSV Upload',
+      link: '/csvtest'
+    },
+    {
+      type: 'link',
+      icon: 'book',
+      label: 'Page Builder',
+      link: '/page-builder'
+    },
+    {
+      type: 'link',
+      icon: 'book',
+      label: 'Post Manager',
+      link: '/post-manager'
+    },
+    {
+      type: 'link',
+      icon: 'book',
+      label: 'Blog',
+      link: '/blog'
+    },
+  ];
+  
+  console.log(footerMenu);
+  
+
   return (
     <Router>
       <div className="App" css={css`
         background-color: ${globalTheme.backgroundColor};
         color: ${globalTheme.color}
     `}>
-        <Header headerMenu={headerMenu} userLoggedInMenu={userLoggedInMenu} userLoggedOutMenu={userLoggedOutMenu} setOverlayContent={setOverlayContent} setIsOverlayOpen={setIsOverlayOpen} setIsRegisterOpen={setIsRegisterOpen} setIsLoginOpen={setIsLoginOpen} setIsDrawerOpen={setIsDrawerOpen} />
+        <Header headerMenu={headerMenu} userMobileLoggedInMenu={userMobileLoggedInMenu} userLoggedInMenu={userLoggedInMenu} userLoggedOutMenu={userLoggedOutMenu} setOverlayContent={setOverlayContent} setIsOverlayOpen={setIsOverlayOpen} setIsRegisterOpen={setIsRegisterOpen} setIsLoginOpen={setIsLoginOpen} setIsDrawerOpen={setIsDrawerOpen} />
         <SettingsDrawer setIsDrawerOpen={setIsDrawerOpen} isDrawerOpen={isDrawerOpen} setOverlayContent={setOverlayContent} setIsOverlayOpen={setIsOverlayOpen} />
         <CustomOverlay isOverlayOpen={isOverlayOpen} setIsOverlayOpen={setIsOverlayOpen}>{overlayContent}</CustomOverlay>
         {isLoginOpen && <Login setIsLoginOpen={setIsLoginOpen} />}
@@ -494,7 +802,7 @@ function App() {
             ))}
           </Routes>
         </Card>
-        <Footer />
+        <Footer footerMenu={footerMenu}/>
       </div>
     </Router>
   );

@@ -4,8 +4,8 @@ import { create as createCartItem, getAll as getAllCartItems, update as updateCa
 import { useDispatch, useSelector } from "react-redux";
 import parse from 'html-react-parser';
 import Carousel from 'components/elements/Carousel';
-const ProductComponent = ({ product }) => {
 
+const ProductComponent = ({ product }) => {
     const { user: currentUser } = useSelector((state) => state.auth);
     const { cart_items } = useSelector((state) => state.cart_item);
     const dispatch = useDispatch();
@@ -13,63 +13,79 @@ const ProductComponent = ({ product }) => {
     const [selectedAttributes, setSelectedAttributes] = useState({});
     const [attributeFields, setAttributeFields] = useState([]);
     const [filteredVariations, setFilteredVariations] = useState([]);
-    const [images, setImages] = useState([]);
+    const [productImages, setProductImages] = useState([]);
 
-    useEffect(() => {
-        const images = product.images.map(image => {
-            return {
-                type: 'image',
-                src: image
-            }
-        });
-        // Initialize attributeFields array dynamically based on product attributes
-        const attributeFields = Object.keys(product)
-            .filter((key) => key.startsWith('attribute_') && key.endsWith('_name'))
-            .map((attributeNameKey) => {
-                const attributeIndex = attributeNameKey.split('_')[1];
-                const attributeName = product[attributeNameKey];
-                const attributeValuesKey = `attribute_${attributeIndex}_values`;
-                return {
-                    name: attributeName,
-                    index: attributeValuesKey,
-                    values: product[attributeValuesKey] || [],
-                };
-            });
+    // Function to get field value by name
+    const getFieldByName = (fieldName, valueType) => {
+        const field = product.fields.find((field) => field.name === fieldName);
+        return field ? field[valueType] : null;
+    };
 
-        setAttributeFields(attributeFields);
-        setImages(images);
-    }, [product]);
-
-    useEffect(() => {
-        if (Object.keys(selectedAttributes).length === 0) {
-            setFilteredVariations(product.variations); // Use all variations if no attributes selected
-            return;
-        }
-
-        console.log(attributeFields);
-        console.log(selectedAttributes);
-
-        // Update filteredVariations when attributes change
-        const matchingVariations = product.variations.filter((variation) => {
-            let match = true;
-            Object.keys(selectedAttributes).forEach(key => {
-                if (selectedAttributes[key] != variation[key]) {
-                    match = false;
-                }
-            });
-
-            return match;
-        });
-
-        setFilteredVariations(matchingVariations);
-    }, [selectedAttributes, product.variations, attributeFields]);
-
+    // Function to handle attribute selection
     const handleAttributeChange = (attributeIndex, selectedValue) => {
         setSelectedAttributes((prevAttributes) => ({
             ...prevAttributes,
             [attributeIndex]: selectedValue,
         }));
     };
+
+    useEffect(() => {
+        // Use getFieldByName to get the 'images' value from product fields
+        const images = getFieldByName('images', 'value');
+        const imagesArray = images.map(image => {
+            return {
+                type: 'image',
+                src: image
+            }
+        });
+
+        // Initialize attributeFields array dynamically based on product attributes
+        const attributeFields = product.fields
+            .filter((field) => field.variation)
+            .map((attributeField) => {
+                console.log(attributeField);
+                return {
+                    name: attributeField.name,
+                    index: attributeField.name,
+                    values: attributeField.selection,
+                };
+            });
+
+        setAttributeFields(attributeFields);
+        setProductImages(imagesArray);
+    }, [product]);
+
+    useEffect(() => {
+        let images;
+        if (Object.keys(selectedAttributes).length === 0) {
+            setFilteredVariations(product.data); // Use all variations if no attributes selected
+            images = getFieldByName('images', 'value');
+        } else {
+            // Update filteredVariations when attributes change
+            console.log(selectedAttributes);
+            const matchingVariations = product.data.filter((variation) => {
+                let match = true;
+                Object.keys(selectedAttributes).forEach(key => {
+                        if (selectedAttributes[key] !== variation[key]) {
+                            match = false;
+                        }
+                    });
+
+                    return match;
+                });
+            console.log(matchingVariations);
+            setFilteredVariations(matchingVariations);
+            images = matchingVariations[0].images;
+        }
+        
+        const imagesArray = images.map(image => {
+            return {
+                type: 'image',
+                src: image
+            }
+        });
+        setProductImages(imagesArray);
+    }, [selectedAttributes, product.data]);
 
     const handleAddToCart = () => {
         // Add to cart logic goes here
@@ -83,11 +99,11 @@ const ProductComponent = ({ product }) => {
         };
 
         if (cart_items) {
-            const existing_cart_item = cart_items.find(item => item.product_id === product._id);
+            const existing_cart_item = cart_items.find(item => item.product_id === product.id);
             if (existing_cart_item) {
                 const updated_cart_item = { ...existing_cart_item, attributes: selectedAttributes };
                 updated_cart_item.quantity = existing_cart_item.quantity + 1;
-                dispatch(updateCartItem({ id: existing_cart_item._id, data: updated_cart_item }))
+                dispatch(updateCartItem({ id: existing_cart_item.id, data: updated_cart_item }))
                     .unwrap()
                     .then(data => {
                         dispatch(getAllCartItems());
@@ -116,7 +132,7 @@ const ProductComponent = ({ product }) => {
             quantity: 1,
             type: 'saved',
         };
-
+    
         dispatch(createCartItem(new_cart_item))
             .unwrap()
             .then(data => {
@@ -126,39 +142,38 @@ const ProductComponent = ({ product }) => {
                 console.log(e);
             });
     };
+    
 
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
     });
 
-    const price = product.sale_price ? (
-        <span className="sale-tag">
-            <span style={{ color: 'red', textDecoration: 'line-through' }}>
-                {`${formatter.format(product.regular_price)}`}
-            </span>
-            {`${formatter.format(product.sale_price)}`}
-        </span>
+    // Get values using getFieldByName
+    const productName = getFieldByName('name', 'value');
+    const productDescription = getFieldByName('description', 'value');
+    const salePrice = getFieldByName('sale_price', 'value');
+    const regularPrice = getFieldByName('regular_price', 'value');
+    const price = salePrice ? (
+      <span className="sale-tag">
+        <span style={{ color: 'red', textDecoration: 'line-through' }}>{`${formatter.format(regularPrice)}`}</span>
+        {`${formatter.format(salePrice)}`}
+      </span>
     ) : (
-        <span>{`${formatter.format(product.regular_price)}`}</span>
+      <span>{`${formatter.format(regularPrice)}`}</span>
     );
-
+  
     return (
         <Card className={`product-component ${Classes.ELEVATION_2}`}>
-            {/* <div>
-                <strong>{product.categories}</strong>
-            </div> */}
-            {/* <img src={product.images[0]} alt={product.name} className="product-overlay-image" /> */}
-            <Carousel items={images} />
+            <Carousel items={productImages} />
             <div className="product-details">
-                <div className="product-name"><H4>{product.name}</H4></div>
-                {product.description && <div className="desciption">{parse(product.description)}</div>}
-
+                <div className="product-name"><H4>{productName}</H4></div>
+                {productDescription && <div className="product-description">{parse(productDescription)}</div>}
                 <div className="product-info">
                     <Divider />
                     <div className="product-attributes">
                         {attributeFields.map((attribute) => (
-                            <FormGroup key={attribute.name} label={attribute.name}>
+                            <FormGroup key={attribute.index} label={attribute.name}>
                                 <HTMLSelect
                                     value={selectedAttributes[attribute.index] || ''}
                                     onChange={(e) => handleAttributeChange(attribute.index, e.target.value)}
@@ -176,7 +191,6 @@ const ProductComponent = ({ product }) => {
                     <Divider />
                     <div className="product-price"><Tag>{price}</Tag></div>
                 </div>
-
                 <div className="product-actions">
                     <Button intent={Intent.PRIMARY} onClick={handleAddToList}>
                         Add to List
@@ -185,16 +199,10 @@ const ProductComponent = ({ product }) => {
                         Add to Cart
                     </Button>
                 </div>
-                {/* <div className="filtered-variations">
-                    {filteredVariations.map((variation) => (
-                        <div key={variation._id}>
-                            <strong>Variation:</strong> {variation.name}, <strong>Price:</strong> {formatter.format(variation.price)}
-                        </div>
-                    ))}
-                </div> */}
             </div>
         </Card>
     );
 };
 
 export default ProductComponent;
+

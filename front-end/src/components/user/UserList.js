@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "css/UserList.css";
-
+import { Tag, Overlay2, Classes } from "@blueprintjs/core";
 import { create as createSitePermissions, update as updateSitePermissions, remove as removeSitePermissions } from "slices/site/user_site_availability";
 import { create as createUserSiteAvailability, remove as removeUserSiteAvailability } from "slices/site/user_site_availability";
 import { Link } from "react-router-dom";
@@ -20,6 +20,7 @@ import "App.css";
 import Pagination from "components/common/Pagination";
 import ToolBar from "components/tools/ToolBar";
 import Card from "components/elements/Card";
+import UserPreview from "./UserPreview";
 const PageSize = 18;
 
 const heroPageInfo = {
@@ -37,6 +38,7 @@ const UserList = (props) => {
     const [showGlobalAdminTools, setShowGlobalAdminTools] = useState(false);
     const [showSuperUserTools, setShowSuperUserTools] = useState(false);
     const [toolList, setToolList] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null)
 
     const [currentSite, setCurrentSite] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
@@ -64,13 +66,13 @@ const UserList = (props) => {
         if (users) {
             let filtered = [];
             if (props.mode == "student") {
-                
+
                 //filter to only enrolled
                 filtered = filterStudents(users, enrollments, product_permissions, currentUser);
                 setFilteredUsers(filtered);
                 setSearchData(filtered);
             } else if (props.mode == "superUser") {
-                
+
                 if (currentUser && (PageAuth.superUserAuth(currentUser) || PageAuth.adminAuth(currentUser) || PageAuth.globalAdminAuth(currentUser))) {
                     filtered = filterUsers(users, product_permissions);
                     setFilteredUsers(filtered);
@@ -80,11 +82,11 @@ const UserList = (props) => {
                     setSearchData(users);
                 }
             } else if (props.mode == "admin") {
-                
+
                 setFilteredUsers(users);
                 setSearchData(users);
             } else if (props.mode == "global_admin") {
-                
+
                 setFilteredUsers(users);
                 setSearchData(users);
             } else {
@@ -228,8 +230,8 @@ const UserList = (props) => {
                                     currentUserList.length > 0 ? (
                                         currentUserList.map((user, index) => (
 
-                                            <Card element={user} content={{image: user.profile_image, header: `${user.first_name} ${user.last_name}`, info: user.description, link: {src: `/user/${user._id}`, text: "View User"}}} />
-                                            
+                                            <Card element={user} onClickCallback={() => setSelectedUser(user)} content={{ image: user.profile_image, header: `${user.first_name} ${user.last_name}`, info: user.description, link: { src: `/user/${user._id}`, text: "View User" } }} />
+
                                         ))
                                     ) : (<div class="no-results">No Users Found</div>)
                                 }
@@ -247,6 +249,19 @@ const UserList = (props) => {
                     )
                 }
             </div>
+            {selectedUser && (
+                <Overlay2
+                    isOpen={!!selectedUser}
+                    onClose={() => setSelectedUser(null)}
+                    className={`card-overlay ${Classes.OVERLAY_SCROLL_CONTAINER}`}
+                    >
+                    <div className={`${Classes.CARD} ${Classes.ELEVATION_4} user-overlay`}>
+                        {selectedUser && (
+                            <UserPreview user={selectedUser} />
+                        )}
+                    </div>
+                </Overlay2>
+            )}
         </div>
     );
 }

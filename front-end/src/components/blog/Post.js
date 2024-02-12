@@ -27,13 +27,15 @@ const Post = ({ post_prop }) => {
     const found_post = posts.find((post_object) => post_object._id == post_id);
     const author = users.find((user) => user._id == post.author);
 
-    return { ...found_post, author_name: (`${author.first_name} ${author.last_name}`)};
+    return found_post;
+    //return { ...found_post, author_name: (`${author.first_name} ${author.last_name}`)};
   };
 
   const generatePost = () => {
     if (post) {
       return (
           <Card className="post" elevation={3}>
+            <div className="post-image"  style={{backgroundImage: `url(${post.post_image})`}}></div>
             <div className="post-title"><h1>{post.title}</h1></div>
             <Divider />
             <div className="post-content">

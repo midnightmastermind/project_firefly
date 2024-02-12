@@ -13,6 +13,7 @@ import {
 import DynamicForm from 'components/form/Form';
 
 import { default_product_data } from './default_sample_form_data';
+import Carousel from 'components/elements/Carousel';
 console.log(default_product_data);
 
 const ProductForm = ({ productData = default_product_data, onUpdateProduct }) => {
@@ -22,6 +23,14 @@ const ProductForm = ({ productData = default_product_data, onUpdateProduct }) =>
     const typeOptions = ['Text', 'Number', 'Currency'];
 
     console.log(productData);
+
+
+    // Function to get field value by name
+    const getFieldByName = (fieldName, valueType) => {
+        const field = productData.fields.find((field) => field.name === fieldName);
+        return field ? field[valueType] : null;
+    };
+
     const handleAddField = () => {
         const newField = {
             name: `Field ${fields.length + 1}`,
@@ -71,6 +80,8 @@ const ProductForm = ({ productData = default_product_data, onUpdateProduct }) =>
 
     const handleFieldChange = (index, key, value) => {
         const updatedFields = [...fields];
+        updatedFields[index] = { ...updatedFields[index] };
+
         updatedFields[index][key] = value;
         setFields(updatedFields);
 
@@ -91,15 +102,28 @@ const ProductForm = ({ productData = default_product_data, onUpdateProduct }) =>
     };
 
     const canAddVariation = fields.some((field) => field.variation);
-    console.log(variations);
+    const images = getFieldByName('images', 'value');
+    const imagesArray = images.map(image => {
+        return {
+            type: 'image',
+            src: image
+        }
+    });
+
+
+    const image = (
+        <div className="product-image"><Carousel items={imagesArray} /></div>//style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
+    );
     return (
         <div className="product-form-container" style={{ width: '100%' }}>
-            <div>
-                <FormGroup label="Product Name">
-                    <InputGroup value={productName} onChange={(e) => setProductName(e.target.value)} />
-                </FormGroup>
-            </div>
-            {/* <div className="fields-container">
+            <div className="product-form-header">
+                {image}
+                <div className="product-info-container">
+                    <FormGroup label="Product Name">
+                        <InputGroup value={productName} onChange={(e) => setProductName(e.target.value)} />
+                    </FormGroup>
+
+                    {/* <div className="fields-container">
                 <h3>Fields</h3>
                 <div className="fields-list">
                     {fields.map((field, index) => (
@@ -139,128 +163,137 @@ const ProductForm = ({ productData = default_product_data, onUpdateProduct }) =>
                     Add Field
                 </Button>
             </div> */}
-            <div className="fields-container">
-                <div className="container-header">
-                    <h3>Fields</h3>
-                    <Button
-                        intent={Intent.PRIMARY}
-                        onClick={handleAddVariation}
-                        disabled={!canAddVariation}
-                    >
-                        Add Field
-                    </Button>
-                </div>
-                <div className="fields-list-headers" style={{ display: 'flex' }}>
-                    <FormGroup className="name-column" label="Name" />
-                    <FormGroup className="type-column" label="Type" />
-                    <FormGroup className="variant-column" label="Variation?" />
-                    <FormGroup className="value-column" label="Value" />
-                    <Button className="trash-column" icon="trash" intent={Intent.DANGER} />
-                </div>
-                <div className="fields-list">
-                    {fields.length > 0 ? (
-                        fields.map((field, index) => (
-                            <div className="field" key={`field-${index}`} style={{ display: 'flex' }}>
-                                <FormGroup className="name-column">
-                                    <InputGroup
-                                        value={field.name}
-                                        onChange={(e) => handleFieldChange(index, 'name', e.target.value)}
-                                    />
-                                </FormGroup>
-                                <FormGroup className="name-column">
-                                    <HTMLSelect
-                                        value={field.type}
-                                        onChange={(e) => handleFieldChange(index, 'type', e.target.value)}
-                                        options={typeOptions}
-                                    />
-                                </FormGroup>
-                                <FormGroup className="variant-column">
-                                    <Switch
-                                        checked={field.variation}
-                                        onChange={(e) => handleFieldChange(index, 'variation', e.target.checked)}
-                                    />
-                                </FormGroup>
-                                <FormGroup className="value-column">
-                                    <InputGroup
-                                        type={field.type === 'Currency' ? 'text' : field.type.toLowerCase()}
-                                        value={field.value}
-                                        onChange={(e) => handleFieldChange(index, 'value', e.target.value)}
-                                        disabled={field.variation}
-                                    />
-                                </FormGroup>
-                                <Button className="trash-column" icon="trash" intent={Intent.DANGER} onClick={() => handleDeleteField(index)} />
-                            </div>
-                        ))
-                    ) : (
-                        <div>Add Fields</div>
-                    )
-                    }
-                </div>
-            </div>
-
-            <div className="variations-container">
-                <Divider />
-                <div className="variations-list-container">
-
-                <div className="container-header">
-                    <h3>Product Variations</h3>
-                    <Button
-                        intent={Intent.PRIMARY}
-                        onClick={handleAddVariation}
-                        disabled={!canAddVariation}
-                    >
-                        Add Variation
-                    </Button>
-                </div>
-                <div className="variations-list">
-                    {variations.length > 0 ? (
-                        variations.map((variation, index) => (
-                            <Card className="variation" key={index} style={{ display: 'flex' }}>
-                                {fields.filter((field) => field.variation).length > 0 && <DynamicForm
-                                    schema={fields
-                                        .filter((field) => field.variation)
-                                        .map((field) => ({ ...field, editable: false, label: field.name }))}
-                                    data={variation}
-                                    title={``}
-                                    soloSave={true}
-                                    noSave={true}
-                                    callbackFunction={(formData) => handleVariationFormSubmit(formData, index)}
-                                />}
-                                {fields.filter((field) => field.variation).length === 0 &&
-                                    <h4>No Variation Fields</h4>
-                                }
-                                <Button
-                                    className='delete-button'
-                                    icon="trash"
-                                    intent={Intent.DANGER}
-                                    onClick={() => handleDeleteVariation(index)}
-                                    style={{ marginLeft: '10px' }}
-                                />
-                            </Card>
-                        ))
-                    ) : (
-                        fields.filter((field) => field.variation).length === 0 ? (<NonIdealState
-                            icon="info-sign"
-                            title="Please Add Variation Fields"
-                            description="You need to add fields with the 'Variation' switch turned on before creating variations."
-                        />
-                        ) : (
+                    <div className="fields-container">
+                        <div className="container-header">
+                            <h3>Fields</h3>
                             <Button
                                 intent={Intent.PRIMARY}
                                 onClick={handleAddVariation}
                                 disabled={!canAddVariation}
                             >
-                                Add Variation
+                                Add Field
                             </Button>
-                        )
-                    )}
+                        </div>
+                        <div className="fields-list-headers" style={{ display: 'flex' }}>
+                            <FormGroup className="name-column" label="Name" />
+                            <FormGroup className="type-column" label="Type" />
+                            <FormGroup className="variant-column" label="Variation?" />
+                            <FormGroup className="value-column" label="Value" />
+                            <Button className="trash-column" icon="trash" intent={Intent.DANGER} />
+                        </div>
+                        <div className="fields-list">
+                            {fields.length > 0 ? (
+                                fields.map((field, index) => (
+                                    <div className="field" key={`field-${index}`} style={{ display: 'flex' }}>
+                                        <FormGroup className="name-column">
+                                            <InputGroup
+                                                value={field.name}
+                                                onChange={(e) => handleFieldChange(index, 'name', e.target.value)}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup className="name-column">
+                                            <HTMLSelect
+                                                value={field.type}
+                                                onChange={(e) => handleFieldChange(index, 'type', e.target.value)}
+                                                options={typeOptions}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup className="variant-column">
+                                            <Switch
+                                                checked={field.variation}
+                                                onChange={(e) => handleFieldChange(index, 'variation', e.target.checked)}
+                                            />
+                                        </FormGroup>
+                                        <FormGroup className="value-column">
+                                            <InputGroup
+                                                type={field.type === 'Currency' ? 'text' : field.type.toLowerCase()}
+                                                value={field.value}
+                                                onChange={(e) => handleFieldChange(index, 'value', e.target.value)}
+                                                disabled={field.variation}
+                                            />
+                                        </FormGroup>
+                                        <Button className="trash-column" icon="trash" intent={Intent.DANGER} onClick={() => handleDeleteField(index)} />
+                                    </div>
+                                ))
+                            ) : (
+                                <div>Add Fields</div>
+                            )
+                            }
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div className="variations-container">
+                <Divider />
+                <div className="variations-list-container">
+
+                    <div className="container-header">
+                        <h3>Product Variations</h3>
+                        <Button
+                            intent={Intent.PRIMARY}
+                            onClick={handleAddVariation}
+                            disabled={!canAddVariation}
+                        >
+                            Add Variation
+                        </Button>
+                    </div>
+                    <div className="variations-list">
+                        {variations.length > 0 ? (
+                            variations.map((variation, index) => (
+                                <Card className="variation" key={index} style={{ display: 'flex' }}>
+                                    <div className="variation-image">
+                                        <Carousel settings={{showThumbs: false}} items={variation.images?.map(image => {
+                                            return {
+                                                type: 'image',
+                                                src: image
+                                            }
+                                        })} />
+                                    </div>
+                                    {fields.filter((field) => field.variation).length > 0 && <DynamicForm
+                                        schema={fields
+                                            .filter((field) => field.variation)
+                                            .map((field) => ({ ...field, editable: false, label: field.name }))}
+                                        data={variation}
+                                        title={``}
+                                        soloSave={true}
+                                        noSave={true}
+                                        callbackFunction={(formData) => handleVariationFormSubmit(formData, index)}
+                                    />}
+                                    {fields.filter((field) => field.variation).length === 0 &&
+                                        <h4>No Variation Fields</h4>
+                                    }
+                                    <Button
+                                        className='delete-button'
+                                        icon="trash"
+                                        intent={Intent.DANGER}
+                                        onClick={() => handleDeleteVariation(index)}
+                                        style={{ marginLeft: '10px' }}
+                                    />
+                                </Card>
+                            ))
+                        ) : (
+                            fields.filter((field) => field.variation).length === 0 ? (<NonIdealState
+                                icon="info-sign"
+                                title="Please Add Variation Fields"
+                                description="You need to add fields with the 'Variation' switch turned on before creating variations."
+                            />
+                            ) : (
+                                <Button
+                                    intent={Intent.PRIMARY}
+                                    onClick={handleAddVariation}
+                                    disabled={!canAddVariation}
+                                >
+                                    Add Variation
+                                </Button>
+                            )
+                        )}
+                    </div>
                 </div>
             </div>
             <div className="action-buttons">
                 <Button
-                intent={Intent.SUCCESS}
-                onClick={() => onUpdateProduct({ name: productName, fields, data: variations })}
+                    intent={Intent.SUCCESS}
+                    onClick={() => onUpdateProduct({ name: productName, fields, data: variations })}
                 >
                     Save Product
                 </Button>

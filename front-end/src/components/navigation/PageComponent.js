@@ -39,10 +39,10 @@ const PageComponent = (props) => {
   };
 
   return (
-    <div>
-    <div className="page-component-container">
+    <div className="page-component" >
+    <div className="page-grid-container">
       {props.page.layout &&
-      <div className="page-component">
+      <div className="page-grid">
         <ReactGridLayout
           disabled={false}
           isDraggable={false}
@@ -79,7 +79,7 @@ PageComponent.propTypes = {
 PageComponent.defaultProps = {
   className: "layout",
   rowHeight: 60,
-  cols: 12,
+  cols: {lg: 12},
   verticalCompact: false,
   compactType: null,
   usePortal: true,

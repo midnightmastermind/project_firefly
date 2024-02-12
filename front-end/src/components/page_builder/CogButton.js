@@ -3,6 +3,14 @@ import { Button, Popover, Slider } from '@blueprintjs/core';
 import ComponentSettings from './NewComponentSettings';
 
 // ... (other imports)
+window.addEventListener('error', (event) => {
+  // Check if the error is related to ResizeObserver
+  if (event.message.includes('ResizeObserver loop completed with undelivered notifications')) {
+    // Suppress the error
+    event.preventDefault();
+    event.stopPropagation();
+  }
+});
 
 const CogButton = ({ element, setEditable, editComponent }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);

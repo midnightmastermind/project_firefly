@@ -12,7 +12,7 @@ const Hero = ({ page }) => {
         height: '540px',
         position: 'relative',
         backgroundPosition: 'center',
-        backgroundImage: `linear-gradient(to bottom, rgba(14, 15, 59, 0.4) 10%, rgba(7, 81, 131, 0.4) 40%, rgba(0, 147, 203, 0.4) 70%), url("/${page.page}.jpg")`,
+        backgroundImage: `linear-gradient(to bottom, rgba(14, 15, 59, 0.4) 10%, rgba(7, 81, 131, 0.4) 40%, rgba(0, 147, 203, 0.4) 70%), url("${page.image}")`,
         backgroundBlendMode: 'multiply',
         backgroundSize: 'cover',
         display: 'flex',
@@ -23,11 +23,11 @@ const Hero = ({ page }) => {
 
     // component content
     return (
-        <div style={heroStyle}>
+        <div className={page.className} style={heroStyle}>
             <div className="justify-center text-center md:text-left">
                 <div style={{marginTop: '13rem'}} className="my-20">
                     <h1 className="md:pl-14 text-6xl md:text-7xl">{page.heading}</h1>
-                    <h2 className="md:pl-14 text-2xl md:text-4xl">This website could be yours but you playing.</h2>
+                    <h2 className="md:pl-14 text-2xl md:text-4xl">{page.secondaryHeading}</h2>
                     {page.search &&
                         <div className="flex items-center justify-center w-full">
                             {/* <SearchBar /> */}

@@ -19,7 +19,10 @@ const Cart = ({ hasCheckoutButton, isEditable, title }) => {
       const items_in_cart = cart_items.filter((item) => item.type == 'cart');
       console.log(items_in_cart);
         const merged_cart_items = items_in_cart.map((item) => {
+          console.log(item);
+          console.log(products);
           const product = products.find((product) => product._id == item.product_id);
+          console.log(product);
           if (product) {
             const product_sub_total = item.quantity * product.product_price;
             sub_total = sub_total + product_sub_total;
@@ -33,7 +36,10 @@ const Cart = ({ hasCheckoutButton, isEditable, title }) => {
     } 
   }, [products, cart_items]);
 
-
+  const getFieldByName = (item, fieldName, valueType) => {
+    const field = item.fields.find((field) => field.name === fieldName);
+    return field ? field[valueType] : null;
+};
   const proceedToCheckout = () => {
     navigate('/checkout');
   };
@@ -45,7 +51,7 @@ const Cart = ({ hasCheckoutButton, isEditable, title }) => {
       {items && items.length > 0 && items.map((item) => (
         <div className="cart-item" key={item._id}>
         
-          <div className="cart-item-img" style={{backgroundImage: `url(${item.product.images[0]}`}} />
+          <div className="cart-item-img" style={{backgroundImage: `url(${getFieldByName(item.product, 'images', 'value')[0]}`}} />
           <div className="cart-item-name">{item.product.name}</div>
           <div className="cart-item-qty">qty: {item.quantity}</div>
           <div className="cart-item-subtotal">{`$${item.sub_total}`}</div>

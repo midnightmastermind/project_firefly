@@ -16,7 +16,6 @@ import {
   TextArea
 } from '@blueprintjs/core';
 import { DateInput3, DateRangeInput3 } from '@blueprintjs/datetime2';
-import { TimePicker } from '@blueprintjs/datetime';
 
 import { ChromePicker } from 'react-color';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -251,11 +250,12 @@ const DynamicForm = ({
               />
             )}
             {field.type.toLowerCase() === 'time' && !field.allDayOption && (
-              <TimePicker
-                value={formData[(field.variable || field.name)] || null}
-                onChange={(selectedTime) => handleInputChange((field.variable || field.name), selectedTime)}
-                precision="minute"
-              />
+              // <TimePicker
+              //   value={formData[(field.variable || field.name)] || null}
+              //   onChange={(selectedTime) => handleInputChange((field.variable || field.name), selectedTime)}
+              //   precision="minute"
+              // />
+              <div>Time</div>
             )}
             {field.type.toLowerCase() === 'textarea' && (
               <TextArea

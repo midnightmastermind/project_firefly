@@ -8,7 +8,7 @@ import PageBuilderComponent from "./PageBuilderComponent";
 import { Tabs, Tab, Button } from "@blueprintjs/core";
 import PageForm from "./PageForm";
 import { DEFAULT_STYLES } from "./constants";
-import WebPagePreview from "components/common/NewWebpagePreview";
+import WebPagePreview from "components/common/WebpagePreview";
 import { v4 as uuidv4 } from 'uuid';
 
 const newPageObject = {

@@ -8,8 +8,17 @@ import Card from "../components/elements/Card"
 
 // props for Hero component
 const homeInfo = {
-    page: 'test',
-    heading: 'Poms-Web-Build'
+    image: 'http://localhost:8081/test.jpg',
+    heading: 'Poms-Web-Build',
+    secondaryHeading: "This website could be yours but you playing."
+}
+
+// props for Hero component
+const homeInfo2 = {
+    image: 'http://localhost:8081/help.jpg',
+    heading: 'The next generation in manitee technology',
+    secondaryHeading: "Its a SPLASHING good time!",
+    className: 'secondary-hero' 
 }
 
 // props for image button links in "What's Right for You"
@@ -88,10 +97,10 @@ const learnMoreButton = {
 // page content
 const HomePage = () => {
     return (
-        <div style={{height: '100vh'}}>
+        <div>
             {/* Home Page Hero Image & Text */}
             <Hero page={homeInfo} />
-
+            <Hero page={homeInfo2} />
             {/* <div className="section section-every-other text-center pt-5">
                 <h2 className="text-2xl md:text-4xl">
                     What's Right for <span className="text-blue">You</span>

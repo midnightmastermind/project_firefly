@@ -5,9 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import PageAuth from "common/PageAuth";
 import {
-    Navbar, NavbarHeading, NavbarGroup, Menu, MenuDivider,
-    NavbarDivider, Button, Alignment, ButtonGroup, MenuItem, Popover, Dialog, Classes
+    Navbar, NavbarHeading, NavbarGroup, Menu, MenuDivider, DrawerSize,
+    NavbarDivider, Button, Alignment, ButtonGroup, MenuItem, Collapse, Popover, Dialog, Classes
 } from "@blueprintjs/core";
+
+import {
+    Drawer,
+    Position,
+    Intent,
+    Icon,
+} from '@blueprintjs/core';
+import { IconNames } from '@blueprintjs/icons';
 
 import { logout } from "slices/auth/auth";
 
@@ -92,6 +100,22 @@ const Header = (props) => {
     const { user: currentUser } = useSelector((state) => state.auth);
     const { current_site: currentSite } = useSelector((state) => state.site);
     const dispatch = useDispatch();
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    console.log(props.userMobileLoggedInMenu);
+    const handleDrawerOpen = () => {
+        setIsDrawerOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setIsDrawerOpen(false);
+    };
+
+    const [collapseKey, setCollapseKey] = useState(null);
+
+    const toggleCollapse = (key) => {
+        setCollapseKey(collapseKey === key ? null : key);
+    };
 
     useEffect(() => {
         if (props.editMenu) {
@@ -100,16 +124,18 @@ const Header = (props) => {
             props.userLoggedOutMenu.push(addButtonOrDropdown);
         }
     }, [props])
-    const displayMenu = (menuItems, props) => {
+    const displayMenu = (menuItems, props, key) => {
         if (props.editMenu) {
             menuItems.push(addButton);
         }
+        
+        console.log(key)
         return (
-            <Menu>
+            <Menu key={key}>
                 {menuItems.map(menuItem => (
                     menuItem.type === 'panel' ? (
                         <Button
-                            key={menuItem.id}
+                            key={menuItem.id + key}
                             className="bp5-minimal"
                             icon={menuItem.icon}
                             onClick={() => menuItem.onClickHandler(menuItem.panel)}
@@ -118,20 +144,26 @@ const Header = (props) => {
 
                         />
                     ) : menuItem.type === 'label' ? (
-                        <MenuDivider className="bp5-minimal" key={menuItem.id} title={menuItem.label} css={css`color: ${headerTheme.color}; !important`}
+                        <MenuDivider className="bp5-minimal" key={menuItem.id + key} title={menuItem.label} css={css`color: ${headerTheme.color}; !important`}
                         />
                     ) : menuItem.type === 'onClick' ? (
-                        <Button key={menuItem.id} css={css`color: ${headerTheme.color}; !important`}
+                        <Button key={menuItem.id + key} css={css`color: ${headerTheme.color}; !important`}
                             className="bp5-minimal" icon={menuItem.icon} text={menuItem.label} onClick={menuItem.onClickHandler} />
                     ) : menuItem.type === 'link' ? (
-                        <Button key={menuItem.id} css={css`color: ${headerTheme.color}; !important`}
+                        <Button key={menuItem.id + key} css={css`color: ${headerTheme.color}; !important`}
                             className="bp5-minimal" icon={menuItem.icon} text={menuItem.label} onClick={() => navigate(menuItem.link)} />
                     ) : menuItem.type === 'dropdown' ? (
-                        <Popover key={menuItem.id} content={<Menu>{displayMenu(menuItem.children, props)}</Menu>} placement="bottom">
-                            <Button className="bp5-minimal" icon={menuItem.icon} iconRight="caret-down" text={menuItem.label} css={css`color: ${headerTheme.color}; !important`} />
+                        <Popover key={menuItem.id + key} content={<Menu>{displayMenu(menuItem.children, props, menuItem.id)}</Menu>} placement="bottom">
+                            <Button key={menuItem.id + key} className="bp5-minimal" icon={menuItem.icon} rightIcon="caret-down" text={menuItem.label} css={css`color: ${headerTheme.color}; !important`} />
                         </Popover>
                     ) : menuItem.type === 'dialog' ? (
-                        <DialogContainer menuItem={menuItem} headerTheme={headerTheme} />
+                        <DialogContainer key={menuItem.id + key} menuItem={menuItem} headerTheme={headerTheme} />
+                    ) : menuItem.type === 'collapse' ? (
+                        <div key={menuItem.id + key} className="mobile-header-collapse">
+                            <Button onClick={() => toggleCollapse(menuItem.id + key)} className="bp5-minimal" icon={menuItem.icon} rightIcon="caret-down" text={menuItem.label} css={css`color: ${headerTheme.color}; !important`} />
+                            <Collapse key={menuItem.id + key} isOpen={menuItem.id + key === collapseKey} children={<Menu className="mobile-header-collapse-menu">{displayMenu(menuItem.children, props, menuItem.id)}</Menu>} >
+                            </Collapse>
+                        </div>
                     )
                         : null
                 ))}
@@ -151,21 +183,56 @@ const Header = (props) => {
                     </NavbarHeading>
                     <NavbarDivider />
                     <ButtonGroup minimal={true}>
-                        {displayMenu(props.headerMenu, props)}
+                        {displayMenu(props.headerMenu, props, 'header-menu')}
                     </ButtonGroup>
                 </NavbarGroup>
-                <Navbar.Group align={Alignment.RIGHT}>
+                <Navbar.Group className={'desktop-menu'} align={Alignment.RIGHT}>
                     {!currentUser && (
                         <ButtonGroup minimal={true}>
-                            {displayMenu(props.userLoggedOutMenu, props)}
+                            {displayMenu(props.userLoggedOutMenu, props, 'user-logged-out')}
                         </ButtonGroup>
                     )}
                     {currentUser && (
                         <ButtonGroup minimal={true}>
-                            {displayMenu(props.userLoggedInMenu, props)}
+                            {displayMenu(props.userLoggedInMenu, props, 'user-logged-in')}
                         </ButtonGroup>
                     )}
                 </Navbar.Group>
+                <Navbar.Group className={'mobile-menu'} align={Alignment.RIGHT}>
+                    <Button
+                        key={'mobile-menu'}
+                        className="bp5-minimal"
+                        icon="menu"
+                        onClick={handleDrawerOpen}
+                        css={css`color: ${headerTheme.color}; !important`}
+
+                    />
+                </Navbar.Group>
+                <Drawer
+                    className={'mobile-menu'}
+                    isOpen={isDrawerOpen}
+                    position={Position.RIGHT}
+                    onClose={handleDrawerClose}
+                    size={DrawerSize.SMALL}
+                >
+                    <div className={Classes.DRAWER_BODY}>
+                        <div className={Classes.DRAWER_HEADER}>
+                            <h4 className={Classes.HEADING}>Menu</h4>
+                        </div>
+                        <div className="menu-container">
+                            {!currentUser && (
+                                <ButtonGroup minimal={true}>
+                                    {displayMenu(props.userLoggedOutMenu, props, 'user-logged-out-mobile')}
+                                </ButtonGroup>
+                            )}
+                            {currentUser && (
+                                <ButtonGroup minimal={true}>
+                                    {displayMenu(props.userMobileLoggedInMenu, props, 'user-logged-in-mobile')}
+                                </ButtonGroup>
+                            )}
+                        </div>
+                    </div>
+                </Drawer>
             </div>
         </Navbar>
     );
