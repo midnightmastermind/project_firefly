@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import * as CustomComponents from "./CustomPageBuilderComponents.js";
 import { create as createPage, update as updatePage, getAll as getAllPages } from 'slices/site_building/page.js';
 
-import TestMarkdown from "../tools/markdown_editor/MarkdownEditor";
+import TestMarkdown from "../tools/MarkdownEditor";
 import PageBuilderComponent from "./PageBuilderComponent";
 import { Tabs, Tab, Button } from "@blueprintjs/core";
 import PageForm from "./PageForm";
@@ -164,6 +164,7 @@ const PageBuilder = () => {
         isModalOpen && currentPage && (
         <div className="app-site-builder">
           <PageBuilderComponent savePage={savePage} page={currentPage} layout={currentPage.layout} />
+          <div></div>
         </div>
         )
       }

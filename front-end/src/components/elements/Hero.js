@@ -2,7 +2,6 @@
 Background image set dynamically based on 'page' prop. */
 
 import React from "react";
-import PageDivider from "../style/PageDivider";
 
 const Hero = ({ page }) => {
     // hero styling elements

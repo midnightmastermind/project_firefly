@@ -5,10 +5,10 @@
  * The lists are fetched from the ProductList and UserList components.
  */
 import React, { useState, useEffect } from "react";
-import ProductList from "../../REVIEW/old/components_2/ecommerce/ProductList";
-import UserList from "../../REVIEW/old/components_2/common/UserList";
-import ContentService from "../../REVIEW/old/services/site/content.service";
-import EventBus from "../../common/EventBus";
+import ProductList from "../../../../../project_attack_of_the_clones/REVIEW/old/components_2/ecommerce/ProductList";
+import UserList from "../../../../../project_attack_of_the_clones/REVIEW/old/components_2/common/UserList";
+import ContentService from "../../../REVIEW/old/services/site/content.service";
+import EventBus from "../../../common/EventBus";
 
 const BoardAdmin = () => {
   const [content, setContent] = useState("");

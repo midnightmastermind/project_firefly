@@ -6,7 +6,6 @@
  * When the searchText state is updated,
  */
 import React, { useState, useEffect } from 'react';
-// import "../../css/SearchBar.css";
 import { InputGroup, Icon } from '@blueprintjs/core';
 const SearchBar = (props) => {
     const [searchText, setSearchText] = useState('');

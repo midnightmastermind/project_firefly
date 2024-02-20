@@ -3,9 +3,9 @@
  * It creates a BoardUser functional component that renders a list of products that the user is enrolled in.
  */
 import React, { useState, useEffect } from "react";
-import ProductList from "../../REVIEW/old/components_2/ecommerce/ProductList";
-import ContentService from "../../REVIEW/old/services/site/content.service";
-import EventBus from "../../common/EventBus";
+import ProductList from "../../../../../project_attack_of_the_clones/REVIEW/old/components_2/ecommerce/ProductList";
+import ContentService from "../../../REVIEW/old/services/site/content.service";
+import EventBus from "../../../common/EventBus";
 
 const BoardUser = () => {
   const [content, setContent] = useState("");

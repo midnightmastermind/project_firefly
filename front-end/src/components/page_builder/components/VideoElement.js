@@ -2,9 +2,7 @@
 // VideoElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import ComponentPopup from '../ComponentSettings';
-import { useState } from 'react';
-import ComponentSettings from '../ComponentSettings';
+
 // const VideoElement = ({ element, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {
 //     e.stopPropagation();

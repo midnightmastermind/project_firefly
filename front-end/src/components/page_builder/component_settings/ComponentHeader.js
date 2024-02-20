@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@blueprintjs/core';
-import CogButton from '../CogButton'; // Assuming the CogButton component is in a separate file
+import CogButton from './CogButton'; // Assuming the CogButton component is in a separate file
 
 const ComponentHeader = ({ element, editComponent, onRemoveItem }) => {
   return (

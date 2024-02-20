@@ -1,11 +1,23 @@
 const express = require("express");
+const handleSocketEvents = require('./packages/chat/controllers/chat.controller');
+
 const cors = require("cors");
 const dbConfig = require("./config/db.config");
 const path = require('path');
+const socketIO = require('socket.io');
+const http = require("http");
+
 const app = express();
+const server = http.createServer(app);
+const io = socketIO(server, {
+  cors: {
+    origin: "http://localhost:8081",
+    methods: ["GET", "POST"]
+  }
+});
 
 var corsOptions = {
-    origin: "*"
+  origin: "*"
 };
 
 app.use(cors(corsOptions));
@@ -14,24 +26,25 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 if (process.env.NODE_ENV !== 'local') {
-    app.use(express.static(path.join(__dirname, 'front-end', 'build')));
+  app.use(express.static(path.join(__dirname, 'front-end', 'build')));
 
-    app.get('*', function (req, res, next) {
-        if (req.url === '/' || req.url.includes('/api')) return next();
-        res.sendFile(path.join(__dirname, 'front-end/build', 'index.html'));
-    });
+  app.get('*', function (req, res, next) {
+    if (req.url === '/' || req.url.includes('/api')) return next();
+    res.sendFile(path.join(__dirname, 'front-end/build', 'index.html'));
+  });
 }
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
 app.use(function (req, res, next) {
-    if (req.get('Referrer') ) {
-      res.setHeader('Access-Control-Allow-Origin', req.get('Referrer'))
-      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type')
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
-    }
-    next();
-  })
+  if (req.get('Referrer')) {
+    res.setHeader('Access-Control-Allow-Origin', req.get('Referrer'))
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+  }
+  next();
+});
+
 const db = require("./models");
 
 let connection_string = `mongodb://127.0.0.1:${dbConfig.PORT}/${dbConfig.DB}`;
@@ -45,17 +58,17 @@ let connection_string = `mongodb://127.0.0.1:${dbConfig.PORT}/${dbConfig.DB}`;
 // }
 
 db.mongoose
-    .connect(connection_string, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => {
-        console.log("Successfully connect to MongoDB.");
-    })
-    .catch(err => {
-        console.error("Connection error", err);
-        process.exit();
-    });
+  .connect(connection_string, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Successfully connect to MongoDB.");
+  })
+  .catch(err => {
+    console.error("Connection error", err);
+    process.exit();
+  });
 
 // routes
 
@@ -83,16 +96,321 @@ require("./packages/ecommerce/routes/product_permissions.routes")(app);
 require("./packages/ecommerce/routes/product.routes")(app);
 require("./packages/ecommerce/routes/cart_item.routes")(app);
 require("./packages/ecommerce/routes/stripe.routes")(app);
+const Chat = require('./packages/chat/models/chat.model');
+const ChatMessage = require('./packages/chat/models/chat_message.model');
+
+
+// require("./packages/chat/routes/conversation.routes")(app);
+// require("./packages/chat/routes/chat_message.routes")(app);
+// require("./packages/chat/routes/chat.routes")(app);
+
+const connectedSockets = {};
+
+io.on('connection', (socket) => {
+  socket.on('setUserId', (userId) => {
+    connectedSockets[userId] = socket.id;
+  });
+
+  socket.on('action', (action) => {
+    if (action.type === 'server/hello') {
+      socket.emit('action', { type: 'message', data: 'good day!' });
+    } else if (action.type === 'server/fetchChats') {
+      Chat.find({ 'participants.id': action.data }).exec((err, chats) => {
+        if (err) {
+          io.emit('errorMessage', { message: 'Chat not found' });
+        } else {
+          if (!chats || chats.length === 0) {
+            io.emit('action', { type: 'get_chats', data: [] });
+          } else {
+            io.emit('action', { type: 'get_chats', data: chats });
+          }
+        }
+      });
+    } else if (action.type === 'server/createChat') {
+      const chat_data = action.data;
+      const chat = new Chat({ ...chat_data, messages: [] });
+
+      chat.save((err, savedChat) => {
+        if (err) {
+          io.emit('errorMessage', { message: 'Chat not found' });
+        } else {
+          io.emit('action', { type: 'create_chat', data: savedChat });
+        }
+      });
+    } else if (action.type === 'server/fetchChatMessages') {
+      const conversationId = action.data;
+      ChatMessage.find({ 'conversationId': conversationId }).exec((err, chat_messages) => {
+        if (err) {
+          io.emit('errorMessage', { message: 'chat_messages not found' });
+        } else {
+          if (!chat_messages || chat_messages.length === 0) {
+            io.emit('action', { type: 'get_messages', data: [] });
+          } else {
+            io.emit('action', { type: 'get_messages', data: chat_messages });
+          }
+        }
+      });
+    } else if (action.type === 'server/newMessage') {
+      const chat_message_data = action.data.message;
+      const conversationId = action.data.conversationId;
+      const chat_message = new ChatMessage({ ...chat_message_data, conversationId });
+
+      chat_message.save((err, savedChatMessage) => {
+        if (err) {
+          console.log(err);
+          io.emit('errorMessage', { message: 'Chat not found' });
+        }
+
+        if (!savedChatMessage) {
+          io.emit('errorMessage', { message: 'chat_message not found' });
+        } else {
+          io.emit('action', { type: 'new_message', data: savedChatMessage });
+
+          Chat.findOne({ 'id': savedChatMessage.conversationId }).exec((err, chat) => {
+            if (err) {
+              io.emit('errorMessage', { message: 'Chat not found' });
+            } else {
+              const recipient = chat.participants.find(item => item.id !== savedChatMessage.senderId);
+              const recipientId = recipient.id;
+              if (connectedSockets[recipientId]) {
+                io.to(connectedSockets[recipientId]).emit('action', { type: 'server/receive_message', data: { conversation: chat, new_message: savedChatMessage } });
+              }
+            }
+          });
+        }
+      });
+    }
+  });
+
+// } else if (action.type === 'server/sendMessage') {
+//   const chat_message_data = action.data;
+
+//   const chat_message = {
+//     ...chat_message_data.message,
+//     direction: null,
+//     senderId: chat_message_data.senderId,
+//     conversationId: chat_message_data.conversationId,
+//   };
+
+//   Chat.findOneAndUpdate(
+//     { id: chat_message_data.conversationId },
+//     { $push: { messages: chat_message } },
+//     { new: true }, // set to true to return the modified document
+//     (err, updatedDocument) => {
+//       if (err) {
+//         io.emit('errorMessage', { message: 'Chat not found' });
+//       }
+
+//       if (!updatedDocument) {
+//         io.emit('errorMessage', { message: 'Chat not found' });
+//       } else {
+//         io.emit('action', { type: 'send_message', data: updatedDocument });
+
+//         const recepient = updatedDocument.participants.find(item => item.id !== chat_message_data.senderId);
+
+//         if (connectedSockets[recepient.id]) {
+//           // Emit the message to the specific user
+//           io.to(connectedSockets[recepient.id]).emit('action', { type: 'server/receive_message', data: { conversation: updatedDocument, new_message: chat_message } });
+//         } else {
+//           // Handle the case where the recipient user is not connected
+//           console.log('Recipient user is not connected');
+//         }
+//       }
+//     }
+//   );
+    // } else if (action.type == 'server/sendMessage') {
+    //   const chat_message_data = action.data;
+      
+      
+    //   const chat_message = {
+    //     ...chat_message_data.message,
+    //     direction: null,
+    //     senderId: chat_message_data.senderId,
+    //     conversationId: chat_message_data.conversationId,
+    //   };
+
+      
+    //   Chat.findOneAndUpdate(
+    //     { id: chat_message_data.conversationId },
+    //     { $push: { messages: chat_message } },
+    //     { new: true }, // set to true to return the modified document
+    //     (err, updatedDocument) => {
+    //       if (err) {
+    //         io.emit('errorMessage', { message: 'Chat not found' });
+    //       }
+
+    //       if (!updatedDocument) {
+    //         io.emit('errorMessage', { message: 'Chat not found' });
+    //       } else {
+    //         io.emit('action', { type: 'send_message', data: updatedDocument });
+
+    //         const recepient = updatedDocument.participants.find(item => item.id !== chat_message_data.senderId);
+            
+    //         if (connectedSockets[recepient.id]) {
+              
+
+    //           // Emit the message to the specific user
+    //           io.to(connectedSockets[recepient.id]).emit('action', { type: 'server/receive_message', data: { conversation: updatedDocument, new_message: chat_message } });
+    //         } else {
+
+    //           // Handle the case where the recipient user is not connected
+    //           console.log('Recipient user is not connected');
+    //         }
+    //       }
+
+
+    //     }
+    //   );
+      // 
+      // const chat_message = {
+      //   ...chat_message_data.message,
+      //   direction: null,
+      //   senderId: chat_message_data.senderId,
+      //   conversationId: chat_message_data.conversationId,
+      // };
+
+      // 
+      // Chat.findOneAndUpdate(
+      //   { id: chat_message_data.conversationId },
+      //   { $push: { messages: chat_message } },
+      //   { new: true }, // set to true to return the modified document
+      //   (err, updatedDocument) => {
+      //     if (err) {
+      //       io.emit('errorMessage', { message: 'Chat not found' });
+      //     }
+
+      //     if (!updatedDocument) {
+      //       io.emit('errorMessage', { message: 'Chat not found' });
+      //     } else {
+      //       io.emit('action', { type: 'create_chat', data: updatedDocument });
+
+      //       const recepient = updatedDocument.participants.find(item => item.id !== chat_message_data.senderId);
+      //       
+      //       if (connectedSockets[recepient.id]) {
+      //         
+
+      //         // Emit the message to the specific user
+      //         io.to(connectedSockets[recepient.id]).emit('action', { type: 'server/receive_message', data: {conversation: updatedDocument, new_message: chat_message }});
+      //       } else {
+
+      //         // Handle the case where the recipient user is not connected
+      //         
+      //       }
+      //     }
+
+
+      //   }
+      // );
+
+
+  // // Listen for a 'fetchChat' event
+  // socket.on('fetchChats', () => {
+  //   
+  //   try {
+  //     // // Implement logic to fetch the chat state
+  //     // const chats = await Chat.find();
+
+  //     // if (!chats) {
+  //     //   return socket.emit('errorMessage', { message: 'Chat not found' });
+  //     // }
+  //     const chat1 = {
+  //       unreadCounter: 0,
+  //       description: '',
+  //       draft: '',
+  //       readonly: false,
+  //       id: 'dM9jyIxHH7eu9LIoC2Jql',
+  //       participants: [
+  //         {
+  //           id: '647cdc13f0323909dbddb183',
+  //           role: {
+  //             permissions: [], socket
+  //           },
+  //         },
+  //         {
+  //           id: '646e5b5addf6c83f54e84343',
+  //           role: {
+  //             permissions: [],
+  //           },
+  //         },
+  //       ],
+  //       typingUsers: {
+  //         items: [],
+  //       },
+  //     };
+
+
+  //     // Respond with the chat state
+  //     io.emit('chatsFetched', [chat1]);
+  //   } catch (error) {
+  //     // Handle errors more explicitly
+  //     console.error(error);
+  //     io.emit('errorMessage', { message: 'Internal server error' });
+  //   }
+  // })
+  //  // Listen for a 'fetchChat' event
+  //  socket.on('fetchChats', () => {
+  //   
+  //   try {
+  //     // // Implement logic to fetch the chat state
+  //     // const chats = await Chat.find();
+
+  //     // if (!chats) {
+  //     //   return socket.emit('errorMessage', { message: 'Chat not found' });
+  //     // }
+  //     const chat1 = {
+  //       unreadCounter: 0,
+  //       description: '',
+  //       draft: '',
+  //       readonly: false,
+  //       id: 'dM9jyIxHH7eu9LIoC2Jql',
+  //       participants: [
+  //         {
+  //           id: '647cdc13f0323909dbddb183',
+  //           role: {
+  //             permissions: [],socket
+  //           },
+  //         },
+  //         {
+  //           id: '646e5b5addf6c83f54e84343',
+  //           role: {
+  //             permissions: [],
+  //           },
+  //         },
+  //       ],
+  //       typingUsers: {
+  //         items: [],
+  //       },
+  //     };
+
+
+  //     // Respond with the chat state
+  //     io.emit('chatsFetched', [chat1]);
+  //   } catch (error) {
+  //     // Handle errors more explicitly
+  //     console.error(error);
+  //     io.emit('errorMessage', { message: 'Internal server error' });
+  //   }
+  //  })
+  // Socket.IO disconnection event
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+    // Remove the disconnected socket from the connectedSockets object
+    delete connectedSockets[socket.id];
+  });
+
+  // Store the connected socket in the connectedSockets object
+  connectedSockets[socket.id] = socket;
+});
+
+
+// Expose io object for use in other parts of your application
+module.exports.io = io;
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
 
 app.keepAliveTimeout = (60 * 1000) + 1000;
 app.headersTimeout = (60 * 1000) + 2000;
-
-
-
-

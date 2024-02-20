@@ -1,5 +1,5 @@
 import FileManager from 'components/storage/FileManager';
-import TestMarkdown from 'components/tools/markdown_editor/MarkdownEditor';
+import TestMarkdown from 'components/tools/MarkdownEditor';
 import React, { useState } from 'react';
 
 const CardEditor = ({ content, element }) => {

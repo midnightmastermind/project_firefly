@@ -134,7 +134,6 @@ const siteProductAvailabilitySlice = createSlice({
     initialState,
     extraReducers: {
         [getAll.fulfilled]: (state, action) => {
-            console.log(action.payload);
             state.site_product_availability = action.payload;
         },
         [getAll.rejected]: (state, action) => {

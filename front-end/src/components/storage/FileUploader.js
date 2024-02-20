@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addToQueue, removeFromQueue, uploadFile, getUploadProgress } from 'slices/storage/file'; // Make sure to import the necessary functions
+import { addToQueue, getAll as getAllFiles, removeFromQueue, uploadFile, getUploadProgress } from 'slices/storage/file'; // Make sure to import the necessary functions
 import { FileDrop } from 'react-file-drop'; // Make sure to import the FileDrop component
 import { Icon, IconSize } from "@blueprintjs/core";
-import "./Demo.css";
 
 export const FileUploader = ({folder_id}) => {
   const styles = { width: '100%', color: 'black' };
@@ -53,6 +52,7 @@ export const FileUploader = ({folder_id}) => {
                     clearInterval(interval);
                     // Remove from queue after upload is complete
                     dispatch(removeFromQueue({ id: fileId }));
+                    dispatch(getAllFiles());
 
                   }
                 });

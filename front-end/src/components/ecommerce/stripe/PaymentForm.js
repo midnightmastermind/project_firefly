@@ -36,7 +36,7 @@ const PaymentForm = () => {
         color: '#9e2146',
       },
     },
-    hidePostalCode: true, // You can customize other options as well
+    hidePostalCode: true, // You can customize other options as weall
   };
 
   const handleSubmit = async (event) => {

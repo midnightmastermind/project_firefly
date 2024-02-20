@@ -5,7 +5,6 @@
  */
 import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "css/UserList.css";
 import { Tag, Overlay2, Classes } from "@blueprintjs/core";
 import { create as createSitePermissions, update as updateSitePermissions, remove as removeSitePermissions } from "slices/site/user_site_availability";
 import { create as createUserSiteAvailability, remove as removeUserSiteAvailability } from "slices/site/user_site_availability";
@@ -16,11 +15,11 @@ import { belongsToSite } from "common/Site";
 import LoadingBar from "components/common/LoadingBar";
 import Hero from "components/elements/Hero"
 import SearchBar from "components/common/SearchBar";
-import "App.css";
 import Pagination from "components/common/Pagination";
 import ToolBar from "components/tools/ToolBar";
 import Card from "components/elements/Card";
-import UserPreview from "./UserPreview";
+import User from "./User";
+
 const PageSize = 18;
 
 const heroPageInfo = {
@@ -253,11 +252,11 @@ const UserList = (props) => {
                 <Overlay2
                     isOpen={!!selectedUser}
                     onClose={() => setSelectedUser(null)}
-                    className={`card-overlay ${Classes.OVERLAY_SCROLL_CONTAINER}`}
+                    className={`${Classes.OVERLAY_SCROLL_CONTAINER}` }
                     >
-                    <div className={`${Classes.CARD} ${Classes.ELEVATION_4} user-overlay`}>
+                    <div className={`overlay-container ${Classes.ELEVATION_4}`}>
                         {selectedUser && (
-                            <UserPreview user={selectedUser} />
+                            <User user={selectedUser} />
                         )}
                     </div>
                 </Overlay2>

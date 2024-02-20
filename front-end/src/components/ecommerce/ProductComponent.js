@@ -164,7 +164,7 @@ const ProductComponent = ({ product }) => {
     );
   
     return (
-        <Card className={`product-component ${Classes.ELEVATION_2}`}>
+        <div className={`product-component ${Classes.ELEVATION_2}`}>
             <Carousel items={productImages} />
             <div className="product-details">
                 <div className="product-name"><H4>{productName}</H4></div>
@@ -200,7 +200,7 @@ const ProductComponent = ({ product }) => {
                     </Button>
                 </div>
             </div>
-        </Card>
+        </div>
     );
 };
 

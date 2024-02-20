@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 import _ from "lodash";
-import "./styles.css";
 import PropTypes from "prop-types";
 import { Popover, PopoverInteractionKind, Position, Button, Menu, MenuItem, FormGroup, Tag, Switch, Divider, Collapse, Tab } from "@blueprintjs/core";
 import Footer from "components/navigation/Footer";
@@ -12,7 +11,7 @@ import ListElement from "./components/ListElement";
 import HeaderElement from "./components/HeaderElement";
 
 
-import CogButton from "./CogButton";
+import CogButton from "./component_settings/CogButton";
 import PageForm from "./PageForm";
 import { v4 as uuidv4 } from 'uuid';
 import ComponentHeader from "./component_settings/ComponentHeader";

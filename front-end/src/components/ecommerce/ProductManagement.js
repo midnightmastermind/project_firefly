@@ -45,8 +45,16 @@ const ProductManagementDashboard = () => {
 
   return (
     <div>
-      <h2>Product Dashboard</h2>
       <SettingsDrawer menuItems={[
+         {
+          id: 'products_section',
+          label: 'Products',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
+              <ProductListWithPanelStack productList={productList} displayParams={displayParams} />
+            </Card>
+          ),
+        },
         {
           id: 'categories_section',
           label: 'Categories',
@@ -56,18 +64,6 @@ const ProductManagementDashboard = () => {
                 <h3>Categories</h3>
               </div>
               <CategoryListWithPanelStack categoryList={categories} setCategories={setCategories} />
-            </Card>
-          ),
-        },
-        {
-          id: 'products_section',
-          label: 'Products',
-          panel: (
-            <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
-              <div className="ecommerce-section-header">
-                <h3>Products</h3>
-              </div>
-              <ProductListWithPanelStack productList={productList} displayParams={displayParams} />
             </Card>
           ),
         },

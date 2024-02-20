@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Editor, Frame, useEditor, useNode, Canvas } from "@craftjs/core";
-import { CustomTextComponent, CustomImageComponent, CustomButtonComponent, CustomCardComponent, CustomInputComponent, CustomSoundComponent, CustomVideoComponent } from "../elements/CustomPageBuilderComponents";
+import { CustomTextComponent, CustomImageComponent, CustomButtonComponent, CustomCardComponent, CustomInputComponent, CustomSoundComponent, CustomVideoComponent } from "../chat/elements/CustomPageBuilderComponents";
 
 // Page Editor Component
 const PageEditor = ({ findObject, addNewObject, page }) => {

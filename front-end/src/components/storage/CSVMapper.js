@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Divider, FormGroup, HTMLSelect } from '@blueprintjs/core';
 
-import FileManager from './NewFileManager';
+import FileManager from './FileManager';
+
 const CsvMappingComponent = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fieldMappings, setFieldsMappings] = useState([]);

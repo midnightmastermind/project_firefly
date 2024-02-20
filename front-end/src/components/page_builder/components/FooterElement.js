@@ -1,7 +1,6 @@
 // FooterElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import ComponentPopup from '../ComponentSettings';
 import { useState } from 'react';
 import Footer from 'components/navigation/Footer';
 // const FooterElement = ({ element, onRemoveItem, onSaveConfiguration }) => {
@@ -75,7 +74,7 @@ import Footer from 'components/navigation/Footer';
 const FooterElement = ({ setDraggable, element, onAddItemType, onRemoveItem }) => {
     return (
         <div>
-            <ComponentPopup content={(
+            {/* <ComponentPopup content={(
                 <div>
                     <div className="header" style={{ width: "100%", height: "100%" }}>
                         <Footer />
@@ -88,7 +87,7 @@ const FooterElement = ({ setDraggable, element, onAddItemType, onRemoveItem }) =
                         x
                     </span>
                 </div>
-            )} element={element} />
+            )} element={element} /> */}
         </div >
     );
 }

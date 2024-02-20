@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { update } from "../../slices/site/site";
 import { useParams } from "react-router-dom";
 import PageAuth from "../../common/PageAuth";
-import SaveObjectForm from "../common/SaveObjectForm";
 import ProductList from "../ecommerce/ProductList";
 import UserList from "../user/UserList";
 import ToolBar from "../tools/ToolBar";
+import SiteForm from "./SiteForm";
 
 const Site = (props) => {
     const initialSiteState = {
@@ -142,7 +142,7 @@ const Site = (props) => {
                         </div>
                     )}
                     {showSiteEditForm && currentSite && (
-                        <SaveObjectForm schema={{ title: currentSite.title, domain: currentSite.domain }} header={null} callBackFunction={updateSite} />
+                        <SiteForm data={currentSite} callBackFunction={updateSite} />
                     )}
                 </div>
             )}
@@ -161,7 +161,7 @@ const Site = (props) => {
                             <div>Front Page Image: {contentSchema.front_page_image}</div>
                         </div>
                     )}
-                    {showContentEditForm && (<SaveObjectForm schema={contentSchema} header={null} callBackFunction={updateContent} />)}
+                    {/* {showContentEditForm && (<SiteForm schema={contentSchema} header={null} callBackFunction={updateContent} />)} */}
                 </div>
             )}
             {selectedOption == "availabilities" && (

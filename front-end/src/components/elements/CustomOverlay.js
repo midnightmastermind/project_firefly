@@ -11,7 +11,6 @@ const CustomOverlay = (props) => {
     const pageContainerTheme = useSelector((state) => state.theme.page_container);
     return (
         <Overlay2 usePortal={true} hasBackdrop={true} isOpen={props.isOverlayOpen || false}>
-            <>
             <div className="overlay-container">
                 <div className="close-button">
                     <Button intent={Intent.DANGER} onClick={() => props.setIsOverlayOpen(false)} style={{ margin: "" }}>
@@ -20,7 +19,6 @@ const CustomOverlay = (props) => {
                 </div>
                 {props.children}
             </div>
-            </>
         </Overlay2>
     );
 }

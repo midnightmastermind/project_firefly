@@ -16,9 +16,8 @@ const PageComponent = (props) => {
       <div
         className="test"
         key={custom_element.i}
-        isDraggable={false}
         draggable={false}
-        unselectable={true}
+        unselectable="true"
         data-grid={custom_element}
 
         style={{ position: "relative", height: "100%", pointerEvents: el.type == "text" ? 'none' : "" }}
@@ -42,12 +41,14 @@ const PageComponent = (props) => {
     <div className="page-component" >
     <div className="page-grid-container">
       {props.page.layout &&
-      <div className="page-grid">
+      <div className="grid-layout-container">
         <ReactGridLayout
           disabled={false}
           isDraggable={false}
           isResizable={false}
           draggable={false}
+          cols={12}
+          layout={props.page.layout}
           isDroppable={false}
           autoSize={true}
           {...props}
@@ -79,7 +80,7 @@ PageComponent.propTypes = {
 PageComponent.defaultProps = {
   className: "layout",
   rowHeight: 60,
-  cols: {lg: 12},
+  cols: 12,
   verticalCompact: false,
   compactType: null,
   usePortal: true,

@@ -1,7 +1,6 @@
 // ListElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import ComponentPopup from '../ComponentSettings';
 import { useState } from 'react';
 // const ListElement = ({ element, onAddItemType, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {

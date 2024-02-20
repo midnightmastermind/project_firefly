@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, MenuItem, MenuDivider } from '@blueprintjs/core';
 // import StyleEditor from './StyleEditor';
 
 const SettingsDrawer = (props) => {
   const { menuItems } = props;
 
-  const [activeMenuItem, setActiveMenuItem] = useState(menuItems[0]);
+  const [activeMenuItem, setActiveMenuItem] = useState(null);
 
   const handleMenuItemClick = (menuItem) => {
     setActiveMenuItem(menuItem);
   };
 
+  useEffect(() => {
+    setActiveMenuItem(menuItems[0].id);
+  },[menuItems]);
+
+  console.log(menuItems);
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Menu className="settings-menu" style={{ backgroundColor: 'transparent', color: 'white' }}>
@@ -19,8 +24,9 @@ const SettingsDrawer = (props) => {
             return (
               <MenuItem
                 key={menuItem.id}
-                icon={activeMenuItem === menuItem.id ? 'double-chevron-right' : undefined}
-                onClick={() => handleMenuItemClick(menuItem)}
+                className={`${activeMenuItem == menuItem.id ? 'menu-item-selected' : ''} menu-item`}
+                // icon={activeMenuItem === menuItem.id ? 'double-chevron-right' : undefined}
+                onClick={() => handleMenuItemClick(menuItem.id)}
                 text={menuItem.label}
               />
             );
@@ -30,7 +36,7 @@ const SettingsDrawer = (props) => {
         })}
       </Menu>
       <div className="settings-drawer-content">
-        {activeMenuItem && activeMenuItem.panel}
+        {activeMenuItem && menuItems && menuItems.find(item => item.id == activeMenuItem)?.panel}
       </div>
     </div>
   );

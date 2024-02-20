@@ -1,92 +1,62 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import io from 'socket.io-client';
+
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react"
 import 'App.css';
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 // import 'css/App.css';
 import 'css/global.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
-import { Card } from "@blueprintjs/core";
+
+import { login, logout } from "slices/auth/auth";
+import { getAll as getAllFiles } from "slices/storage/file";
+import { getAll as getAllFolders } from "slices/storage/folder";
+import { getByName, create as createSite, getAll as getAllSites } from "slices/site/site";
+import { getAllForUser as getAllEnrollmentsForUser, getAllForSite as getAllEnrollmentsForSite, getAll as getAllEnrollments } from "slices/scheduling/enrollment";
+import { getAllForSite as getAllProductPermissionsForSite, getAll as getAllProductPermissions } from "slices/ecommerce/product_permissions";
+import { getAllForSite as getAllProductsForSite, getAll as getAllProducts, create as createProduct } from "slices/ecommerce/product";
+import { getAll as getAllSiteProductAvailabilities } from "slices/site/site_product_availability";
+import { create as createUser, getAll as getAllUsers, getAllForSite as getAllUsersForSite, getSuperUsers } from "slices/auth/user";
+import { getAll as getAllUserSiteAvailabilities } from "slices/site/user_site_availability";
+import { getAll as getAllSitePermissions } from "slices/auth/site_permissions";
+import { getAll as getAllSessions } from "slices/scheduling/session";
+import { getAll as getAllCartItems } from "slices/ecommerce/cart_item";
+import { getAll as getAllPages } from "slices/site_building/page";
+import { getAll as getAllPosts } from "slices/blog/post";
+// import SettingsDrawer from 'components/settings/SettingsDrawer';
+import CustomOverlay from 'components/elements/CustomOverlay';
 
 import Header from 'components/navigation/Header';
 import Footer from "components/navigation/Footer";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import HomePage from "./pages/HomePage";
-import LoadingBar from "./components/common/LoadingBar";
-import PageAuth from "./common/PageAuth";
-import { login, logout } from "./slices/auth/auth";
-import { getAll as getAllFiles } from "slices/storage/file";
-import { getAll as getAllFolders } from "slices/storage/folder";
-import { getByName, create as createSite, getAll as getAllSites } from "./slices/site/site";
-import { getAllForUser as getAllEnrollmentsForUser, getAllForSite as getAllEnrollmentsForSite, getAll as getAllEnrollments } from "./slices/scheduling/enrollment";
-import { getAllForSite as getAllProductPermissionsForSite, getAll as getAllProductPermissions } from "./slices/ecommerce/product_permissions";
-import { getAllForSite as getAllProductsForSite, getAll as getAllProducts, create as createProduct } from "./slices/ecommerce/product";
-import { getAll as getAllSiteProductAvailabilities } from "./slices/site/site_product_availability";
-import { create as createUser, getAll as getAllUsers, getAllForSite as getAllUsersForSite, getSuperUsers } from "./slices/auth/user";
-import { getAll as getAllUserSiteAvailabilities } from "./slices/site/user_site_availability";
-import { getAll as getAllSitePermissions } from "./slices/auth/site_permissions";
-import { getAll as getAllSessions } from "./slices/scheduling/session";
-import { getAll as getAllCartItems } from "./slices/ecommerce/cart_item";
-import { getAll as getAllPages } from "./slices/site_building/page";
-import { getAll as getAllPosts } from "./slices/blog/post";
 
-import SettingsDrawer from 'components/settings/SettingsDrawer';
-import CustomOverlay from 'components/elements/CustomOverlay';
-import { Menu, MenuDivider, Tab, Tree, Position, DrawerSize, Overlay, MenuItem } from '@blueprintjs/core';
-import PageTester from "REVIEW/new/PageTester";
+import PageAuth from "common/PageAuth";
 import EventBus from "common/EventBus";
-import ProductList from "components/ecommerce/ProductList";
-import Calendar from "components/scheduling/Calendar";
-import Blog from "components/blog/Blog";
-import Post from "components/blog/Post";
-import User from "components/user/User";
-import Product from "components/ecommerce/Product";
-import UserBoard from "components/user/UserBoard";
-import MarkdownEditor from "components/tools/markdown_editor/MarkdownEditor";
-import HeaderBuilder from 'components/page_builder/HeaderBuilder';
-import PageBuilder from 'components/page_builder/PageBuilder';
-import UserList from 'REVIEW/new/UserList';
-import FileManager from 'components/storage/NewFileManager';
-import ProductManagementDashboard from 'components/ecommerce/ProductManagement';
-import ChatComponent from 'components/chat/ChatComponent';
-import Form from 'components/form/Form';
-import PostManager from './components/blog/PostManager';
-import Profile from "pages/Profile";
-import Cart from "components/ecommerce/Cart";
-import SavedItems from "components/ecommerce/SavedItems";
-import GlobalStyleSettings from "components/settings/GlobalStyleSettings";
-import Site from "components/site/Site";
-import UserList2 from "components/user/UserList";
-import SiteForm from "components/site/SiteForm";
-import UserForm from "components/user/UserForm";
-import PageComponent from "components/navigation/PageComponent";
-import CsvMappingComponent from "components/storage/CSVMapper";
-import ProductForm from "components/ecommerce/NewProductForm";
-import CheckoutComponent from "components/ecommerce/CheckoutComponent";
 
-const main_routes = [
-  { path: "/", element: <HomePage /> },
-  { path: "/home", element: <HomePage /> },
-  { path: "/login", element: <Login /> },
-  { path: "/register", element: <Register /> },
-  { path: "/products", element: <ProductList /> },
-  { path: "/checkout", element: <CheckoutComponent />},
-  { path: "/users", element: <UserList2 /> },
-  { path: "/calendar", element: <Calendar /> },
-  { path: "/product/:id", element: <Product /> },
-  { path: "/user/:id", element: <User /> },
-  { path: "/post/:id", element: <Post /> },
-  { path: "/user-board", element: <UserBoard /> },
-  { path: "/blog", element: <Blog /> },
-  { path: "/markdown", element: <MarkdownEditor /> },
-  { path: "/header", element: <HeaderBuilder /> },
-  { path: "/csvtest", element: <CsvMappingComponent /> },
-  { path: "/page-builder", element: <PageBuilder /> },
-  { path: "/post-manager", element: <PostManager /> }, 
-  { path: "/blog", element: <Blog /> },
-];
+import PageComponent from "components/navigation/PageComponent";
+
+// import ChatContainer from "components/chat/new_chat/ChatContainer";
+// import ChatComponent from "components/chat/ChatComponent";
+// import ChatComponent from "components/chat/ChatComponent";
+import ChatComponent from "components/chat/ChatComponent";
+import Toast from "components/notifications/Toast";
+import ProductComponent from "components/ecommerce/ProductComponent";
+// import ChatService from "components/chat/test/ChatService";
+import socket from "common/socketConfig";
+
+
+
+import {
+  createUserLoggedInMenu,
+  createUserLoggedOutMenu,
+  createHeaderMenu,
+  createFooterMenu,
+} from 'config/header_menus';
+
+import { main_routes } from "config/main_routes";
+
 
 function App() {
   const globalTheme = useSelector((state) => state.theme.global);
@@ -94,10 +64,8 @@ function App() {
   const { fetching: fetchingSite } = useSelector((state) => state.site);
   const { fetched: fetchedSite } = useSelector((state) => state.site);
   const { user: currentUser } = useSelector((state) => state.auth);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
   const [overlayContent, setOverlayContent] = useState(null);
   const { message } = useSelector((state) => state.message);
   const { pages } = useSelector((state) => state.page);
@@ -120,6 +88,11 @@ function App() {
       dispatch(getAllFolders());
       dispatch(getAllCartItems());
       dispatch(getAllPosts());
+      
+      dispatch({type:'server/fetchChats', data: currentUser.id});
+
+
+      // dispatch(fetchChats());
       //needs all users
       //needs all products
       //needs all sites
@@ -130,13 +103,19 @@ function App() {
       //needs all site permissions
     }
   }
+
   useEffect(() => {
     const user = localStorage.getItem("user");
 
     if (user && !user.includes("undefined")) {
       login(JSON.parse(user));
-    }
+      socket.on('connect', () => {
+        const userId = currentUser.id; // Replace with the actual user ID
+        socket.emit('setUserId', userId);
+      });
 
+    } 
+      
   }, []);
 
   useEffect(() => {
@@ -146,7 +125,8 @@ function App() {
       });
       setRoutes([...main_routes, ...customRoutes]);
     }
-  }, [pages])
+  }, [pages]);
+
   useEffect(() => {
     EventBus.on("logout", () => {
       dispatch(logout());
@@ -168,620 +148,32 @@ function App() {
       // getUserData();
       // getSuperUserData();
       // getSiteAdminData();
+
       getGlobalAdminData();
     } else {
       dispatch(getAllProductsForSite());
       dispatch(getSuperUsers());
     }
-
+    
   }, [currentUser]);
+
   const setPanel = (panel) => {
     setOverlayContent(panel);
-    setIsDrawerOpen(false);
     setIsOverlayOpen(true);
   }
 
   const logOut = useCallback(() => {
     dispatch(logout());
   }, [dispatch]);
-
-  const userLoggedInMenu = [
-    {
-      type: 'dropdown',
-      id: 'inbox',
-      label: 'Inbox',
-      icon: 'box',
-      hasCaret: true,
-      children: [
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'chat',
-          label: 'Chat',
-          icon: 'chat',
-          hasCaret: false,
-          panel: <ChatComponent />, // Placeholder for the actual component
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'messages',
-          label: 'Messages',
-          icon: 'envelope',
-          hasCaret: false,
-          panel: <div>Messages</div>,
-        },
-      ],
-    },
-    {
-      type: 'dropdown',
-      id: 'settings',
-      label: 'Settings',
-      icon: 'cog',
-      hasCaret: true,
-      children: [
-        {
-          type: 'label',
-          id: 'style',
-          label: 'style',
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'styling',
-          label: 'Styling',
-          icon: 'style',
-          panel: <div>Main Styling</div>,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'global_styles',
-          label: 'Global Styling',
-          icon: 'globe',
-          panel: <GlobalStyleSettings />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'pages',
-          label: 'Site Layout',
-          hasCaret: false,
-          icon: 'document',
-          panel: <PageBuilder />, // Placeholder for the actual component
-        },
-        {
-          type: 'label',
-          id: 'admin',
-          label: 'admin',
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'site_information',
-          label: 'Site Info',
-          icon: 'info-sign',
-          panel: <SiteForm data={currentSite} />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'users',
-          label: 'Users',
-          icon: 'people',
-          panel: <UserList />, // Placeholder for the actual component
-        },
-        {
-          type: 'label',
-          id: 'ecommerce',
-          label: 'ecommerce',
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'product_management',
-          label: 'Products',
-          icon: 'shopping-cart',
-          panel: <ProductManagementDashboard />, // Placeholder for the actual component
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'product_form',
-          label: 'Product Form Test',
-          icon: 'shopping-cart',
-          panel: <ProductForm onUpdateProduct={() => { console.log("test")}} />, // Placeholder for the actual component
-        },
-        {
-          type: 'label',
-          id: 'scheduling',
-          label: 'scheduling',
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'calendar',
-          label: 'Calendar',
-          icon: 'calendar',
-          panel: <Calendar />,
-        },
-        {
-          type: 'label',
-          id: 'content',
-          label: 'content'
-        },
-        // {
-        //   type: 'panel',
-        //   onClickHandler: setPanel,
-        //   id: 'posts',
-        //   label: 'Posts',
-        //   icon: 'book',
-        //   panel: <PostManager />,
-        // },
-        {
-          type: 'link',
-          icon: 'book',
-          label: 'Posts',
-          link: '/post-manager'
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'file_manager',
-          label: 'File Manager',
-          icon: 'folder-close',
-          panel: <FileManager />, // Placeholder for the actual component
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'example form',
-          label: 'Example Form',
-          icon: 'form',
-          panel: <Form />, // Placeholder for the actual component
-        },
-        {
-          type: 'label',
-          id: 'marketing',
-          label: 'marketing'
-        }],
-    },
-    {
-      type: 'dropdown',
-      id: 'store',
-      label: 'Cart',
-      icon: 'shopping-cart',
-      hasCaret: true,
-      children: [
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'cart',
-          label: 'Cart',
-          icon: 'shopping-cart',
-          panel: <Cart hasCheckoutButton={true} isEditable={true} title={'Shopping Cart'} />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'saved-items',
-          label: 'Saved Items',
-          icon: 'bookmark',
-          panel: <SavedItems />,
-        },
-      ],
-    },
-    {
-      type: 'dropdown',
-      id: 'profile',
-      label: currentUser ? currentUser.username : 'Profile',
-      icon: 'user',
-      hasCaret: true,
-      children: [
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'profileInfo',
-          label: 'Profile',
-          icon: 'info-sign',
-          panel: <Profile />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'userInfo',
-          label: 'User Info',
-          icon: 'info-sign',
-          panel: <UserForm data={currentUser} />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'calendar',
-          label: 'Calendar',
-          icon: 'calendar',
-          panel: <Calendar />,
-        },
-        {
-          type: 'onClick',
-          id: 'logout',
-          label: 'Logout',
-          icon: 'log-out',
-          onClickHandler: () => logOut()
-        },
-        // Add more user sub-items as needed
-      ],
-    },
-    // ... Add more items as needed
-  ];
-
-  const userMobileLoggedInMenu = [
-    {
-      type: 'collapse',
-      id: 'profile',
-      label: currentUser ? currentUser.username : 'Profile',
-      icon: 'user',
-      hasCaret: true,
-      children: [
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'profileInfo',
-          label: 'Profile',
-          icon: 'info-sign',
-          panel: <Profile />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'userInfo',
-          label: 'User Info',
-          icon: 'info-sign',
-          panel: <UserForm data={currentUser} />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'calendar',
-          label: 'Calendar',
-          icon: 'calendar',
-          panel: <Calendar />,
-        },
-        {
-          type: 'onClick',
-          id: 'logout',
-          label: 'Logout',
-          icon: 'log-out',
-          onClickHandler: () => logOut()
-        },
-        // Add more user sub-items as needed
-      ],
-    },
-    {
-      type: 'collapse',
-      id: 'inbox',
-      label: 'Inbox',
-      icon: 'box',
-      hasCaret: true,
-      children: [
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'chat',
-          label: 'Chat',
-          icon: 'chat',
-          hasCaret: false,
-          panel: <ChatComponent />, // Placeholder for the actual component
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'messages',
-          label: 'Messages',
-          icon: 'envelope',
-          hasCaret: false,
-          panel: <div>Messages</div>,
-        },
-      ],
-    },
-    {
-      type: 'collapse',
-      id: 'settings',
-      label: 'Settings',
-      icon: 'cog',
-      hasCaret: true,
-      children: [
-        {
-          type: 'label',
-          id: 'style',
-          label: 'style',
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'styling',
-          label: 'Styling',
-          icon: 'style',
-          panel: <div>Main Styling</div>,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'global_styles',
-          label: 'Global Styling',
-          icon: 'globe',
-          panel: <GlobalStyleSettings />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'pages',
-          label: 'Site Layout',
-          hasCaret: false,
-          icon: 'document',
-          panel: <PageBuilder />, // Placeholder for the actual component
-        },
-        {
-          type: 'label',
-          id: 'admin',
-          label: 'admin',
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'site_information',
-          label: 'Site Info',
-          icon: 'info-sign',
-          panel: <SiteForm data={currentSite} />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'users',
-          label: 'Users',
-          icon: 'people',
-          panel: <UserList />, // Placeholder for the actual component
-        },
-        {
-          type: 'label',
-          id: 'ecommerce',
-          label: 'ecommerce',
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'product_management',
-          label: 'Products',
-          icon: 'shopping-cart',
-          panel: <ProductManagementDashboard />, // Placeholder for the actual component
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'product_form',
-          label: 'Product Form Test',
-          icon: 'shopping-cart',
-          panel: <ProductForm onUpdateProduct={() => { console.log("test")}} />, // Placeholder for the actual component
-        },
-        {
-          type: 'label',
-          id: 'scheduling',
-          label: 'scheduling',
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'calendar',
-          label: 'Calendar',
-          icon: 'calendar',
-          panel: <Calendar />,
-        },
-        {
-          type: 'label',
-          id: 'content',
-          label: 'content'
-        },
-        // {
-        //   type: 'panel',
-        //   onClickHandler: setPanel,
-        //   id: 'posts',
-        //   label: 'Posts',
-        //   icon: 'book',
-        //   panel: <PostManager />,
-        // },
-        {
-          type: 'link',
-          icon: 'book',
-          label: 'Posts',
-          link: '/post-manager'
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'file_manager',
-          label: 'File Manager',
-          icon: 'folder-close',
-          panel: <FileManager />, // Placeholder for the actual component
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'example form',
-          label: 'Example Form',
-          icon: 'form',
-          panel: <Form />, // Placeholder for the actual component
-        },
-        {
-          type: 'label',
-          id: 'marketing',
-          label: 'marketing'
-        }],
-    },
-    {
-      type: 'collapse',
-      id: 'store',
-      label: 'Cart',
-      icon: 'shopping-cart',
-      hasCaret: true,
-      children: [
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'cart',
-          label: 'Cart',
-          icon: 'shopping-cart',
-          panel: <Cart hasCheckoutButton={true} isEditable={true} title={'Shopping Cart'} />,
-        },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'saved-items',
-          label: 'Saved Items',
-          icon: 'bookmark',
-          panel: <SavedItems />,
-        },
-      ],
-    }
-    // ... Add more items as needed
-  ];
-
-  const userLoggedOutMenu = [
-    {
-      type: 'onClick',
-      id: 'signup',
-      label: 'Signup',
-      icon: 'mugshot',
-      onClickHandler: () => setIsRegisterOpen(true),
-    },
-    {
-      type: 'onClick',
-      id: 'login',
-      label: 'Login',
-      icon: 'log-in',
-      onClickHandler: () => setIsLoginOpen(true),
-    },
-    // ... Add more items as needed
-  ];
-
-  const headerMenu = [
-    {
-      type: 'link',
-      icon: 'home',
-      label: 'Home',
-      link: '/',
-      id: 'home'
-    },
-    {
-      type: 'link',
-      icon: 'shop',
-      label: 'Store',
-      link: '/products',
-      id: 'store'
-    },
-    {
-      type: 'link',
-      icon: 'user',
-      label: 'Users',
-      link: '/users',
-      id: 'users'
-    },
-    // {
-    //   type: 'link',
-    //   icon: 'calendar',
-    //   label: 'Calendar',
-    //   link: '/calendar'
-    // },
-    {
-      type: 'link',
-      icon: 'edit',
-      label: 'Page Builder',
-      link: '/page-builder',
-      id: 'page-builder'
-    },
-    // {
-    //   type: 'link',
-    //   icon: 'edit',
-    //   label: 'Header Builder',
-    //   link: '/header'
-    // },
-  ];
-
-  const footerMenu = [
-    {
-      type: 'link',
-      icon: 'home',
-      label: 'Home',
-      link: '/'
-    },
-    {
-      type: 'link',
-      icon: 'shop',
-      label: 'Products',
-      link: '/products'
-    },
-    {
-      type: 'link',
-      icon: 'shopping-cart',
-      label: 'Checkout',
-      link: '/checkout'
-    },
-    {
-      type: 'link',
-      icon: 'user',
-      label: 'Users',
-      link: '/users'
-    },
-    {
-      type: 'link',
-      icon: 'calendar',
-      label: 'Calendar',
-      link: '/calendar'
-    },
-    {
-      type: 'link',
-      icon: 'user',
-      label: 'User Board',
-      link: '/user-board'
-    },
-    {
-      type: 'link',
-      icon: 'book',
-      label: 'Markdown',
-      link: '/markdown'
-    },
-    {
-      type: 'link',
-      icon: 'book',
-      label: 'Header Builder',
-      link: '/header'
-    },
-    {
-      type: 'link',
-      icon: 'book',
-      label: 'CSV Upload',
-      link: '/csvtest'
-    },
-    {
-      type: 'link',
-      icon: 'book',
-      label: 'Page Builder',
-      link: '/page-builder'
-    },
-    {
-      type: 'link',
-      icon: 'book',
-      label: 'Post Manager',
-      link: '/post-manager'
-    },
-    {
-      type: 'link',
-      icon: 'book',
-      label: 'Blog',
-      link: '/blog'
-    },
-  ];
   
-  console.log(footerMenu);
+  const closePanel = () => {
+    setOverlayContent(null);
+    setIsOverlayOpen(false);
+  }
+  const userLoggedInMenu = createUserLoggedInMenu(setPanel, logOut, currentUser);
+  const userLoggedOutMenu = createUserLoggedOutMenu(setPanel, closePanel );
+  const headerMenu = createHeaderMenu(setPanel, logOut);
+  const footerMenu = createFooterMenu(setPanel, logOut);
   
 
   return (
@@ -790,19 +182,18 @@ function App() {
         background-color: ${globalTheme.backgroundColor};
         color: ${globalTheme.color}
     `}>
-        <Header headerMenu={headerMenu} userMobileLoggedInMenu={userMobileLoggedInMenu} userLoggedInMenu={userLoggedInMenu} userLoggedOutMenu={userLoggedOutMenu} setOverlayContent={setOverlayContent} setIsOverlayOpen={setIsOverlayOpen} setIsRegisterOpen={setIsRegisterOpen} setIsLoginOpen={setIsLoginOpen} setIsDrawerOpen={setIsDrawerOpen} />
-        <SettingsDrawer setIsDrawerOpen={setIsDrawerOpen} isDrawerOpen={isDrawerOpen} setOverlayContent={setOverlayContent} setIsOverlayOpen={setIsOverlayOpen} />
+        { currentUser && <ChatComponent currentUser={currentUser} /> }
+        <Header headerMenu={headerMenu} userLoggedInMenu={userLoggedInMenu} userLoggedOutMenu={userLoggedOutMenu} setOverlayContent={setOverlayContent} setIsOverlayOpen={setIsOverlayOpen} />
         <CustomOverlay isOverlayOpen={isOverlayOpen} setIsOverlayOpen={setIsOverlayOpen}>{overlayContent}</CustomOverlay>
-        {isLoginOpen && <Login setIsLoginOpen={setIsLoginOpen} />}
-        <CustomOverlay isOverlayOpen={isRegisterOpen} setIsOverlayOpen={setIsRegisterOpen}><Register /></CustomOverlay>
-        <Card className="page-container">
+        <div className="page-container">
           <Routes>
             {routes.map((route, index) => (
               <Route key={index} path={route.path} element={route.element} />
             ))}
           </Routes>
-        </Card>
+        </div>
         <Footer footerMenu={footerMenu}/>
+        {/* <Toast /> */}
       </div>
     </Router>
   );

@@ -15,13 +15,31 @@ const bucket = storage.bucket("poms-web-build-storage-bucket");
 
 exports.createFile = (req, res) => {
     const file = new File({
-        ...req.body
+        ...req.body,
     });
 
-    file.save((err, file) => {
+    file.save((err, createdFile) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
+        }
+
+        // If the created file has a parentId, update the parent
+        if (createdFile.parentId) {
+            File.findOneAndUpdate(
+                { id: createdFile.parentId }, // Find by id
+                { $addToSet: { childrenIds: createdFile.id } },
+                { new: true },
+                (updateErr, updatedParent) => {
+                    if (updateErr) {
+                        res.status(500).send({ message: updateErr });
+                        return;
+                    }
+                    res.status(200).send({ createdFile, updatedParent });
+                }
+            );
+        } else {
+            res.status(200).send(createdFile);
         }
     });
 };
@@ -116,7 +134,7 @@ exports.uploadFile = async (req, res) => {
 
         const file = new File({
             name: originalname,
-            folder_id: folder_id,
+            parentId: folder_id,
             size: size,
             type: mimetype,
             uploadProgress: 100,
@@ -126,6 +144,23 @@ exports.uploadFile = async (req, res) => {
 
         // Save the file immediately and return it to the client
         res.status(200).json({ savedFile });
+
+        // If the created file has a parentId, update the parent
+        if (savedFile.parentId) {
+            File.findOneAndUpdate(
+                { id: savedFile.parentId }, // Find by id
+                { $addToSet: { childrenIds: savedFile.id } },
+                { new: true },
+                (updateErr, updatedParent) => {
+                    if (updateErr) {
+                        console.error("Error updating parent:", updateErr);
+                        // You might want to handle the update error here
+                        return;
+                    }
+                    console.log("Parent updated:", updatedParent);
+                }
+            );
+        }
 
         // Pipe the file buffer to the blob stream
 fileBufferStream.pipe(blobStream)

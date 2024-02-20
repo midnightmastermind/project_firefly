@@ -5,7 +5,6 @@
  */
 import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "css/ProductList.css";
 
 import { create as createEnrollment } from "slices/scheduling/enrollment";
 import { create as createSiteProductAvailability, remove as removeSiteProductAvailability } from "slices/site/site_product_availability";
@@ -17,8 +16,8 @@ import LoadingBar from "components/common/LoadingBar";
 import { filterProducts } from "common/Product";
 import Hero from "components/elements/Hero";
 import SearchBar from "components/common/SearchBar";
-import LazyImage from "components/common//LazyImage";
-import Pagination from "components/common//Pagination";
+import LazyImage from "components/common/LazyImage";
+import Pagination from "components/common/Pagination";
 // import ToolBar from "navigation/ToolBar";
 import Card from "components/ecommerce/Card";
 import { Tag, Overlay2, Classes } from "@blueprintjs/core";
@@ -338,9 +337,9 @@ const ProductList = (props) => {
                 <Overlay2
                 isOpen={!!selectedProduct}
                 onClose={closeProductOverlay}
-                className={`card-overlay ${Classes.OVERLAY_SCROLL_CONTAINER}`}
+                className={`${Classes.OVERLAY_SCROLL_CONTAINER}`}
                 >
-                <div className={`${Classes.CARD} ${Classes.ELEVATION_4} product-overlay`}>
+                <div className={`${Classes.ELEVATION_4} overlay-container `}>
                     <ProductComponent product={selectedProduct} />
                 </div>
                 </Overlay2>

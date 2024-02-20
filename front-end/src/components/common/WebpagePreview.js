@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LoadingBar from './LoadingBar';
 
 const WebPagePreview = ({ url }) => {
   const [loading, setLoading] = useState(true);
@@ -9,7 +10,7 @@ const WebPagePreview = ({ url }) => {
 
   return (
     <div className="preview-box">
-      {loading && <p>Loading...</p>}
+      {loading && <LoadingBar />}
       <iframe
         src={url}
         title="Web Page Preview"

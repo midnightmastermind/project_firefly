@@ -102,7 +102,6 @@ const Header = (props) => {
     const dispatch = useDispatch();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-    console.log(props.userMobileLoggedInMenu);
     const handleDrawerOpen = () => {
         setIsDrawerOpen(true);
     };
@@ -123,13 +122,12 @@ const Header = (props) => {
             props.userLoggedInMenu.push(addButtonOrDropdown);
             props.userLoggedOutMenu.push(addButtonOrDropdown);
         }
-    }, [props])
+    }, [props]);
     const displayMenu = (menuItems, props, key) => {
         if (props.editMenu) {
             menuItems.push(addButton);
         }
         
-        console.log(key)
         return (
             <Menu key={key}>
                 {menuItems.map(menuItem => (
@@ -153,7 +151,7 @@ const Header = (props) => {
                         <Button key={menuItem.id + key} css={css`color: ${headerTheme.color}; !important`}
                             className="bp5-minimal" icon={menuItem.icon} text={menuItem.label} onClick={() => navigate(menuItem.link)} />
                     ) : menuItem.type === 'dropdown' ? (
-                        <Popover key={menuItem.id + key} content={<Menu>{displayMenu(menuItem.children, props, menuItem.id)}</Menu>} placement="bottom">
+                        <Popover className={Classes.POPOVER_DISMISS} popoverClassName={Classes.POPOVER_DISMISS} key={menuItem.id + key} content={<Menu>{displayMenu(menuItem.children, props, menuItem.id)}</Menu>} placement="bottom">
                             <Button key={menuItem.id + key} className="bp5-minimal" icon={menuItem.icon} rightIcon="caret-down" text={menuItem.label} css={css`color: ${headerTheme.color}; !important`} />
                         </Popover>
                     ) : menuItem.type === 'dialog' ? (
@@ -170,6 +168,22 @@ const Header = (props) => {
             </Menu>
         );
     };
+
+    const changeDropdownToCollapse = (menu) => {
+        return menu.map((item) => {
+          const newItem = { ...item };
+      
+          if (item.type === 'dropdown') {
+            newItem.type = 'collapse';
+          }
+      
+          if (item.children) {
+            newItem.children = changeDropdownToCollapse(item.children);
+          }
+      
+          return newItem;
+        });
+      };
 
     return (
         <Navbar className="header-nav" css={css`
@@ -208,7 +222,7 @@ const Header = (props) => {
 
                     />
                 </Navbar.Group>
-                <Drawer
+                {isDrawerOpen && <Drawer
                     className={'mobile-menu'}
                     isOpen={isDrawerOpen}
                     position={Position.RIGHT}
@@ -227,12 +241,13 @@ const Header = (props) => {
                             )}
                             {currentUser && (
                                 <ButtonGroup minimal={true}>
-                                    {displayMenu(props.userMobileLoggedInMenu, props, 'user-logged-in-mobile')}
+                                    {displayMenu(changeDropdownToCollapse(props.userLoggedInMenu), props, 'user-logged-in-mobile')}
                                 </ButtonGroup>
                             )}
                         </div>
                     </div>
                 </Drawer>
+                }
             </div>
         </Navbar>
     );

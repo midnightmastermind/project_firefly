@@ -50,11 +50,18 @@ db.theme = require("../packages/site/models/theme.model");
 db.style = require("../packages/site/models/style.model");
 
 //storage models
-db.file = require("../packages/storage/models/file.model");
+// db.file = require("../packages/storage/models/file.model");
+db.file = require("../packages/storage/models/newfile.model");
+
 db.folder = require("../packages/storage/models/folder.model");
 
 //site_builder models
 db.site_object = require("../packages/site_builder/models/site_object.model");
 db.page = require("../packages/site_builder/models/page.model");
+
+//chat models
+db.chat_message = require("../packages/chat/models/chat_message.model");
+db.conversation = require("../packages/chat/models/conversation.model");
+db.chat = require("../packages/chat/controllers/chat.controller");
 
 module.exports = db;

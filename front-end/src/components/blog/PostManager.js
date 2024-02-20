@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { create as createPost, update as updatePost, getAll as getAllPosts } from 'slices/blog/post.js';
 import { Tabs, Tab, Button, Card, InputGroup, Tag, FormGroup } from '@blueprintjs/core';
-
-import MarkdownEditor from 'components/tools/markdown_editor/MarkdownEditor';
+import MarkdownEditor from 'components/tools/MarkdownEditor';
+import ReactMarkdown from 'react-markdown';
 
 const newPost = {
   type: 'post',
@@ -24,7 +24,7 @@ const PostManager = () => {
 
   const posts = useSelector((state) => state.post.posts);
   const { user: currentUser } = useSelector((state) => state.auth);
-  
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -83,7 +83,7 @@ const PostManager = () => {
     const updateContent = (updated_content) => {
       setContent(updated_content);
     }
-    console.log(content);
+
     return (
       <div className="post-editor">
         {/* Sidebar for editing post details */}
@@ -111,7 +111,7 @@ const PostManager = () => {
         </div>
         {/* Markdown editor (displayed only when isEditing is true) */}
         <div className="markdown-editor-container">
-          <Card className="markdown-editor" elevation={4}>
+          <Card className="markdown-editor">
             <MarkdownEditor content={content} updateContent={updateContent} />
           </Card>
         </div>
@@ -120,17 +120,21 @@ const PostManager = () => {
   };
 
   const PostPreview = ({ post }) => {
+    console.log(post);
     return (
       <div key={post._id} className="post-preview-block" onClick={() => toggleContentEditor(post)}>
-        <div>
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
+        <div className="post-preview">
+          <div className="post-preview-header" style={{backgroundImage: `url(${post.post_image})`}}><h3>{post.title}</h3></div>
+          <div className="post-preview-content-container">
+            <div className="post-preview-content">
+              <ReactMarkdown>{`${post.content}`}</ReactMarkdown>
+            </div>
+          </div>
         </div>
       </div>
     );
   };
 
-  console.log(selectedPost);
   return (
     <div className="post-manager-container">
       <div className="post-manager-header">
@@ -154,7 +158,7 @@ const PostManager = () => {
                 <div className="post-manager-posts-container">
                   {allPosts &&
                     allPosts.map((post) => (
-                      <PostPreview post={post} key={post._id} />
+                      post && <PostPreview post={post} key={post._id} />
                     ))}
                 </div>
               }
@@ -164,10 +168,11 @@ const PostManager = () => {
               title="Drafts"
               panel={
                 <div className="post-manager-posts-container">
-                  {allPosts &&
+                  {/* {allPosts &&
                     allPosts.map((post) => (
-                      <PostPreview post={post} key={post._id} />
-                    ))}
+                      <div key={post._id} />
+                    ))} */}
+                  <div></div>
                 </div>
               }
             />
@@ -176,10 +181,11 @@ const PostManager = () => {
               title="Templates"
               panel={
                 <div className="post-manager-posts-container">
-                  {allPosts &&
+                  {/* {allPosts &&
                     allPosts.map((post) => (
-                      <PostPreview post={post} key={post._id} />
-                    ))}
+                      <div key={post._id} />
+                    ))} */}
+                  <div></div>
                 </div>
               }
             />

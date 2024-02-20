@@ -562,7 +562,7 @@
 // import { create as createSession, getAll as getAllSessions } from "REVIEW/old/slices/scheduling/session";
 // import { update as updateSession } from "REVIEW/old/slices/scheduling/session";
 // import { Dialog, Button } from '@blueprintjs/core'; // Import BlueprintJS components
-// import EventCreation from './EventCreation'; // Update the path accordingly
+// import EventForm from './EventForm'; // Update the path accordingly
 // import { getMicrosoftToken, getGoogleToken } from "common/Auth";
 
 // const { Client } = require("@microsoft/microsoft-graph-client");
@@ -652,7 +652,7 @@
 // }));
 
 // const Calendar = () => {
-//   const [isEventCreationOpen, setEventCreationOpen] = useState(false);
+//   const [isEventFormOpen, setEventFormOpen] = useState(false);
 //   const [selectedEvent, setSelectedEvent] = useState(null);
 
 //   const dispatch = useDispatch();
@@ -1012,11 +1012,11 @@
 //     const clickedEvent = events[clickedEventIndex];
 //     console.log(clickedEvent);
 //     setSelectedEvent(clickedEvent);
-//     setEventCreationOpen(true);
+//     setEventFormOpen(true);
 //   };
 
-//   const closeEventCreationDialog = () => {
-//     setEventCreationOpen(false);
+//   const closeEventFormDialog = () => {
+//     setEventFormOpen(false);
 //     setSelectedEvent(null);
 //   };
 
@@ -1039,18 +1039,18 @@
 //         events={currentEvents}
 //       />
 
-//       {/* EventCreation Dialog */}
+//       {/* EventForm Dialog */}
 //       <Dialog
-//         isOpen={isEventCreationOpen}
-//         onClose={closeEventCreationDialog}
+//         isOpen={isEventFormOpen}
+//         onClose={closeEventFormDialog}
 //         title={selectedEvent ? 'Edit Event' : 'Create Event'}
 //       >
 //         <div className='bp3-dialog-body'>
-//           <EventCreation selectedEvent={selectedEvent} onClose={closeEventCreationDialog} />
+//           <EventForm selectedEvent={selectedEvent} onClose={closeEventFormDialog} />
 //         </div>
 //         <div className='bp3-dialog-footer'>
 //           <div className='bp3-dialog-footer-actions'>
-//             <Button onClick={closeEventCreationDialog}>Cancel</Button>
+//             <Button onClick={closeEventFormDialog}>Cancel</Button>
 //           </div>
 //         </div>
 //       </Dialog>
@@ -1067,7 +1067,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { useDispatch, useSelector } from "react-redux";
 import { Dialog, Button } from '@blueprintjs/core';
-import EventCreation from './EventCreation';
+import EventForm from './EventForm';
 const events = [
   {
     id: '1',
@@ -1144,9 +1144,9 @@ const transformEventsToFullCalendar = (events) => {
 
 const Calendar = () => {
   const [calendarEvents, setCalendarEvents] = useState(events);
-  const [isEventCreationOpen, setEventCreationOpen] = useState(false);
+  const [isEventFormOpen, setEventFormOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-
+  const [selectedDay, setSelectedDay] = useState(null);
   // ... (your ot  const dispatch = useDispatch();
   const sessions = useSelector((state) => state.session.sessions);
 
@@ -1194,13 +1194,13 @@ const Calendar = () => {
       }
       return updatedEvents;
     });
-    // Close the EventCreation dialog
-    setEventCreationOpen(false);
+    // Close the EventForm dialog
+    setEventFormOpen(false);
     setSelectedEvent(null);
   };
 
-  const closeEventCreationDialog = () => {
-    setEventCreationOpen(false);
+  const closeEventFormDialog = () => {
+    setEventFormOpen(false);
     setSelectedEvent(null);
   };
 
@@ -1211,13 +1211,17 @@ const Calendar = () => {
     if (clickedEvent) {
       console.log('Clicked Event:', clickedEvent);
       setSelectedEvent(clickedEvent);
-      setEventCreationOpen(true);
+      setEventFormOpen(true);
     } else {
       console.error(`Event with id ${clickedEventId} not found.`);
     }
   };
 
-
+  const handleDayClick = (clickInfo) => {
+    setSelectedEvent(null);
+    setEventFormOpen(true);
+    setSelectedDay("test");
+  }
 
   // const handleEventDrop = (info) => {
   //   // ... (your existing handleEventDrop function)
@@ -1273,22 +1277,22 @@ const Calendar = () => {
         allDayMaintainDuration={true}
       />
 
-      {/* EventCreation Dialog */}
+      {/* EventForm Dialog */}
       <Dialog
-        isOpen={isEventCreationOpen}
-        onClose={closeEventCreationDialog}
+        isOpen={isEventFormOpen}
+        onClose={closeEventFormDialog}
         title={selectedEvent ? 'Edit Event' : 'Create Event'}
       >
         <div className='bp3-dialog-body'>
-          <EventCreation
+          <EventForm
             selectedEvent={selectedEvent}
-            onClose={closeEventCreationDialog}
+            onClose={closeEventFormDialog}
             updateEventInList={updateEventInList}
           />
         </div>
         <div className='bp3-dialog-footer'>
           <div className='bp3-dialog-footer-actions'>
-            <Button onClick={closeEventCreationDialog}>Cancel</Button>
+            <Button onClick={closeEventFormDialog}>Cancel</Button>
           </div>
         </div>
       </Dialog>

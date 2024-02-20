@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Button, Classes } from '@blueprintjs/core';
-import ProductForm from './NewProductForm';
+import ProductForm from './ProductForm';
 import { PanelStack2 } from '@blueprintjs/core';
 import DynamicForm from 'components/form/Form';
 import Pagination from 'components/common/Pagination';
@@ -60,7 +60,7 @@ const ProductListWithPanelStack = ({ productList, displayParams }) => {
   const [searchData, setSearchData] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showLoadingBar, setShowLoadingBar] = useState(true);
+  const [showLoadingBar, setShowLoadingBar] = useState(false);
   const [currentPanelStack, setCurrentPanelStack] = useState([]);
 
   const searchFields = ["name", "description"];
@@ -128,8 +128,7 @@ const ProductListWithPanelStack = ({ productList, displayParams }) => {
       />
     );
   };
-  console.log(selectedProduct);
-  console.log(currentPanelStack);
+
   return (
     <div className="product-panel-list">
       <Button

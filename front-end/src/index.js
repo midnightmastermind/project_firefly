@@ -23,6 +23,9 @@ const particlesLoaded = (container) => {
 
 // Create a root using createRoot
 const root = ReactDOM.createRoot(document.getElementById('root'));
+store.subscribe(()=>{
+  console.log('new client state', store.getState());
+});
 
 // Render your application inside the root
 root.render(

@@ -1,9 +1,7 @@
 // HeaderElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import ComponentPopup from '../ComponentSettings';
 import { useState, useEffect } from 'react';
-import ComponentSettings from '../ComponentSettings';
 import ReactMarkdown from 'react-markdown';
 // const HeaderElement = ({ element, onAddItemType, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {

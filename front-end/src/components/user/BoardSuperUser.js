@@ -5,10 +5,10 @@
  * If there is an error getting the data, it sets
  */
 import React, { useState, useEffect } from "react";
-import ProductList from "../../REVIEW/old/components_2/ecommerce/ProductList";
-import ContentService from "../../REVIEW/old/services/site/content.service";
-import EventBus from "../../common/EventBus";
-import UserList from "../../REVIEW/old/components_2/common/UserList";
+import ProductList from "../../../../../project_attack_of_the_clones/REVIEW/old/components_2/ecommerce/ProductList";
+import ContentService from "../../../REVIEW/old/services/site/content.service";
+import EventBus from "../../../common/EventBus";
+import UserList from "../../../../../project_attack_of_the_clones/REVIEW/old/components_2/common/UserList";
 
 const BoardSuperUser = () => {
     const [content, setContent] = useState("");

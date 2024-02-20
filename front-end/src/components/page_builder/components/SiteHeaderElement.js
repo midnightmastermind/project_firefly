@@ -1,7 +1,6 @@
 // HeaderElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import ComponentPopup from '../ComponentSettings';
 import { useState } from 'react';
 import Header from 'components/navigation/Header';
 // const HeaderElement = ({ element, onRemoveItem, onSaveConfiguration }) => {
@@ -75,7 +74,7 @@ import Header from 'components/navigation/Header';
 const HeaderElement = ({ setDraggable, element, onAddItemType, onRemoveItem }) => {
     return (
         <div>
-            <ComponentPopup content={(
+            {/* <ComponentPopup content={(
                 <div>
                     <div className="header" style={{ width: "100%", height: "100%" }}>
                         <Header />
@@ -87,7 +86,7 @@ const HeaderElement = ({ setDraggable, element, onAddItemType, onRemoveItem }) =
                     >
                         x
                     </span>
-                </div>)} element={element} />
+                </div>)} element={element} /> */}
         </div>
     );
 }

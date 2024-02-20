@@ -6,7 +6,6 @@
  */
 import React from 'react';
 import { Link } from "react-router-dom";
-import "./ToolBar.css";
 
 const ToolBar = (props) => {
     return (

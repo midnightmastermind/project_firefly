@@ -1,7 +1,6 @@
 // ImageElement.js
 import React from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import ComponentPopup from '../ComponentSettings';
 import { useState } from 'react';
 import example from 'example.jpg';
 
@@ -94,14 +93,11 @@ import example from 'example.jpg';
 const ImageElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
   return (
     <div>
-        <div>
-          <img
+        <div className="image-element"
             draggable="false"
-            src={element.src || example} // Sample image source
+            style={{backgroundImage: `${element.src || example}`}}
             alt={`Image ${element.i}`}
-            style={{ maxWidth: "100%", height: "auto" }}
           />
-        </div>
     </div>
   );
 }

@@ -1,14 +1,14 @@
 import React from "react";
 import PageDivider from "../components/style/PageDivider";
 import Button from "../components/form/Button";
-import Hero from "../components/elements/Hero";
+import Hero from "components/elements/Hero";
 import TextOverImage from "../components/style/TextOverImage";
 import { Link } from "react-router-dom";
-import Card from "../components/elements/Card"
+import Card from "components/elements/Card"
 
 // props for Hero component
 const homeInfo = {
-    image: 'http://localhost:8081/test.jpg',
+    image: 'http://localhost:8081/test.jpg ',
     heading: 'Poms-Web-Build',
     secondaryHeading: "This website could be yours but you playing."
 }

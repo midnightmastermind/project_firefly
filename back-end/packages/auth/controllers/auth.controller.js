@@ -185,7 +185,8 @@ exports.signin = (req, res) => {
                                             username: user.username,
                                             email: user.email,
                                             accessToken: token,
-                                            roles: authorities
+                                            roles: authorities,
+                                            profile_image: user.profile_image
                                         });
                                     });
                             });

@@ -31,7 +31,13 @@ import eventReducer from './slices/scheduling/event';
 import bookingReducer from './slices/scheduling/booking';
 // import themeReducer from './slices/site/theme';
 import styleReducer from './slices/site/style';
-import cartItemReducer from './slices/ecommerce/cart_item'
+import cartItemReducer from './slices/ecommerce/cart_item';
+import chatMessageReducer from './slices/chat/chat_message';
+import chatReducer from './slices/chat/chat';
+import coversationReducer from './slices/chat/conversation';
+// import socketIOMiddleware from 'common/socketMiddleware';
+
+import socketIOMiddleware from 'common/socketMiddleware';
 
 const reducer = {
   auth: authReducer,
@@ -66,7 +72,11 @@ const reducer = {
   purchase: purchaseReducer,
   style: styleReducer,
   navigation: navigationReducer,
-  cart_item: cartItemReducer
+  cart_item: cartItemReducer,
+  conversation: coversationReducer,
+  chat: chatReducer,
+  chat_message: chatMessageReducer,
+  
 }
 
 const store = configureStore({
@@ -75,7 +85,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     immutableCheck: false,
     serializableCheck: false,
-  })
+  }).concat(socketIOMiddleware)
 })
 
 export default store;
