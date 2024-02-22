@@ -170,7 +170,7 @@ const Login = (props) => {
                         >
                             <InputGroup rightElement={lockButton} type={showPassword ? "text" : "password"} onChange={formik.handleChange} name="password" value={formik.values.password} id="password" placeholder="Placeholder text" />
                         </FormGroup>
-                        <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px', alignItems: 'flex-end'}}>
+                        <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px', alignItems: 'center'}}>
                             <Button type="submit" intent={Intent.SUCCESS} text="Login" />
                             <a href="">Forgot password?</a>
                         </div>

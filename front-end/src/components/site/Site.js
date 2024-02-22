@@ -8,7 +8,7 @@ import { update } from "../../slices/site/site";
 import { useParams } from "react-router-dom";
 import PageAuth from "../../common/PageAuth";
 import ProductList from "../ecommerce/ProductList";
-import UserList from "../user/UserList";
+import UserListTable from "../user/UserListTable";
 import ToolBar from "../tools/ToolBar";
 import SiteForm from "./SiteForm";
 
@@ -177,7 +177,7 @@ const Site = (props) => {
                         </div>
                     )}
                     {selectedSecondaryOption == "products" && (<ProductList site_id={site_id} mode="global_admin" />)}
-                    {selectedSecondaryOption == "users" && (<UserList site_id={site_id} mode="global_admin" />)}
+                    {selectedSecondaryOption == "users" && (<UserListTable site_id={site_id} mode="global_admin" />)}
                 </div>
             )}
         </div>

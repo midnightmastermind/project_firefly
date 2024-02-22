@@ -24,7 +24,7 @@ const Product = ({ data, onProductClick }) => {
 
 
   const image = (
-    <div className="product-image"><Carousel items={imagesArray} /></div>//style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
+    <div className="product-image"><Carousel settings={{showThumbs: false}} items={imagesArray} /></div>//style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
   );
 
   return (

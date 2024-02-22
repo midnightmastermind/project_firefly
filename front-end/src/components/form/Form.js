@@ -142,190 +142,192 @@ const DynamicForm = ({
   };
 
   return (
-    <div className="form-component">
+    <div className="form-component-container">
       {title && <h2>{title}</h2>}
-      {schema.map((field) => (
-        <FormGroup key={(field.variable || field.name)} label={
+      <div className="form-component">
+        {schema.map((field) => (
+          <FormGroup key={(field.variable || field.name)} label={
             <Tag
               minimal
               className="dynamic-form-label"
             >{field.label}</Tag>
           }
-          className={`${soloSave ? 'solo-form-group' : ''}`}
-        >
-          <>
-            {field.type.toLowerCase() === 'text' && (
-              <InputGroup
-                type="text"
-                disabled={soloSave && !editableFields.includes((field.variable || field.name))}
-                value={formData[(field.variable || field.name)] || ''}
-                onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
-              />
-            )}
-            {field.type.toLowerCase() === 'time' && !field.allDayOption && (
-              <DateInput3
-                value={formData[(field.variable || field.name)] || ''}
-                formatDate={(date) => date.toLocaleTimeString()}
-                parseDate={(str) => new Date(str)}
-                onChange={(date) => handleDateChange((field.variable || field.name), date)}
-                timePrecision="minute"
-              />
-            )}
-            {field.type.toLowerCase() === 'datetime-range' && (
-              <div>
-                <Checkbox
-                  checked={formData[(field.variable || field.name)]?.allDay || false}
-                  onChange={(e) => {
-                    const allDay = e.target.checked;
-                    const existingRange = formData[(field.variable || field.name)]?.range || [];
-                    const updatedValue = {
-                      range: allDay ? [existingRange[0], existingRange[1]] : existingRange,
-                      allDay,
-                    };
-                    handleInputChange((field.variable || field.name), updatedValue);
-                  }}
-                >
-                  All Day
-                </Checkbox>
-                <DateRangeInput3
-                  value={formData[(field.variable || field.name)]?.range || []}
-                  formatDate={(date) => date.toLocaleDateString()}
+            className={`${soloSave ? 'solo-form-group' : ''}`}
+          >
+            <>
+              {field.type.toLowerCase() === 'text' && (
+                <InputGroup
+                  type="text"
+                  disabled={soloSave && !editableFields.includes((field.variable || field.name))}
+                  value={formData[(field.variable || field.name)] || ''}
+                  onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
+                />
+              )}
+              {field.type.toLowerCase() === 'time' && !field.allDayOption && (
+                <DateInput3
+                  value={formData[(field.variable || field.name)] || ''}
+                  formatDate={(date) => date.toLocaleTimeString()}
                   parseDate={(str) => new Date(str)}
-                  onChange={(selectedRange) => {
-                    const allDay = formData[(field.variable || field.name)]?.allDay || false;
-                    const updatedValue = {
-                      range: allDay ? [selectedRange[0], selectedRange[1]] : selectedRange,
-                      allDay,
-                    };
-                    handleInputChange((field.variable || field.name), updatedValue);
-                  }}
+                  onChange={(date) => handleDateChange((field.variable || field.name), date)}
                   timePrecision="minute"
-                  shortcuts={false}
-                  singleMonthOnly={true}
-                  allowSingleDayRange={true}
                 />
-                <FormattedDateRange
-                  range={formData[(field.variable || field.name)]?.range || []}
-                  showTime={!formData[(field.variable || field.name)]?.allDay}
+              )}
+              {field.type.toLowerCase() === 'datetime-range' && (
+                <div>
+                  <Checkbox
+                    checked={formData[(field.variable || field.name)]?.allDay || false}
+                    onChange={(e) => {
+                      const allDay = e.target.checked;
+                      const existingRange = formData[(field.variable || field.name)]?.range || [];
+                      const updatedValue = {
+                        range: allDay ? [existingRange[0], existingRange[1]] : existingRange,
+                        allDay,
+                      };
+                      handleInputChange((field.variable || field.name), updatedValue);
+                    }}
+                  >
+                    All Day
+                  </Checkbox>
+                  <DateRangeInput3
+                    value={formData[(field.variable || field.name)]?.range || []}
+                    formatDate={(date) => date.toLocaleDateString()}
+                    parseDate={(str) => new Date(str)}
+                    onChange={(selectedRange) => {
+                      const allDay = formData[(field.variable || field.name)]?.allDay || false;
+                      const updatedValue = {
+                        range: allDay ? [selectedRange[0], selectedRange[1]] : selectedRange,
+                        allDay,
+                      };
+                      handleInputChange((field.variable || field.name), updatedValue);
+                    }}
+                    timePrecision="minute"
+                    shortcuts={false}
+                    singleMonthOnly={true}
+                    allowSingleDayRange={true}
+                  />
+                  <FormattedDateRange
+                    range={formData[(field.variable || field.name)]?.range || []}
+                    showTime={!formData[(field.variable || field.name)]?.allDay}
+                  />
+                </div>
+              )}
+              {field.type.toLowerCase() === 'header' && (
+                <field.headerOption key={field.label}>
+                  {field.label}
+                </field.headerOption>
+              )}
+              {field.type.toLowerCase() === 'select' && (
+                <HTMLSelect
+                  options={field.options}
+                  value={formData[(field.variable || field.name)] || ''}
+                  onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
                 />
-              </div>
-            )}
-            {field.type.toLowerCase() === 'header' && (
-              <field.headerOption key={field.label}>
-                {field.label}
-              </field.headerOption>
-            )}
-            {field.type.toLowerCase() === 'select' && (
-              <HTMLSelect
-                options={field.options}
-                value={formData[(field.variable || field.name)] || ''}
-                onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
-              />
-            )}
-            {field.type.toLowerCase() === 'checkbox' && (
-              <Checkbox
-                checked={formData[(field.variable || field.name)] || false}
-                onChange={() => handleInputChange((field.variable || field.name), !formData[(field.variable || field.name)])}
-              >
-                {field.label}
-              </Checkbox>
-            )}
-            {field.type.toLowerCase() === 'radio' && (
-              <RadioGroup
-                selectedValue={formData[(field.variable || field.name)] || ''}
-                onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
-              >
-                {field.options.map((option) => (
-                  <Radio key={option} label={option} value={option} />
-                ))}
-              </RadioGroup>
-            )}
-            {field.type.toLowerCase() === 'date' && (
-              <DateInput3
-                value={formData[(field.variable || field.name)]}
-                //formatDate={(date) => date.toLocaleDateString()}
-                //parseDate={(str) => new Date(str)}
-                minDate={new Date('1900-01-01')}
-                onChange={(date) => handleDateChange((field.variable || field.name), date)}
-              />
-            )}
-            {field.type.toLowerCase() === 'time' && !field.allDayOption && (
-              // <TimePicker
-              //   value={formData[(field.variable || field.name)] || null}
-              //   onChange={(selectedTime) => handleInputChange((field.variable || field.name), selectedTime)}
-              //   precision="minute"
-              // />
-              <div>Time</div>
-            )}
-            {field.type.toLowerCase() === 'textarea' && (
-              <TextArea
-                value={formData[(field.variable || field.name)] || ''}
-                onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
-              />
-            )}
-            {field.type.toLowerCase() === 'file' && (
-              <FileInput
-                text={field.label}
-                onInputChange={(e) => handleInputChange((field.variable || field.name), e.target.files[0])}
-              />
-            )}
-            {field.type.toLowerCase() === 'color' && (
-              <ColorPicker
-                value={formData[(field.variable || field.name)] || ''}
-                onChange={(color) => handleInputChange((field.variable || field.name), color)}
-              />
-            )}
-            {field.type.toLowerCase() === 'number' && (
-              <NumericInput
-                value={formData[(field.variable || field.name)] || 0}
-                onValueChange={(value) => handleInputChange((field.variable || field.name), value)}
-              />
-            )}
-            {field.type.toLowerCase() === 'password' && (
-              <InputGroup
-                type="password"
-                value={formData[(field.variable || field.name)] || ''}
-                onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
-              />
-            )}
-            {field.type.toLowerCase() === 'slider' && (
-              <Slider
-                value={formData[(field.variable || field.name)] || 0}
-                min={field.min || 0}
-                max={field.max || 100}
-                stepSize={field.step || 1}
-                onChange={(value) => handleInputChange((field.variable || field.name), value)}
-              />
-            )}
-            {field.type.toLowerCase() === 'switch' && (
-              <Switch
-                checked={formData[(field.variable || field.name)] || false}
-                onChange={() => handleInputChange((field.variable || field.name), !formData[(field.variable || field.name)])}
-              />
-            )}
-          </>
-          {soloSave && <Button
-            minimal
-            icon={editableFields.includes((field.variable || field.name)) ? "tick" : "edit"}
-            intent={editedFields[(field.variable || field.name)] ? 'success' : 'none'}
-            onClick={() => handleButtonClick((field.variable || field.name))}
-            style={{ marginRight: '5px' }}
-          />}
-          {editableFields.includes((field.variable || field.name)) && (
-            <Button
+              )}
+              {field.type.toLowerCase() === 'checkbox' && (
+                <Checkbox
+                  checked={formData[(field.variable || field.name)] || false}
+                  onChange={() => handleInputChange((field.variable || field.name), !formData[(field.variable || field.name)])}
+                >
+                  {field.label}
+                </Checkbox>
+              )}
+              {field.type.toLowerCase() === 'radio' && (
+                <RadioGroup
+                  selectedValue={formData[(field.variable || field.name)] || ''}
+                  onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
+                >
+                  {field.options.map((option) => (
+                    <Radio key={option} label={option} value={option} />
+                  ))}
+                </RadioGroup>
+              )}
+              {field.type.toLowerCase() === 'date' && (
+                <DateInput3
+                  value={formData[(field.variable || field.name)]}
+                  //formatDate={(date) => date.toLocaleDateString()}
+                  //parseDate={(str) => new Date(str)}
+                  minDate={new Date('1900-01-01')}
+                  onChange={(date) => handleDateChange((field.variable || field.name), date)}
+                />
+              )}
+              {field.type.toLowerCase() === 'time' && !field.allDayOption && (
+                // <TimePicker
+                //   value={formData[(field.variable || field.name)] || null}
+                //   onChange={(selectedTime) => handleInputChange((field.variable || field.name), selectedTime)}
+                //   precision="minute"
+                // />
+                <div>Time</div>
+              )}
+              {field.type.toLowerCase() === 'textarea' && (
+                <TextArea
+                  value={formData[(field.variable || field.name)] || ''}
+                  onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
+                />
+              )}
+              {field.type.toLowerCase() === 'file' && (
+                <FileInput
+                  text={"File"}
+                  onInputChange={(e) => handleInputChange((field.variable || field.name), e.target.files[0])}
+                />
+              )}
+              {field.type.toLowerCase() === 'color' && (
+                <ColorPicker
+                  value={formData[(field.variable || field.name)] || ''}
+                  onChange={(color) => handleInputChange((field.variable || field.name), color)}
+                />
+              )}
+              {field.type.toLowerCase() === 'number' && (
+                <NumericInput
+                  value={formData[(field.variable || field.name)] || 0}
+                  onValueChange={(value) => handleInputChange((field.variable || field.name), value)}
+                />
+              )}
+              {field.type.toLowerCase() === 'password' && (
+                <InputGroup
+                  type="password"
+                  value={formData[(field.variable || field.name)] || ''}
+                  onChange={(e) => handleInputChange((field.variable || field.name), e.target.value)}
+                />
+              )}
+              {field.type.toLowerCase() === 'slider' && (
+                <Slider
+                  value={formData[(field.variable || field.name)] || 0}
+                  min={field.min || 0}
+                  max={field.max || 100}
+                  stepSize={field.step || 1}
+                  onChange={(value) => handleInputChange((field.variable || field.name), value)}
+                />
+              )}
+              {field.type.toLowerCase() === 'switch' && (
+                <Switch
+                  checked={formData[(field.variable || field.name)] || false}
+                  onChange={() => handleInputChange((field.variable || field.name), !formData[(field.variable || field.name)])}
+                />
+              )}
+            </>
+            {soloSave && <Button
               minimal
-              icon="cross"
-              intent="danger"
-              onClick={() => setEditableFields(editableFields.filter(item => item !== (field.variable || field.name)))}
-            />
-          )}
-        </FormGroup>
-      ))}
-      {(!soloSave || !noSave)  && (
-        <Button intent="primary" onClick={() => callbackFunction(formData)}>
-          Submit
-        </Button>
-      )}
+              icon={editableFields.includes((field.variable || field.name)) ? "tick" : "edit"}
+              intent={editedFields[(field.variable || field.name)] ? 'success' : 'none'}
+              onClick={() => handleButtonClick((field.variable || field.name))}
+              style={{ marginRight: '5px' }}
+            />}
+            {editableFields.includes((field.variable || field.name)) && (
+              <Button
+                minimal
+                icon="cross"
+                intent="danger"
+                onClick={() => setEditableFields(editableFields.filter(item => item !== (field.variable || field.name)))}
+              />
+            )}
+          </FormGroup>
+        ))}
+        {(!soloSave || !noSave) && (
+          <Button intent="primary" onClick={() => callbackFunction(formData)}>
+            Submit
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

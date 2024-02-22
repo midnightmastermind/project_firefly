@@ -31,7 +31,7 @@ class ChatService {
     // this.socket.on('conversation', (data) => {
     //   this.dispatch(conversation(data));
     // });
-
+    console.log(storage.getState().users);
     // // Add other socket event listeners here...
     this.socket.on('action', (data) => {      
       if (data.type === 'server/receive_message') {

@@ -1,16 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import io from 'socket.io-client';
 
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react"
-import 'App.css';
-import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-// import 'css/App.css';
-import 'css/global.css';
-import '@blueprintjs/core/lib/css/blueprint.css';
+// /** @jsxImportSource @emotion/react */
+// import { css } from "@emotion/react"
 
+import { BlueprintProvider, Classes, Overlay2 } from '@blueprintjs/core';
 import { login, logout } from "slices/auth/auth";
 import { getAll as getAllFiles } from "slices/storage/file";
 import { getAll as getAllFolders } from "slices/storage/folder";
@@ -64,7 +59,6 @@ function App() {
   const { fetching: fetchingSite } = useSelector((state) => state.site);
   const { fetched: fetchedSite } = useSelector((state) => state.site);
   const { user: currentUser } = useSelector((state) => state.auth);
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
   const [overlayContent, setOverlayContent] = useState(null);
   const { message } = useSelector((state) => state.message);
@@ -88,8 +82,8 @@ function App() {
       dispatch(getAllFolders());
       dispatch(getAllCartItems());
       dispatch(getAllPosts());
-      
-      dispatch({type:'server/fetchChats', data: currentUser.id});
+
+      dispatch({ type: 'server/fetchChats', data: currentUser.id });
 
 
       // dispatch(fetchChats());
@@ -114,8 +108,8 @@ function App() {
         socket.emit('setUserId', userId);
       });
 
-    } 
-      
+    }
+
   }, []);
 
   useEffect(() => {
@@ -154,47 +148,61 @@ function App() {
       dispatch(getAllProductsForSite());
       dispatch(getSuperUsers());
     }
-    
+
   }, [currentUser]);
 
   const setPanel = (panel) => {
     setOverlayContent(panel);
-    setIsOverlayOpen(true);
   }
 
   const logOut = useCallback(() => {
     dispatch(logout());
   }, [dispatch]);
-  
+
   const closePanel = () => {
     setOverlayContent(null);
-    setIsOverlayOpen(false);
   }
   const userLoggedInMenu = createUserLoggedInMenu(setPanel, logOut, currentUser);
-  const userLoggedOutMenu = createUserLoggedOutMenu(setPanel, closePanel );
+  const userLoggedOutMenu = createUserLoggedOutMenu(setPanel, closePanel);
   const headerMenu = createHeaderMenu(setPanel, logOut);
   const footerMenu = createFooterMenu(setPanel, logOut);
-  
+
 
   return (
     <Router>
-      <div className="App" css={css`
-        background-color: ${globalTheme.backgroundColor};
-        color: ${globalTheme.color}
-    `}>
-        { currentUser && <ChatComponent currentUser={currentUser} /> }
-        <Header headerMenu={headerMenu} userLoggedInMenu={userLoggedInMenu} userLoggedOutMenu={userLoggedOutMenu} setOverlayContent={setOverlayContent} setIsOverlayOpen={setIsOverlayOpen} />
-        <CustomOverlay isOverlayOpen={isOverlayOpen} setIsOverlayOpen={setIsOverlayOpen}>{overlayContent}</CustomOverlay>
-        <div className="page-container">
-          <Routes>
-            {routes.map((route, index) => (
-              <Route key={index} path={route.path} element={route.element} />
-            ))}
-          </Routes>
+      <BlueprintProvider>
+        <div className="App">
+          {/* //   css={css`
+    //     background-color: ${globalTheme.backgroundColor};
+    //     color: ${globalTheme.color}
+    // `}> */}
+          <Header headerMenu={headerMenu} userLoggedInMenu={userLoggedInMenu} userLoggedOutMenu={userLoggedOutMenu} setOverlayContent={setOverlayContent} />
+          {/* <div><CustomOverlay isOverlayOpen={isOverlayOpen} setIsOverlayOpen={setIsOverlayOpen}>{overlayContent}</CustomOverlay></div> */}
+          <Overlay2 onClose={() => { setOverlayContent(null) }} className={`${Classes.OVERLAY_SCROLL_CONTAINER}`} usePortal={true} isOpen={overlayContent != null} children={(
+            <div className={`overlay-container ${Classes.CARD} ${Classes.ELEVATION_4}`}>
+              {overlayContent}
+            </div>
+          )} />
+          {/* <div className="overlay-container">
+                <div className="close-button">
+                    <Button intent={Intent.DANGER} onClick={() => props.setIsOverlayOpen(false)} style={{ margin: "" }}>
+                        X
+                    </Button>
+                </div> */}
+
+          {/* </div> */}
+          <div className="page-container">
+            <Routes>
+              {routes.map((route, index) => (
+                <Route key={index} path={route.path} element={route.element} />
+              ))}
+            </Routes>
+          </div>
+          {currentUser && <ChatComponent currentUser={currentUser} />}
+          <Footer footerMenu={footerMenu} />
+          {/* <Toast /> */}
         </div>
-        <Footer footerMenu={footerMenu}/>
-        {/* <Toast /> */}
-      </div>
+      </BlueprintProvider>
     </Router>
   );
 }

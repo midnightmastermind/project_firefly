@@ -97,7 +97,7 @@ const learnMoreButton = {
 // page content
 const HomePage = () => {
     return (
-        <div>
+        <div className="home-page">
             {/* Home Page Hero Image & Text */}
             <Hero page={homeInfo} />
             <Hero page={homeInfo2} />

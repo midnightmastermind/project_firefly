@@ -6,9 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import store from "./store";
+import "normalize.css/normalize.css";
+
+import '@blueprintjs/core/lib/css/blueprint.css';
 import "@blueprintjs/table/lib/css/table.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css"
-
+import 'App.css';
+// import 'css/global.css';
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import ParticleBackground from "./components/style/ParticleBackground";
 
 const particlesInit = (main) => {

@@ -5,7 +5,7 @@
  */
 import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Tag, Overlay2, Classes } from "@blueprintjs/core";
+import { Tag, Overlay2, Classes, Button } from "@blueprintjs/core";
 import { create as createSitePermissions, update as updateSitePermissions, remove as removeSitePermissions } from "slices/site/user_site_availability";
 import { create as createUserSiteAvailability, remove as removeUserSiteAvailability } from "slices/site/user_site_availability";
 import { Link } from "react-router-dom";
@@ -19,6 +19,10 @@ import Pagination from "components/common/Pagination";
 import ToolBar from "components/tools/ToolBar";
 import Card from "components/elements/Card";
 import User from "./User";
+import List from 'components/common/List';
+import UserForm from "./UserForm";
+import Carousel from "components/elements/Carousel";
+import DynamicForm from "components/form/Form";
 
 const PageSize = 18;
 
@@ -27,6 +31,18 @@ const heroPageInfo = {
     heading: 'Browse SuperUsers',
     search: false
 };
+const userSchema = [
+    { type: 'text', variable: 'username', label: 'Username' },
+    { type: 'text', variable: 'email', label: 'Email' },
+    { type: 'password', variable: 'password', label: 'Password' },
+    { type: 'text', variable: 'first_name', label: 'First Name' },
+    { type: 'text', variable: 'last_name', label: 'Last Name' },
+    { type: 'text', variable: 'address', label: 'Address' },
+    { type: 'text', variable: 'state', label: 'State' },
+    { type: 'text', variable: 'country', label: 'Country' },
+    { type: 'text', variable: 'zip', label: 'ZIP Code' },
+    { type: 'file', variable: 'profile_image', label: 'Profile Image' },
+];
 
 const searchFields = ["first_name", "last_name", "description"];
 const UserList = (props) => {
@@ -46,7 +62,7 @@ const UserList = (props) => {
     const { users } = useSelector(state => state.user);
     const { user: currentUser } = useSelector((state) => state.auth);
     const { enrollments } = useSelector((state) => state.enrollment);
-    const { product_permissions } = useSelector((state) => state.product_permissions);
+    const { card_permissions } = useSelector((state) => state.user);
     const { fetched: fetchedUsers } = useSelector((state) => state.user);
 
     const { sites, current_site: site } = useSelector((state) => state.site);
@@ -55,82 +71,77 @@ const UserList = (props) => {
     const dispatch = useDispatch();
 
 
-    useEffect(() => {
-        if (currentUser) {
-            setShowSuperUserTools(PageAuth.superUserAuth(currentUser));
-            setShowSiteAdminTools(PageAuth.adminAuth(currentUser));
-            setShowGlobalAdminTools(PageAuth.globalAdminAuth(currentUser));
-        }
+    // useEffect(() => {
+    //     if (currentUser) {
+    //         setShowSuperUserTools(PageAuth.superUserAuth(currentUser));
+    //         setShowSiteAdminTools(PageAuth.adminAuth(currentUser));
+    //         setShowGlobalAdminTools(PageAuth.globalAdminAuth(currentUser));
+    //     }
 
-        if (users) {
-            let filtered = [];
-            if (props.mode == "student") {
+    //     if (users) {
+    //         let filtered = [];
+    //         if (props.mode == "student") {
 
-                //filter to only enrolled
-                filtered = filterStudents(users, enrollments, product_permissions, currentUser);
-                setFilteredUsers(filtered);
-                setSearchData(filtered);
-            } else if (props.mode == "superUser") {
+    //             //filter to only enrolled
+    //             filtered = filterStudents(users, enrollments, user-grid-card_permissions, currentUser);
+    //             setFilteredUsers(filtered);
+    //             setSearchData(filtered);
+    //         } else if (props.mode == "superUser") {
 
-                if (currentUser && (PageAuth.superUserAuth(currentUser) || PageAuth.adminAuth(currentUser) || PageAuth.globalAdminAuth(currentUser))) {
-                    filtered = filterUsers(users, product_permissions);
-                    setFilteredUsers(filtered);
-                    setSearchData(filtered);
-                } else {
-                    setFilteredUsers(users);
-                    setSearchData(users);
-                }
-            } else if (props.mode == "admin") {
+    //             if (currentUser && (PageAuth.superUserAuth(currentUser) || PageAuth.adminAuth(currentUser) || PageAuth.globalAdminAuth(currentUser))) {
+    //                 filtered = filterUsers(users, user-grid-card_permissions);
+    //                 setFilteredUsers(filtered);
+    //                 setSearchData(filtered);
+    //             } else {
+    //                 setFilteredUsers(users);
+    //                 setSearchData(users);
+    //             }
+    //         } else if (props.mode == "admin") {
 
-                setFilteredUsers(users);
-                setSearchData(users);
-            } else if (props.mode == "global_admin") {
+    //             setFilteredUsers(users);
+    //             setSearchData(users);
+    //         } else if (props.mode == "global_admin") {
 
-                setFilteredUsers(users);
-                setSearchData(users);
-            } else {
-                setFilteredUsers(users);
-                setSearchData(users);
-            }
-        }
+    //             setFilteredUsers(users);
+    //             setSearchData(users);
+    //         } else {
+    //             setFilteredUsers(users);
+    //             setSearchData(users);
+    //         }
+    //     }
 
-    }, [dispatch, users, enrollments, product_permissions, sites, site_permissions]);
-
-    useEffect(() => {
-        if (filteredUsers !== null && fetchedUsers) {
-            setShowLoadingBar(false);
-        }
-    }, [filteredUsers, fetchedUsers]);
-
-    useEffect(() => {
-        const toolList = [
-            {
-                type: "button",
-                text: "Create New User",
-                icon: "fa-plus",
-                class: "add-new-button",
-                callBackOrLink: "/user/new"
-            }
-        ];
-        console.log(props);
-        if (!props.site_id) {
-            toolList.push({
-                type: "select",
-                text: "All Sites",
-                callBackFunction: onChangeSite,
-                options: sites,
-                textIndex: "title"
-            });
-        }
-
-        setToolList(toolList);
-    }, [sites]);
+    // }, [dispatch, users, enrollments, user-grid-card_permissions, sites, site_permissions]);
 
 
-    const findByName = (users) => {
-        setFilteredUsers(users);
-        setCurrentPage(1);
-    };
+    // useEffect(() => {
+    //     const toolList = [
+    //         {
+    //             type: "button",
+    //             text: "Create New User",
+    //             icon: "fa-plus",
+    //             class: "add-new-button",
+    //             callBackOrLink: "/user/new"
+    //         }
+    //     ];
+    //     console.log(props);
+    //     if (!props.site_id) {
+    //         toolList.push({
+    //             type: "select",
+    //             text: "All Sites",
+    //             callBackFunction: onChangeSite,
+    //             options: sites,
+    //             textIndex: "title"
+    //         });
+    //     }
+
+    //     setToolList(toolList);
+    // }, [sites]);
+
+
+    // const findByName = (users) => {
+    //     setFilteredUsers(users);
+    //     setCurrentPage(1);
+    // };
 
     const addSitePermission = (e, site_id, user_id) => {
         dispatch(createSitePermissions({ user_id: user_id, site_id: site_id, role: e.target.value }))
@@ -191,14 +202,6 @@ const UserList = (props) => {
         )
     };
 
-    const currentUserList = useMemo(() => {
-        if (filteredUsers != null) {
-            const firstPageIndex = (currentPage - 1) * PageSize;
-            const lastPageIndex = firstPageIndex + PageSize;
-            return filteredUsers.slice(firstPageIndex, lastPageIndex);
-        }
-    }, [currentPage, filteredUsers]);
-
     const onChangeSite = (site) => {
         console.log(site);
         if (site !== "All") {
@@ -213,54 +216,91 @@ const UserList = (props) => {
         }
     }
 
-    return (
-        <div className="user-page-container">
-            <SearchBar callBackFunction={findByName} fields={searchFields} data={searchData} />
-            {/* {(showSuperUserTools || showSiteAdminTools || showGlobalAdminTools) &&
-                <ToolBar toolList={toolList} />
-            } */}
-            <div className="user-list-container">
-                {showLoadingBar ? (<LoadingBar />) :
-                    (
-                        currentUserList &&
-                        <>
-                            <div className="user-list">
-                                {
-                                    currentUserList.length > 0 ? (
-                                        currentUserList.map((user, index) => (
-
-                                            <Card element={user} onClickCallback={() => setSelectedUser(user)} content={{ image: user.profile_image, header: `${user.first_name} ${user.last_name}`, info: user.description, link: { src: `/user/${user._id}`, text: "View User" } }} />
-
-                                        ))
-                                    ) : (<div class="no-results">No Users Found</div>)
-                                }
-                            </div>
-                            <div className="d-flex justify-content-center align-items-center w-100">
-                                <Pagination
-                                    className="pagination-bar"
-                                    currentPage={currentPage}
-                                    totalCount={filteredUsers.length}
-                                    pageSize={PageSize}
-                                    onPageChange={page => setCurrentPage(page)}
-                                />
-                            </div>
-                        </>
-                    )
-                }
-            </div>
-            {selectedUser && (
-                <Overlay2
-                    isOpen={!!selectedUser}
-                    onClose={() => setSelectedUser(null)}
-                    className={`${Classes.OVERLAY_SCROLL_CONTAINER}` }
-                    >
-                    <div className={`overlay-container ${Classes.ELEVATION_4}`}>
-                        {selectedUser && (
-                            <User user={selectedUser} />
-                        )}
+    const UserGridViewCard = ({ user }) => {
+        console.log(user);
+        // const userCardData = { image: user.profile_image, header: `${user.first_name} ${user.last_name}`, info: user.description, link: { src: `/user/${user._id}`, text: "View User" } }
+        const imagesArray = [{
+            type: 'image',
+            src: user.profile_image
+        }];
+        const image = (
+            <div className="user-grid-view-card-image"><Carousel settings={{ showThumbs: false }} items={imagesArray} /></div>//style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
+        );
+        return (
+            <div
+                className="user-grid-view-card-content"
+                key={user._id || user.id}
+            >
+                    <div className="user-grid-view-card-image-container">{image}</div>
+                    <div className="user-grid-view-card-header-container">
+                        <div className="user-grid-view-card-header">{`${user.first_name} ${user.last_name}`}</div>
                     </div>
-                </Overlay2>
-            )}
+                    <div className="user-grid-view-card-info-container">
+                        <div className="user-grid-view-card-info">{`${user.description}`}</div>
+                    </div>
+                </div>
+        )
+    }
+
+    const UserListViewCard = ({ user }) => {
+        //const userCardData = { image: user.profile_image, header: `${user.first_name} ${user.last_name}`, info: user.description, link: { src: `/user/${user._id}`, text: "View User" } }
+
+        // const imagesArray = images.map(image => {
+        //     return {
+        //         type: 'image',
+        //         src: image
+        //     }
+        // });
+
+        const imagesArray = [{
+            type: 'image',
+            src: user.profile_image
+        }];
+        const image = (
+            <div className="user-list-view-card-image"><Carousel settings={{ showThumbs: false }} items={imagesArray} /></div>//style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
+        );
+
+        return (
+            <div className="user-list-view-card-content">
+                {image}
+                <div className="user-list-view-card-info-container">
+                    <DynamicForm
+                        schema={userSchema}
+                        data={user}
+                        title={`${user.first_name} ${user.last_name}`}
+                        soloSave={true}
+                        noSave={true}
+                        callbackFunction={(formData) => console.log(formData)}
+                    />
+                </div>
+                <div className="view-button">
+                    <Button style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                        View
+                    </Button>
+                </div>
+            </div>
+        );
+    }
+
+    const findByName = (users) => {
+        setFilteredUsers(users);
+        setCurrentPage(1);
+    };
+
+    return (
+        <div className="user-list-container">
+            <List
+                items={users}
+                overlayComponent={(user) => <User user={user} />}  // Pass the overlay component for users
+                filterFunction={findByName}
+                siteAvailability={user_site_availability}
+                searchFields={searchFields}
+                listViewItem={(user) => <UserListViewCard user={user} />}
+                gridViewItem={(user) => <UserGridViewCard user={user} />}
+                mode={props.mode}
+                formComponent={<UserForm />}
+                listHeader="User List"
+            />
         </div>
     );
 }

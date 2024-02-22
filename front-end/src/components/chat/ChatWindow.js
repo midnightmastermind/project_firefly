@@ -475,7 +475,7 @@ const ChatWindow = ({ user, users }) => {
       ))}
     </Menu>
   );
-  console.log(user);
+
   return (
     <MainContainer responsive>
       <Sidebar position="left" scrollable>
@@ -485,17 +485,18 @@ const ChatWindow = ({ user, users }) => {
         </ConversationHeader>
         }
         <Popover content={userMenu} position="bottom">
-          <Button icon="plus" text="New" intent={Intent.PRIMARY} />
+          <Button icon="plus" text="New Message" intent={Intent.PRIMARY} />
         </Popover>
         <ConversationList>
           {conversations && conversations.map((c) => {
             const [avatar, name] = (() => {
+              
               //const participant = c.participants.length > 0 ? c.participants[0] : undefined;
               const participant = c.participants.find(part => part.id !== user.id);
-              
               if (participant) {
+
                 const chatUser = getUser(participant.id);
-                
+
                 if (chatUser) {
                   return [<Avatar src={chatUser.avatar} />, chatUser.username];
                 }

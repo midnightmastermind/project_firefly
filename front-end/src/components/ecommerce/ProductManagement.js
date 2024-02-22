@@ -44,8 +44,7 @@ const ProductManagementDashboard = () => {
   }, [products]);
 
   return (
-    <div>
-      <SettingsDrawer menuItems={[
+      <SettingsDrawer className="product-management" menuItems={[
          {
           id: 'products_section',
           label: 'Products',
@@ -80,7 +79,6 @@ const ProductManagementDashboard = () => {
           ),
         },
       ]} />
-    </div>
   );
 };
 

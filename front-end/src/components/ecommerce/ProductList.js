@@ -24,60 +24,6 @@ import { Tag, Overlay2, Classes } from "@blueprintjs/core";
 import ProductComponent from "./ProductComponent";
 const searchFields = ["Name", "description"];
 
-const exampleData = [{
-    "name": "Cozy Knit Sweater",
-    "category": [
-        "Apparel",
-        "Mens",
-        "Sweaters"
-    ],
-    "variants": [
-        {
-            "description": "Warm and cozy knit sweater for chilly days",
-            "size": "medium",
-            "color": "green",
-            "pattern": null,
-            "images": [
-                "https://example.com/sweater_green_medium.jpg"
-            ],
-            "price": 49.99,
-            "stock": 12
-        },
-        {
-            "description": "Warm and cozy knit sweater for chilly days",
-            "size": "small",
-            "color": "green",
-            "pattern": null,
-            "images": [
-                "https://example.com/sweater_green_medium.jpg"
-            ],
-            "price": 49.99,
-            "stock": 12
-        },
-        {
-            "description": "Warm and cozy knit sweater for chilly days",
-            "size": "small",
-            "color": "blue",
-            "pattern": null,
-            "images": [
-                "https://example.com/sweater_blue_large.jpg"
-            ],
-            "price": 49.99,
-            "stock": 10
-        },
-        {
-            "description": "Warm and cozy knit sweater for chilly days",
-            "size": "extra-large",
-            "color": "gray",
-            "pattern": null,
-            "images": [
-                "https://example.com/sweater_gray_xlarge.jpg"
-            ],
-            "price": 49.99,
-            "stock": 15
-        }
-    ]
-}]
 
 const Product = ({ product, onProductClick }) => {
     const formatter = new Intl.NumberFormat('en-US', {

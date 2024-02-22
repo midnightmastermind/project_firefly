@@ -8,7 +8,7 @@ import {
     FileData,
     FileHelper,
     FullFileBrowser,
-} from 'chonky';
+} from '@aperturerobotics/chonky';
 import { Button } from '@blueprintjs/core';
 import DemoFsMap from './empty_demo.json';
 import { FileUploader } from './FileUploader';

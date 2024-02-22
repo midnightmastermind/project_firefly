@@ -177,7 +177,7 @@ exports.getSuperUsers = (req, res) => {
                         }
 
                         User.find()
-                            .select('first_name last_name _id description profile_image')
+                            .select('first_name last_name _id username description profile_image')
                             .exec((err, users) => {
                                 if (err) {
                                     res.status(500).send({ message: err });

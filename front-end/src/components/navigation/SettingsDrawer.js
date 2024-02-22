@@ -17,7 +17,7 @@ const SettingsDrawer = (props) => {
 
   console.log(menuItems);
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div className={props.className} style={{ display: 'flex', justifyContent: 'center' }}>
       <Menu className="settings-menu" style={{ backgroundColor: 'transparent', color: 'white' }}>
         {menuItems.map((menuItem) => {
           if (menuItem.panel) {

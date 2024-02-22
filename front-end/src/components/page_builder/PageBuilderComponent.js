@@ -46,6 +46,39 @@ const PageBuilderComponent = (props) => {
         }
     }, [props.layout])
 
+    useEffect(() => {
+        const handleScroll = () => {
+          const el = document.querySelector('.page-builder-header-topbar');
+          console.log(el);
+            console.log("hit");
+            console.log(window.scrollY);
+            console.log(window);
+            console.log(el.getBoundingClientRect());
+            console.log(el.style);
+          if (el.getBoundingClientRect().top >= 0) {
+            el.style.position = 'absolute';
+            el.style.top = '0px';
+          }
+    
+          if (el.getBoundingClientRect().top < 0) {
+            el.style.position = 'fixed';
+            el.style.top = '0px';
+          }
+        };
+    
+        // Replace '.scrollable-container' with the actual class of your scrollable container
+        const scrollableContainer = document.querySelector('#root');
+
+        if (scrollableContainer) {
+          scrollableContainer.addEventListener('scroll', handleScroll);
+    
+          // Clean up the event listener when the component unmounts
+          return () => {
+            scrollableContainer.removeEventListener('scroll', handleScroll);
+          };
+        }
+      }, []); // The empty dependency array ensures the effect runs only once on mount
+
 
     const onInputChange = (variable, value, isStyle) => {
         let editedData = structuredClone(currentData);
@@ -87,7 +120,6 @@ const PageBuilderComponent = (props) => {
             el.style = {}
         }
 
-        console.log("CREATE");
         return (
             <div
                 className={`test component ${isNew ? 'droppable-element toolbox-item' : ''}`}
@@ -260,11 +292,11 @@ const PageBuilderComponent = (props) => {
     const onMouseDown = () => {
         setMouseDownTime(Date.now());
     };
-    
+
     const onMouseUp = () => {
         setMouseUpTime(Date.now());
         const timeDifference = mouseUpTime - mouseDownTime;
-    
+
         // Adjust the threshold as needed, here set to 200 milliseconds
         if (timeDifference < 200) {
             // Treat it as a click, prevent the drag event
@@ -309,6 +341,7 @@ const PageBuilderComponent = (props) => {
                     </Button>
                     <Button icon="save" onClick={() => onSavePage()}>Save</Button>
                 </div>
+                <Divider />
             </div>
             <Collapse className="page-settings" isOpen={isPageSettingsOpen}>
                 {currentData && (
@@ -358,7 +391,7 @@ const PageBuilderComponent = (props) => {
 PageBuilderComponent.defaultProps = {
     className: "layout",
     rowHeight: 60,
-    cols: {lg: 12},
+    cols: { lg: 12 },
     compactType: null,
     usePortal: true,
     margin: [0, 0],

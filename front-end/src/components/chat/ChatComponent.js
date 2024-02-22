@@ -52,7 +52,6 @@ const ChatComponent = () => {
 
   React.useEffect(() => {
     if (currentUser) {
-      console.log(currentUser);
       const newChatUser = new User({
         id: currentUser.id,
         presence: new Presence({
@@ -75,9 +74,8 @@ const ChatComponent = () => {
   React.useEffect(() => {
     if (users) {
       users.forEach(user => {
-        // 
-        
         // if (user._id == currentUser.id) {
+
         storage.addUser(new User({
           id: user._id,
           presence: new Presence({
@@ -90,7 +88,7 @@ const ChatComponent = () => {
         // }
       });
     }
-  }, [users]);
+  }, [users, currentUser]);
 
   React.useEffect(() => {
     if (conversations) {
@@ -153,7 +151,6 @@ const ChatComponent = () => {
     }
 
   }, [chat_messages, currentUser]);
-
 
   
   // useEffect(() => {
