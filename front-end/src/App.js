@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 // /** @jsxImportSource @emotion/react */
 // import { css } from "@emotion/react"
+import { initializeShopifyService } from 'services/ecommerce/shopify.service';
 
 import { BlueprintProvider, Classes, Overlay2 } from '@blueprintjs/core';
 import { login, logout } from "slices/auth/auth";
@@ -26,6 +27,7 @@ import CustomOverlay from 'components/elements/CustomOverlay';
 
 import Header from 'components/navigation/Header';
 import Footer from "components/navigation/Footer";
+import socket from "common/socketConfig";
 
 import PageAuth from "common/PageAuth";
 import EventBus from "common/EventBus";
@@ -39,8 +41,6 @@ import ChatComponent from "components/chat/ChatComponent";
 import Toast from "components/notifications/Toast";
 import ProductComponent from "components/ecommerce/ProductComponent";
 // import ChatService from "components/chat/test/ChatService";
-import socket from "common/socketConfig";
-
 
 
 import {
@@ -53,37 +53,62 @@ import {
 import { main_routes } from "config/main_routes";
 
 
-function App() {
-  const globalTheme = useSelector((state) => state.theme.global);
+
+function App({storeInstance, schemaNames}) {
+  // const globalTheme = useSelector((state) => state.theme.global);
   const { current_site: currentSite } = useSelector((state) => state.site);
   const { fetching: fetchingSite } = useSelector((state) => state.site);
   const { fetched: fetchedSite } = useSelector((state) => state.site);
   const { user: currentUser } = useSelector((state) => state.auth);
 
+  // const shopifyOrders = useSelector((state) => state.shopify);
+  // const shopifyProducts = useSelector((state) => state.shopify);
+
   const [overlayContent, setOverlayContent] = useState(null);
-  const { message } = useSelector((state) => state.message);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  
+  // const { message } = useSelector((state) => state.message);
   const { pages } = useSelector((state) => state.page);
   const [routes, setRoutes] = useState([...main_routes]);
   const dispatch = useDispatch();
 
+  // const schemaNames = [
+  //   'product',
+  //   'site_product_availability',
+  //   'enrollment',
+  //   'product_permissions',
+  //   'user_site_availability',
+  //   'folder',
+  //   'cart_item',
+  //   'post',
+  // ];
+
   const getGlobalAdminData = () => {
+    
     if (PageAuth.globalAdminAuth(currentUser)) {
-      dispatch(getAllProducts());
-      dispatch(getAllSiteProductAvailabilities());
+      // dispatch(getAllProducts());
+      // dispatch(getAllSiteProductAvailabilities());
       dispatch(getAllSites());
-      dispatch(getAllEnrollments());
-      dispatch(getAllProductPermissions());
-      dispatch(getAllUserSiteAvailabilities());
+      // dispatch(getAllEnrollments());
+      // dispatch(getAllProductPermissions());
+      // dispatch(getAllUserSiteAvailabilities());
       dispatch(getAllUsers());
       dispatch(getAllSitePermissions());
-      dispatch(getAllSessions());
+      // dispatch(getAllSessions());
       dispatch(getAllPages());
       dispatch(getAllFiles());
-      dispatch(getAllFolders());
-      dispatch(getAllCartItems());
-      dispatch(getAllPosts());
-
-      dispatch({ type: 'server/fetchChats', data: currentUser.id });
+      // dispatch(getAllFolders());
+      // dispatch(getAllCartItems());
+      // dispatch(getAllPosts());
+      
+      schemaNames.forEach(async (schema) => {
+        const schemaState = storeInstance.getState()[schema.toLowerCase()];
+        // Check if the action is not pending before dispatching
+        if (schemaState && !schemaState.fetching && !schemaState.fetched) {
+          await storeInstance.performOperation(schema, 'readAll', {}, dispatch);
+        }
+      });
+      // dispatch({ type: 'server/fetchChats', data: currentUser.id });
 
 
       // dispatch(fetchChats());
@@ -103,14 +128,18 @@ function App() {
 
     if (user && !user.includes("undefined")) {
       login(JSON.parse(user));
-      socket.on('connect', () => {
-        const userId = currentUser.id; // Replace with the actual user ID
-        socket.emit('setUserId', userId);
-      });
-
     }
 
-  }, []);
+  }, [localStorage]);
+
+  // useEffect(() => {
+  //   const cleanup = initializeShopifyService(dispatch);
+  //   
+  //   return () => {
+  //     // Clean up, disconnect socket, etc.
+  //     cleanup();
+  //   };
+  // }, [dispatch]);
 
   useEffect(() => {
     if (pages) {
@@ -136,9 +165,15 @@ function App() {
     if (subdomain.includes("localhost")) {
       subdomain = "main";
     }
-
     dispatch(getByName({ name: subdomain }));
+
     if (currentUser) {
+      if (socket.disconnected) {
+        socket.on('connect', () => {
+          const userId = currentUser.id; // Replace with the actual user ID
+          socket.emit('setUserId', userId);
+        });
+      }
       // getUserData();
       // getSuperUserData();
       // getSiteAdminData();
@@ -151,6 +186,10 @@ function App() {
 
   }, [currentUser]);
 
+  const toggleChat = (e) => {
+    
+    setIsChatOpen(!isChatOpen);
+  }
   const setPanel = (panel) => {
     setOverlayContent(panel);
   }
@@ -162,7 +201,7 @@ function App() {
   const closePanel = () => {
     setOverlayContent(null);
   }
-  const userLoggedInMenu = createUserLoggedInMenu(setPanel, logOut, currentUser);
+  const userLoggedInMenu = createUserLoggedInMenu(setPanel, logOut, currentUser, toggleChat);
   const userLoggedOutMenu = createUserLoggedOutMenu(setPanel, closePanel);
   const headerMenu = createHeaderMenu(setPanel, logOut);
   const footerMenu = createFooterMenu(setPanel, logOut);
@@ -198,8 +237,8 @@ function App() {
               ))}
             </Routes>
           </div>
-          {currentUser && <ChatComponent currentUser={currentUser} />}
-          <Footer footerMenu={footerMenu} />
+          {currentUser && <ChatComponent toggleChat={toggleChat} isChatOpen={isChatOpen} currentUser={currentUser} />}
+          {/* <Footer footerMenu={footerMenu} /> */}
           {/* <Toast /> */}
         </div>
       </BlueprintProvider>

@@ -95,7 +95,8 @@ const addButton = [
 
 
 const Header = (props) => {
-    const headerTheme = useSelector((state) => state.theme.header);
+    // const headerTheme = useSelector((state) => state.theme.header);
+    const [headerTheme, useHeaderTheme] = useState({});
     const navigate = useNavigate();
     const { user: currentUser } = useSelector((state) => state.auth);
     const { current_site: currentSite } = useSelector((state) => state.site);
@@ -175,6 +176,7 @@ const Header = (props) => {
       
           if (item.type === 'dropdown') {
             newItem.type = 'collapse';
+            console.log("hit2");
           }
       
           if (item.children) {

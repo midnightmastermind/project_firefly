@@ -1,8 +1,8 @@
 // ImageElement.js
-import React from 'react';
+import React, { memo } from 'react';
 import { Button, Popover } from '@blueprintjs/core';
 import { useState } from 'react';
-import example from 'example.jpg';
+import example from './example.jpg';
 
 // const ImageElement = ({ element, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {
@@ -90,16 +90,18 @@ import example from 'example.jpg';
 //   );
 // }
 
-const ImageElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
+
+const ImageElement = memo(({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
+  
   return (
-    <div>
+    <div className="image-element-container">
         <div className="image-element"
             draggable="false"
-            style={{backgroundImage: `${element.src || example}`}}
+                  style={{backgroundImage: `url(${element.src || `http://localhost:8081${example}`})`, backgroundSize: 'cover'}}
             alt={`Image ${element.i}`}
           />
     </div>
   );
-}
+});
 
 export default ImageElement

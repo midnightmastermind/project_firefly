@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Overlay2, ButtonGroup, Button, Card, Classes } from "@blueprintjs/core";
+import { Overlay2, ButtonGroup, Button, Card, Classes, PanelStack2 } from "@blueprintjs/core";
 import LoadingBar from "components/common/LoadingBar";
 import SearchBar from "components/common/SearchBar";
 import Pagination from "components/common/Pagination";
 import CustomTable from "components/elements/CustomTable";
+import ListTable from "components/elements/ListTable";
+
 import PageAuth from "common/PageAuth";
 import { Divider } from "@blueprintjs/core";
 import ToolBar from "components/tools/ToolBar";
@@ -15,14 +17,17 @@ const PageSize = 35;
 const List = (props) => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [showLoadingBar, setShowLoadingBar] = useState(true);
-    const [showTools, setShowTools] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [toolList, setToolList] = useState(null);
     const [listType, setListType] = useState('list-view')
     const [filteredItems, setFilteredItems] = useState([]);
     const [searchData, setSearchData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [isFormOpen, setIsFormOpen] = useState(false);
+    // const [isFormOpen, setIsFormOpen] = useState(false);
     const [currentSite, setCurrentSite] = useState(null);
+    const [currentPanelStack, setCurrentPanelStack] = useState([]);
+    const [showPanel, setShowPanel] = useState(false);
+    const [showOverlay, setShowOverlay] = useState(false);
     const { user: currentUser } = useSelector((state) => state.auth);
     const { enrollments } = useSelector((state) => state.enrollment);
     const site_permissions = useSelector((state) => state.site_permissions.site_permissions);
@@ -30,11 +35,12 @@ const List = (props) => {
     const { users } = useSelector(state => state.user);
     const dispatch = useDispatch();
 
-    const { items, listHeader, siteAvailability, gridViewItem, listViewItem, filterFunction, itemPermissions, mode, formComponent, overlayComponent, searchFields } = props;
+    const { scalingFactor, items, listHeader, siteAvailability, gridViewItem, listViewItem, filterFunction, itemPermissions, mode, overlayComponent, searchFields, isPanel, adminOverlay } = props;
 
+    console.log(items);
     useEffect(() => {
         if (currentUser) {
-            setShowTools(PageAuth.superUserAuth(currentUser) || PageAuth.adminAuth(currentUser) || PageAuth.globalAdminAuth(currentUser));
+            setIsAdmin(PageAuth.superUserAuth(currentUser) || PageAuth.adminAuth(currentUser) || PageAuth.globalAdminAuth(currentUser));
         }
 
         if (items) {
@@ -52,9 +58,10 @@ const List = (props) => {
             }
         }
         setShowLoadingBar(false);
-    }, [dispatch, items, itemPermissions, enrollments, currentUser, mode, filterFunction]);
+    }, [items, itemPermissions, currentUser, mode, filterFunction]);
 
     const currentItemList = useMemo(() => {
+        console.log("hit");
         if (filteredItems !== null) {
             const firstPageIndex = (currentPage - 1) * PageSize;
             const lastPageIndex = firstPageIndex + PageSize;
@@ -70,18 +77,35 @@ const List = (props) => {
 
     const openItemOverlay = (item) => {
         setSelectedItem(item);
-        setIsFormOpen(false);
+
+        if (isPanel) {
+            setShowOverlay(false);
+            setShowPanel(true);
+
+            if (isAdmin) {
+                addToPanelStack({
+                    renderPanel: () => adminOverlay(item),
+                });
+
+            } else {
+                addToPanelStack({
+                    renderPanel: () => overlayComponent(item),
+                });
+            }
+        }
     };
 
     const closeOverlay = () => {
         setSelectedItem(null);
-        setIsFormOpen(false);
+        setShowOverlay(false);
+        setShowPanel(false);
+        setCurrentPanelStack([]);
     };
 
-    const openFormOverlay = () => {
-        setSelectedItem(false);
-        setIsFormOpen(true);
-    };
+    // const openFormOverlay = () => {
+    //     setSelectedItem(false);
+    //     setIsFormOpen(true);
+    // };
 
     const onChangeSite = (site) => {
         console.log(site);
@@ -98,13 +122,14 @@ const List = (props) => {
     }
 
     useEffect(() => {
+
         const toolList = [
             {
                 type: "button",
                 text: "Create New User",
                 icon: "fa-plus",
                 class: "add-new-button",
-                callBackFunction: openFormOverlay
+                callBackFunction: openItemOverlay
             }
         ];
         console.log(props);
@@ -121,19 +146,54 @@ const List = (props) => {
         setToolList(toolList);
     }, [sites]);
 
-    const GridListCard = ({ content }) => {
-        <div className="grid-list-card">
-            {content}
-        </div>
-    }
-    const ListCard = ({ content }) => {
-        <div className="list-card">
-            {content}
-        </div>
-    }
+    const ItemPanelStack = () => {
+        const handleBackClick = () => {
+            removeFromPanelStack(); // Remove the top panel from the stack
+            setSelectedItem(null); // Clear the selected item
+        };
 
+        return (
+            // <div>
+            //   <PanelStack2
+            //     className="docs-panel-stack-example"
+            //     onOpen={addToPanelStack}
+            //     onClose={removeFromPanelStack}
+            //     renderActivePanelOnly={true}
+            //     stack={currentPanelStack}
+            //   />
+            //   <div className={Classes.DIALOG_FOOTER}>
+            //     <Button onClick={removeFromPanelStack}>Back to List</Button>
+            //   </div>
+            // </div>
+            <PanelStack2
+                className="item-panel-stack"
+                // onOpen={addToPanelStack}
+                onClose={handleBackClick}
+                renderPanelHeader={true}
+                renderActivePanelOnly={true}
+                stack={currentPanelStack}
+            />
+        );
+    };
+    const addToPanelStack = (panel) => {
+        setCurrentPanelStack((prevStack) => [...prevStack, panel]);
+    };
+
+    const removeFromPanelStack = () => {
+        setCurrentPanelStack((prevStack) => prevStack.slice(0, -1));
+    };
+
+    // const handleItemPanelClick = (item) => {
+    //     console.log(item);
+    //     console.log("hit");
+    //     setSelectedItem(item);
+    //     addToPanelStack({
+    //         renderPanel: () => formComponent(item),
+    //     });
+    // };
+    console.log(scalingFactor);
     return (
-        <div className="list-component">
+        <div style={{ transform: `scale(${scalingFactor})` }} className="list-component">
             {/* Main content */}
             <div className="item-list-component-container">
                 <div className="item-list-component-nav-bar">
@@ -152,30 +212,38 @@ const List = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* {(showSuperUserTools || showSiteAdminTools || showGlobalAdminTools) &&
+                {/* {(showSuperUserTools || showSiteAdminTools || showGlobalAdminTools) &&
                     <ToolBar toolList={toolList} />
                 } */}
 
-            {showLoadingBar ? <LoadingBar /> : (
-                <div className="item-list-container">
-                    <div className="item-list">
-                        {listType == 'list-view' ? (
-                            <div className="list-view-item-list">
-                                {currentItemList.length > 0 ? (
-                                    currentItemList.map((item, index) => (
-                                        // Adjust the Card component according to your item structure
-                                        <Card key={item._id} className="list-view-card-container" element={item} onClick={() => openItemOverlay(item)}>
-                                            {listViewItem(item)}
-                                        </Card>
-                                    ))
-                                ) : (
-                                    <div className="no-results">No Items Found</div>
-                                )}
-                            </div>)
-
-                            : listType == 'grid-view' ? (
+                {showLoadingBar ? <LoadingBar /> : (
+                    <div className="item-list-container">
+                        <div className="item-list">
+                            {listType == 'list-view' ? (
+                                <div className="list-view-item-list">
+                                    {currentItemList.length > 0 ? (
+                                        currentItemList.map((item, index) => (
+                                            // Adjust the Card component according to your item structure
+                                            <Card key={item._id} className="list-view-card-container" element={item}>
+                                                {listViewItem(item)}
+                                                {adminOverlay && <div className="view-button">
+                                                    <Button onClick={() => openItemOverlay(item)} style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                                                        View
+                                                    </Button>
+                                                </div>
+                                                }
+                                            </Card>
+                                        ))
+                                    ) : (
+                                        <div className="no-results">No Items Found</div>
+                                    )}
+                                </div>
+                            ) : listType === 'list-table-view' ? (
+                                <div className="list-table-view">
+                                    <ListTable data={filteredItems} />
+                                </div>
+                            ) : listType == 'grid-view' ? (
                                 <div className="grid-view-item-list">
                                     {currentItemList.length > 0 ? (
                                         currentItemList.map((item, index) => (
@@ -187,13 +255,13 @@ const List = (props) => {
                                     ) : (
                                         <div className="no-results">No Items Found</div>
                                     )}
-                                </div>)
-                                : listType == 'table-view' && (
-                                    <div className="item-table-container">
+                                </div>
+                            ) : listType == 'table-view' && (
+                                <div className="item-table-container">
 
-                                        <CustomTable data={filteredItems} />
-                                        <div>
-                                            {/* {currentItemList && (
+                                    <CustomTable data={filteredItems} />
+                                    <div>
+                                        {/* {currentItemList && (
                                                 <div className="item-selection-container">
                                                     <img class="profile-img-card" src={`${currentItemList.profile_image}`} alt="superUser photo"></img>
                                                     <div className="item-info">
@@ -223,40 +291,35 @@ const List = (props) => {
                                                     </div>
                                                 </div>
                                             )} */}
-                                        </div>
-                                    </div>)
-                        }
+                                    </div>
+                                </div>)
+                            }
+                        </div>
+                        <div className="flex justify-center items-center w-full">
+                            <Pagination
+                                className="pagination-bar"
+                                currentPage={currentPage}
+                                totalCount={filteredItems.length}
+                                pageSize={PageSize}
+                                onPageChange={page => setCurrentPage(page)}
+                            />
+                        </div>
                     </div>
-                    <div className="flex justify-center items-center w-full">
-                        <Pagination
-                            className="pagination-bar"
-                            currentPage={currentPage}
-                            totalCount={filteredItems.length}
-                            pageSize={PageSize}
-                            onPageChange={page => setCurrentPage(page)}
-                        />
-                    </div>
-                </div>
-            )}
+                )}
+            </div>
 
-
-            {/* Item overlay */}
             <Overlay2
-                isOpen={!!selectedItem || isFormOpen}
+                isOpen={!!selectedItem || showPanel}
                 onClose={closeOverlay}
                 className={`${Classes.OVERLAY_SCROLL_CONTAINER}`}
             >
                 <div className={`${Classes.ELEVATION_4} overlay-container `}>
-                    {/* Render the overlayComponent with the selectedItem */}
-                    {selectedItem && overlayComponent({ item: selectedItem })}
-
-                    {/* Render the formComponent if isAddFormOpen is true */}
-                    {isFormOpen && formComponent}
+                    {isAdmin && adminOverlay ? (adminOverlay(selectedItem)) : (overlayComponent(selectedItem))}
                 </div>
             </Overlay2>
 
-
-            {/* ToolList buttons */}
+            {selectedItem && showPanel && <ItemPanelStack />}
+            {/* 
             {
                 toolList && toolList.length > 0 && (
                     <div className="toolbar">
@@ -267,7 +330,7 @@ const List = (props) => {
                         ))}
                     </div>
                 )
-            }
+            } */}
         </div >
     );
 };

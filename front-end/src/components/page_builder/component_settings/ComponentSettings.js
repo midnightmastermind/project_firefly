@@ -10,7 +10,7 @@ const ComponentSettings = ({ type, element, setLockGrid, editComponent }) => {
 
   console.log(element);
   const updateContent = (content) => {
-    editComponent(element.i, 'content', content, false);
+    editComponent(element, 'content', content, false);
   }
   
   useEffect(() => {

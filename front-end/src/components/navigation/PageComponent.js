@@ -5,6 +5,8 @@ import TextElement from "components/page_builder/components/TextElement";
 import ImageElement from "components/page_builder/components/ImageElement";
 import VideoElement from "components/page_builder/components/VideoElement";
 import ListElement from "components/page_builder/components/ListElement";
+import CardElement from "components/page_builder/components/CardElement";
+import NavElement from "components/page_builder/components/NavElement";
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -14,7 +16,7 @@ const PageComponent = (props) => {
 
     return (
       <div
-        className="test"
+        className="test non-draggable"
         key={custom_element.i}
         draggable={false}
         unselectable="true"
@@ -29,9 +31,13 @@ const PageComponent = (props) => {
           <ImageElement element={custom_element} style={custom_element.style} />
         ) : el.type === "video" ? (
           <VideoElement style={{ height: "100%", ...custom_element.style }} element={custom_element} />
-        ) : el.type === "container" ? (
+        ) : el.type === "list" ? (
           // <ShowcaseLayout iteration={iteration + 1} onLayoutChange={props.onLayoutChange} />
           <ListElement element={custom_element} style={custom_element.style} />
+        ) : el.type === "nav" ? (
+          <NavElement element={custom_element} style={custom_element.style} />
+        ) : el.type === "card" ? (
+          <CardElement style={{ height: "100%", ...custom_element.style }} element={custom_element} />
         ) : null}
       </div>
     );
@@ -46,6 +52,7 @@ const PageComponent = (props) => {
           disabled={false}
           isDraggable={false}
           isResizable={false}
+          draggableCancel=".non-draggable"
           draggable={false}
           cols={12}
           layout={props.page.layout}

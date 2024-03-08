@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useState } from "react";
 import {
   Navbar,
   NavbarHeading,
@@ -14,7 +14,8 @@ import { css } from "@emotion/react";
 import { useNavigate } from 'react-router-dom';
 
 const Footer = ({ footerMenu }) => {
-  const footerTheme = useSelector((state) => state.theme.footer);
+  // const footerTheme = useSelector((state) => state.theme.footer);
+  const [footerTheme, useFooterTheme] = useState({});
 
   const navigate = useNavigate();
   

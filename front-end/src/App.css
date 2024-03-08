@@ -937,13 +937,12 @@ textarea.bp5-input {
   align-items: center;
   height: 50px;
   padding: 5px;
-  border: 1px solid gray;
-  background-color: #3c4145 !important
+  background-color: #050315 !important;
 }
 
 .product-header {
   font-size: 14px;
-  width: 170px;
+  width: 175px;
 }
 
 .product-header .bp5-tag {
@@ -982,15 +981,13 @@ textarea.bp5-input {
 
 .product-details {
   width: 100%;
-  max-width: 300px;
+  max-width: 530px;
 }
 
 .cart-item {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: #3c4145 !important;
-  border: 1px solid gray;
 }
 
 .cart-item-img {
@@ -1308,10 +1305,18 @@ textarea.bp5-input {
 
 .product-component .product-actions {
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .product-component .product-details {
   margin-left: 30px;
+  margin-top: 20px;
+  margin-right: 20px;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-width: 310px;
 }
 
 .carousel-root {
@@ -1424,7 +1429,6 @@ textarea.bp5-input {
   display: flex;
   flex-wrap: wrap;
   color: white !important;
-
 }
 
 .component:hover {
@@ -1450,7 +1454,7 @@ textarea.bp5-input {
   position: absolute;
   left: 0;
   right: 0;
-  top: 60px;
+  top: 0px;
   background-color: rgb(28, 33, 39) !important;
   z-index: 1000;
   height: 40px;
@@ -1464,8 +1468,8 @@ textarea.bp5-input {
 
 .page-settings,
 .page-toolbox {
-  position: fixed;
-  top: 79px;
+  position: absolute;
+  top: 2px;
   left: 0;
   right: 0;
   background-color: rgb(28, 33, 39) !important;
@@ -1481,11 +1485,12 @@ textarea.bp5-input {
 .page-settings .bp5-collapse-body,
 .page-toolbox .bp5-collapse-body {
   margin: 0 20px;
+  margin-top: 45px;
 }
 
-.page-toolbox .bp5-collapse-body {
+/* .page-toolbox .bp5-collapse-body {
   padding-top: 30px;
-}
+} */
 
 .page-toolbox {
   display: flex;
@@ -1586,6 +1591,17 @@ textarea.bp5-input {
   display: flex;
   justify-content: center;
 }
+
+
+.cart-item:nth-child(even) {
+  background-color: #1c2026;
+  color: #fff;
+}
+
+.cart-item:nth-child(odd) {
+  background-color: #13171c;
+}
+
 
 .fields-container .fields-list .field:nth-child(even) {
   background-color: #1c2026;
@@ -1808,10 +1824,6 @@ textarea.bp5-input {
   margin: 2px 0px;
 }
 
-.ecommerce-section {
-  padding: 0px !important;
-}
-
 .ecommerce-section h3 {
   margin: 5px 0px;
 }
@@ -1845,10 +1857,24 @@ textarea.bp5-input {
   font-weight: bold;
 }
 
-.user-preview .demo-app {
-  max-width: 500px !important;
+.demo-app {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
 }
 
+.demo-app .month-view-container,
+.demo-app .day-view-container {
+  flex-grow: 1;
+  width: 100%;
+  min-width: 450px;
+  /* min-width: 500px; */
+  height: 500px;
+}
+
+.demo-app .day-view-container {
+  border-left: 5px solid rgb(5, 29, 60);
+}
 .user-preview .user-preview-description-container {
   font-size: 12px;
   margin-top: 5px;
@@ -2011,6 +2037,7 @@ textarea.bp5-input {
   color: white;
   background-color: #1C2127 !important;
 }
+
 .post-preview {
   display: flex;
   flex-direction: column;
@@ -2103,6 +2130,11 @@ div[class*='gridFileEntryNameContainer-'] {
   opacity: 0 !important;
 }
 
+.file-manager .file-drop-target.file-drop-dragging-over-frame,
+.file-manager .file-drop-target.file-drop-dragging-over-target {
+  opacity: 1 !important;
+}
+
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -2112,6 +2144,7 @@ div[class*='gridFileEntryNameContainer-'] {
 .app-site-builder {
   color: black;
 }
+
 .react-grid-layout {
   transition: height 200ms ease;
   color: black;
@@ -2127,16 +2160,20 @@ div[class*='gridFileEntryNameContainer-'] {
 .react-grid-item {
   transition: all 200ms ease;
   transition-property: left, top;
+  display: flex;
 }
+
 .react-grid-item img {
   pointer-events: none;
   user-select: none;
   width: 100%;
   height: 100%;
 }
+
 .react-grid-item.cssTransforms {
   transition-property: transform;
 }
+
 .react-grid-item.resizing {
   z-index: 1;
   will-change: width, height;
@@ -2164,13 +2201,13 @@ div[class*='gridFileEntryNameContainer-'] {
   user-select: none;
 }
 
-.react-grid-item > .react-resizable-handle {
+.react-grid-item>.react-resizable-handle {
   position: absolute;
   width: 20px;
   height: 20px;
 }
 
-.react-grid-item > .react-resizable-handle::after {
+.react-grid-item>.react-resizable-handle::after {
   content: "";
   position: absolute;
   right: 3px;
@@ -2181,58 +2218,67 @@ div[class*='gridFileEntryNameContainer-'] {
   border-bottom: 2px solid rgb(244, 244, 244);
 }
 
-.react-resizable-hide > .react-resizable-handle {
+.react-resizable-hide>.react-resizable-handle {
   display: none;
 }
 
-.react-grid-item > .react-resizable-handle.react-resizable-handle-sw {
+.react-grid-item>.react-resizable-handle.react-resizable-handle-sw {
   bottom: 0;
   left: 0;
   cursor: sw-resize;
   transform: rotate(90deg);
 }
-.react-grid-item > .react-resizable-handle.react-resizable-handle-se {
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-se {
   bottom: 0;
   right: 0;
   cursor: se-resize;
 }
-.react-grid-item > .react-resizable-handle.react-resizable-handle-nw {
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-nw {
   top: 0;
   left: 0;
   cursor: nw-resize;
   transform: rotate(180deg);
 }
-.react-grid-item > .react-resizable-handle.react-resizable-handle-ne {
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-ne {
   top: 0;
   right: 0;
   cursor: ne-resize;
   transform: rotate(270deg);
 }
-.react-grid-item > .react-resizable-handle.react-resizable-handle-w,
-.react-grid-item > .react-resizable-handle.react-resizable-handle-e {
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-w,
+.react-grid-item>.react-resizable-handle.react-resizable-handle-e {
   top: 50%;
   margin-top: -10px;
   cursor: ew-resize;
 }
-.react-grid-item > .react-resizable-handle.react-resizable-handle-w {
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-w {
   left: 0;
   transform: rotate(135deg);
 }
-.react-grid-item > .react-resizable-handle.react-resizable-handle-e {
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-e {
   right: 0;
   transform: rotate(315deg);
 }
-.react-grid-item > .react-resizable-handle.react-resizable-handle-n,
-.react-grid-item > .react-resizable-handle.react-resizable-handle-s {
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-n,
+.react-grid-item>.react-resizable-handle.react-resizable-handle-s {
   left: 50%;
   margin-left: -10px;
   cursor: ns-resize;
 }
-.react-grid-item > .react-resizable-handle.react-resizable-handle-n {
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-n {
   top: 0;
   transform: rotate(225deg);
 }
-.react-grid-item > .react-resizable-handle.react-resizable-handle-s {
+
+.react-grid-item>.react-resizable-handle.react-resizable-handle-s {
   bottom: 0;
   transform: rotate(45deg);
 }
@@ -2246,17 +2292,20 @@ div[class*='gridFileEntryNameContainer-'] {
   background-size: 20px 20px;
   background-color: rgb(237, 242, 246);
 }
+
 .layoutJSON {
   background: #ddd;
   border: 1px solid black;
   margin-top: 10px;
   padding: 10px;
 }
+
 .columns {
   -moz-columns: 120px;
   -webkit-columns: 120px;
   columns: 120px;
 }
+
 .react-grid-item {
   box-sizing: border-box;
 }
@@ -2264,21 +2313,27 @@ div[class*='gridFileEntryNameContainer-'] {
 .react-grid-item.resizing {
   opacity: 0.9;
 }
+
 .react-grid-item.static {
   background: #cce;
 }
+
 .react-grid-item .text {
   text-align: left;
   height: 100%;
 }
+
 .react-grid-item .minMax {
   font-size: 12px;
 }
+
 .react-grid-item .add {
   cursor: pointer;
 }
+
 .react-grid-dragHandleExample {
-  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: move;
+  /* fallback if grab cursor is unsupported */
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;
@@ -2303,9 +2358,11 @@ div[class*='gridFileEntryNameContainer-'] {
   font-size: 24px;
   margin-bottom: 5px;
 }
+
 .toolbox__items {
   display: block;
 }
+
 .toolbox__items__item {
   display: inline-block;
   text-align: center;
@@ -2337,7 +2394,7 @@ div[class*='gridFileEntryNameContainer-'] {
 .bp5-popover-content {
   background-color: darkslategray;
   color: white;
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 5px;
 }
 
@@ -2357,7 +2414,7 @@ div[class*='gridFileEntryNameContainer-'] {
 
 .bp5-popover .bp5-popover-content {
   color: white;
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 5px;
 }
 
@@ -2382,12 +2439,12 @@ div[class*='gridFileEntryNameContainer-'] {
 }
 
 /* Write CSS Here */
-.custom { 
-  max-width: 180px; 
-  flex: 1 1 auto; 
-  overflow-x: scroll; 
-  overflow-y: hidden; 
-  position: relative; 
+.custom {
+  max-width: 180px;
+  flex: 1 1 auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: relative;
 }
 
 .custom .menu-item {
@@ -2421,10 +2478,11 @@ div[class*='gridFileEntryNameContainer-'] {
   user-select: none;
 }
 
-.page-builder-page-selection .bp5-button, 
+.page-builder-page-selection .bp5-button,
 .page-builder-page-selection .bp5-menu {
   background-color: #30404D !important;
 }
+
 .sideBar {
   flex: 0 0 1;
   width: 250px;
@@ -2481,9 +2539,11 @@ div[class*='gridFileEntryNameContainer-'] {
 .page-editor .top-bar .save-button {
   background-color: green;
 }
+
 .page-editor .top-bar svg {
   color: white;
 }
+
 .page-editor .top-bar .revert-button {
   background-color: red;
 }
@@ -2560,6 +2620,7 @@ div[class*='gridFileEntryNameContainer-'] {
   background-color: #404854;
   color: white !important;
 }
+
 .page-menu .bp5-button {
   background-color: #2F343C !important;
 }
@@ -2567,6 +2628,7 @@ div[class*='gridFileEntryNameContainer-'] {
 .page-menu .bp5-button span {
   color: white !important;
 }
+
 .pageContainer {
   position: relative;
 }
@@ -2576,8 +2638,9 @@ div[class*='gridFileEntryNameContainer-'] {
   background-color: #404854;
   overflow-y: scroll;
 }
+
 .dropZone.horizontalDrag {
-  width:5px;
+  width: 5px;
 }
 
 .dropZone.horizontalDrag.active {
@@ -2585,7 +2648,7 @@ div[class*='gridFileEntryNameContainer-'] {
 }
 
 .dropZone.verticalDrag {
-  height:5px;
+  height: 5px;
 }
 
 .dropZone.verticalDrag.active {
@@ -2759,7 +2822,7 @@ div[class*='gridFileEntryNameContainer-'] {
   background-color: #182026;
   min-height: 200px;
   border: 1px solid gray;
-  background-color:  #29343c;
+  background-color: #29343c;
 }
 
 .main-content {
@@ -2834,7 +2897,7 @@ div[class*='gridFileEntryNameContainer-'] {
 
 .file {
   margin-right: -30px;
-  
+
 }
 
 .file-name {
@@ -2891,7 +2954,7 @@ div[class*='gridFileEntryNameContainer-'] {
 
 .sidebar-home {
   display: flex;
-  vertical-align:center;
+  vertical-align: center;
   margin-bottom: 3px;
   border-bottom: 1px solid white;
   padding-bottom: 3px;
@@ -2910,7 +2973,7 @@ div[class*='gridFileEntryNameContainer-'] {
   width: 100%;
 }
 
-.file-drop > .file-drop-target {
+.file-drop>.file-drop-target {
   /* basic styles */
   position: absolute;
   top: 0;
@@ -2951,7 +3014,7 @@ div[class*='gridFileEntryNameContainer-'] {
   text-align: center;
 }
 
-.file-drop > .file-drop-target.file-drop-dragging-over-frame {
+.file-drop>.file-drop-target.file-drop-dragging-over-frame {
   /* overlay a black mask when dragging over the frame */
   border: none;
   background-color: rgba(0, 0, 0, 0.65);
@@ -2963,7 +3026,7 @@ div[class*='gridFileEntryNameContainer-'] {
   color: white;
 }
 
-.file-drop > .file-drop-target.file-drop-dragging-over-target {
+.file-drop>.file-drop-target.file-drop-dragging-over-target {
   /* turn stuff orange when we are dragging over the target */
   color: #ff6e40;
   box-shadow: 0 0 13px 3px #ff6e40;
@@ -2988,10 +3051,12 @@ div[class*='gridFileEntryNameContainer-'] {
   display: flex;
   justify-content: center;
 }
-.file-uploader-dropbox-title span{
+
+.file-uploader-dropbox-title span {
   font-weight: bold;
 }
-.file-drop{
+
+.file-drop {
   color: white;
   cursor: pointer;
 }
@@ -3023,7 +3088,7 @@ div[class*='gridFileEntryNameContainer-'] {
 }
 
 .user-window-3-button {
-  right: 660px !important; 
+  right: 660px !important;
 }
 
 .user-window-4-button {
@@ -3039,7 +3104,7 @@ div[class*='gridFileEntryNameContainer-'] {
 }
 
 .user-window-3-popover {
-  right: 690px !important; 
+  right: 690px !important;
 }
 
 .user-window-4-popover {
@@ -3060,6 +3125,7 @@ div[class*='gridFileEntryNameContainer-'] {
   height: 150px;
   overflow-y: scroll;
 }
+
 /* 
 .user-window-1-popover {
   display: none !important;
@@ -3071,13 +3137,21 @@ div[class*='gridFileEntryNameContainer-'] {
 
 
 .page-drag-elements {
-  transition: height 0.3s ease !important; /* Add a smooth transition effect */
-  overflow: hidden; /* Hide the content initially */
+  transition: height 0.3s ease !important;
+  /* Add a smooth transition effect */
+  overflow: hidden;
+  /* Hide the content initially */
   height: 10px !important;
 }
 
 .page-toolbox:hover .page-drag-elements {
-  height: 150px !important; /* Adjust the height as needed */
+  height: 150px !important;
+}
+
+
+.page-toolbox .page-drag-elements {
+  height: 20px !important;
+  /* Adjust the height as needed */
 }
 
 .page-grid-container .grid-layout-container {
@@ -3167,6 +3241,16 @@ div[class*='gridFileEntryNameContainer-'] {
   height: 400px;
 }
 
+.product-list-view-card-info-container .product-form-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-list-view-card-info-container .product-form-header {
+  display: flex;
+  height: 400px;
+}
+
 .user-panel-stack .user-list-view-card-info-container .user-info-container {
   flex-grow: 1;
 }
@@ -3189,6 +3273,17 @@ div[class*='gridFileEntryNameContainer-'] {
   justify-content: center;
 }
 
+.product-list-view-card-info-container .variation-image {
+  height: 168px;
+  width: 170px;
+}
+
+.product-list-view-card-info-container .variation-image .carousel-root {
+  height: 160px;
+  width: 139px;
+  max-width: 201px;
+}
+
 .user-panel-stack .user-form-container .user-image .carousel-root {
   height: 350px;
   width: 300px;
@@ -3196,9 +3291,10 @@ div[class*='gridFileEntryNameContainer-'] {
 
 .item-list {
   height: 100%;
-  max-height: 1000px;
   margin: 0 auto;
   overflow-y: scroll;
+  padding-bottom: 3px;
+  max-height: 780px;
 }
 
 .item-list-header {
@@ -3232,7 +3328,7 @@ div[class*='gridFileEntryNameContainer-'] {
   width: 100%;
   overflow-y: unset;
   display: flex;
-  height: 250px;
+  height: 262px;
 }
 
 .item-list .user-list-view-card-content.user-info {
@@ -3247,6 +3343,38 @@ div[class*='gridFileEntryNameContainer-'] {
   justify-content: center;
 }
 
+.item-list .list-view-item-list .product-list-view-card-content {
+  width: 100%;
+  overflow-y: unset;
+  display: flex;
+  height: 250px;
+}
+
+.item-list .product-list-view-card-info-container {
+  flex-grow: 1;
+  margin: 15px;
+}
+
+.item-list .user-list-view-card-info-container {
+  flex-grow: 1;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-right: 10px;
+}
+
+.item-list .product-list-view-card-image {
+  display: flex;
+  height: 250px;
+  width: 200px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.list-view-card-container {
+  padding: 0px;
+  border-bottom: 2px solid gray;
+}
+
 .carousel-root {
   height: 250px;
   width: 200px;
@@ -3255,10 +3383,22 @@ div[class*='gridFileEntryNameContainer-'] {
 .user-list-container .list-view-item-list .carousel-root {
   height: auto;
   width: 100%;
-  max-width: 265px;
+  max-width: 262px;
 }
 
 .user-list-container .list-view-item-list .bp5-tag {
+  min-width: 140px;
+}
+
+.product-list-container .list-view-item-list .carousel-root {
+  height: auto;
+  width: 100%;
+  max-width: 233px;
+  contain: content;
+  margin-right: 40px;
+}
+
+.product-list-container .list-view-item-list .bp5-tag {
   min-width: 140px;
 }
 
@@ -3274,7 +3414,21 @@ div[class*='gridFileEntryNameContainer-'] {
 .item-list .list-view-item-list .user-list-view-card-content .form-component {
   margin: 0px 0px 0px 10px;
   overflow-y: scroll;
-  justify-content: space-between;
+}
+
+
+.item-list .list-view-item-list .product-list-view-card-content .view-button {
+  align-self: end;
+  overflow-y: hidden;
+  width: 73px;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.item-list .list-view-item-list .product-list-view-card-content .form-component {
+  margin: 0px 0px 0px 10px;
+  overflow-y: scroll;
 }
 
 .item-list .list-view-item-list .list-view-card-container:nth-child(even) {
@@ -3290,7 +3444,7 @@ div[class*='gridFileEntryNameContainer-'] {
   background-color: #13171c !important;
 }
 
-.item-list .list-view-item-list .user-list-view-card-content .form-component h2 {
+.item-list .list-view-item-list .product-list-view-card-content .form-component h2 {
   align-self: start;
   margin: 2px 0px;
 }
@@ -3301,12 +3455,20 @@ div[class*='gridFileEntryNameContainer-'] {
 }
 
 .user-list-container {
+  margin: 0 auto;
+}
+
+.product-list-container {
   max-width: 1080px;
   margin: 0 auto;
 }
 
 .item-list-container {
   margin: 20px 0px;
+}
+
+.item-list-container .carousel-root {
+  max-width: unset !important;
 }
 
 .list-component {
@@ -3329,11 +3491,12 @@ div[class*='gridFileEntryNameContainer-'] {
   display: flex;
   margin: 0px 10px 10px 10px;
   cursor: pointer;
-  border-radius: 5px;
-  border: 1px solid gray;
+  border-radius: 2px;
   contain: content;
   justify-content: space-between;
   background-color: #13171c !important;
+  padding: 0px;
+  padding-bottom: 10px;
 }
 
 .grid-view-card-container .carousel-root {
@@ -3361,6 +3524,10 @@ div[class*='gridFileEntryNameContainer-'] {
   padding: 5px;
 }
 
+.list-view-card-container {
+  display: flex;
+}
+
 .user-grid-view-card-header {
   font-size: 16px;
   font-weight: bold;
@@ -3371,7 +3538,8 @@ div[class*='gridFileEntryNameContainer-'] {
 }
 
 .grid-view-card-container:hover {
-  border: 1px solid rgb(180, 240, 191);
+  box-shadow: 0 0 2px 2px #48abe0;
+  scale: 0.96;
 }
 
 .user-grid-view-card-content {
@@ -3382,7 +3550,13 @@ div[class*='gridFileEntryNameContainer-'] {
 
 .user-list-view-card-info-container {
   flex-grow: 1;
-  max-width: 662px;
+  /* max-width: 645px; */
+}
+
+.user-list-view-card-image {
+  flex-grow: 2;
+  max-width: 300px;
+  overflow-y: hidden;
 }
 
 .user-list-view-card-info-container .form-component .solo-form-group {
@@ -3395,6 +3569,31 @@ div[class*='gridFileEntryNameContainer-'] {
 }
 
 .user-list-view-card-info-container .form-component {
+  flex-wrap: wrap;
+  flex-direction: row;
+  max-width: 2012px;
+}
+
+.product-list-container .grid-view-card-container {
+  padding: 0px;
+  width: 234px;
+}
+
+.product-list-view-card-info-container {
+  flex-grow: 1;
+  max-width: 662px;
+}
+
+.product-list-view-card-info-container .form-component .solo-form-group {
+  max-width: 300px;
+}
+
+.product-list-view-card-info-container .form-component h2 {
+  width: 300px;
+  display: flex;
+}
+
+.product-list-view-card-info-container .form-component {
   flex-wrap: wrap;
   flex-direction: row;
 }
@@ -3416,6 +3615,7 @@ div[class*='gridFileEntryNameContainer-'] {
   text-align: left;
   opacity: .8;
 }
+
 .form-component {
   overflow-x: hidden;
 }
@@ -3426,12 +3626,13 @@ div[class*='gridFileEntryNameContainer-'] {
   justify-content: center;
   height: 100%;
 }
+
 .form-component-container h2 {
-  margin: 5px 15px;
+  margin: 0px 15px 5px 15px;
   text-align: left;
 }
 
-.form-component .bp5-input {
+.form-component .solo-form-group .bp5-input {
   height: 100%;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -3444,4 +3645,369 @@ div[class*='gridFileEntryNameContainer-'] {
 
 .pagination-container {
   margin-top: 30px;
+}
+
+.product-list-view-card-info-container .form-component .solo-form-group {
+  max-width: 300px;
+}
+
+.bp5-control-group {
+  display: flex;
+  position: relative;
+  contain: content;
+}
+
+.cart-container .bp5-button {
+  background-color: rgba(89, 96, 105, 0.15) !important;
+  color: white !important;
+}
+
+.cart-container h2 {
+  margin-top: 0px;
+}
+
+.user-preview {
+  color: white !important;
+  background-color: #1C2127 !important;
+  padding: 20px;
+}
+
+.user-preview .form-component {
+  max-height: 400px;
+  height: 100%;
+  flex-wrap: wrap;
+  overflow-y: unset;
+}
+
+.user-preview .bp5-form-group {
+  margin-right: 10px;
+}
+
+.item-list .form-component-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.user-preview .form-component-wrapper {
+  display: flex;
+  max-height: 300px;
+  overflow-y: scroll;
+  width: 100%;
+  padding-right: 10px;
+}
+
+.pages-toolbox {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.overlay-container {
+  background-color: #1C2127 !important;
+  color: white;
+}
+
+/* .product-component {
+  margin-top: 20px;
+} */
+
+.carousel .thumb.selected,
+.carousel .thumb:hover {
+  border: 2px solid #fff !important;
+  cursor: pointer;
+
+}
+
+.carousel .thumb-wrapper {
+  overflow: hidden;
+  max-width: 300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.carousel .thumb {
+  border: 2px solid #333 !important;
+  cursor: pointer;
+  margin: 0px;
+}
+
+.product-component .carousel-root {
+  height: auto;
+  width: 100%;
+  max-width: 310px;
+}
+
+.product-management .list-view-item-list {
+  max-height: 400px;
+}
+
+.product-management .product-list-container {
+  max-height: 80vh;
+}
+
+.product-management .list-component {
+  margin: 0px;
+  min-height: unset;
+}
+
+.preview-box .loading-bar-container {
+  margin-right: 0px !important;
+  min-height: unset !important;
+  margin-left: 12px;
+}
+
+.loading-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  height: 71x;
+  width: 71px;
+  opacity: .1;
+}
+
+.loading-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 100%;
+  margin-right: 35px;
+  min-height: 400px;
+
+}
+
+.loading-bar-container .vitruvian {
+  position: absolute;
+  height: 60px;
+  color: white;
+  fill: white;
+  opacity: .20;
+  width: auto;
+  display: none;
+}
+
+/* .loading-bar {
+  height: 60px;
+  width: 60px;
+} */
+
+.loading-bar>span>span {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 60px !important;
+  height: 60px !important;
+  opacity: 1 !important;
+  border-radius: 100% !important;
+  perspective: 800px;
+  display: inherit !important;
+}
+
+.product-component-container .product-header {
+  text-align: center;
+}
+
+.product-management .product-list-container {
+  padding-left: 20px;
+  overflow-y: hidden;
+}
+
+.ecommerce-section {
+  padding-bottom: 4px;
+}
+
+/* .bp5-popover-content {
+  margin-bottom: 32px;
+} */
+
+.cs-main-container {
+  border: unset;
+}
+
+.image-element-container {
+  height: 100%;
+  width: 100%;
+}
+
+.image-element {
+  height: 100%;
+}
+
+.toolbox-item .list-component {
+  margin: 5px;
+  transform: scale(.11) !important;
+  -moz-transform: scale(0.11);
+  -moz-transform-origin: 0 0;
+  -o-transform: scale(0.11);
+  -o-transform-origin: 0 0;
+  -webkit-transform: scale(0.11);
+  -webkit-transform-origin: 0 0;
+  width: 100%;
+}
+
+.list-element .item-list {
+  max-height: 580px;
+}
+
+.list-element .item-list-container {
+  max-height: 100vh;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+.react-grid-item {
+  overflow: hidden;
+}
+
+.card-element .user-grid-view-card-content {
+  margin-top: -29px;
+  height: 100%;
+  position: relative;
+  display: block;
+  transform: scale(.57);
+}
+
+.card-element {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.card-element .carousel-root {
+  width: unset;
+  height: unset;
+}
+
+
+.overlay-container .file-manager-container {
+  min-width: 80vw;
+}
+
+.page-container {
+  min-height: 80vh;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+  .react-grid-item .form-component {
+    flex-direction: column !important;
+    align-items: center;
+    margin-left: 0px !important;
+    padding: 0px;
+  }
+
+  .react-grid-item .form-component-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .react-grid-item .user-list-view-card-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .react-grid-item .user-list-view-card-image {
+    max-width: 150px;
+  }
+
+  .react-grid-item .item-list .list-view-item-list .user-list-view-card-content {
+    height: 300px;
+    overflow-y: scroll;
+  }
+
+  .react-grid-item .user-list-view-card-info-container {
+    margin-right: 0px !important;
+  }
+
+  .react-grid-item .user-list-view-card-info-container .form-component .solo-form-group {
+    max-width: unset;
+  }
+}
+
+.react-grid-item .solo-form-group .bp5-numeric-input .bp5-button-group {
+  display: none;
+}
+
+.page-toolbox .item-list-container {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+.page-toolbox .item-list-component-container {
+  max-width: 60vw;
+}
+
+.page-component .react-grid-layout {
+  margin-top: 0px !important;
+}
+
+.file-uploader-container {
+  width: 100%;
+  height: 100%;
+}
+
+.file-uploader>div {
+  position: absolute;
+  height: 100%;
+}
+
+.file-manager-window-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-manager-upload-progress {
+  height: 30px;
+}
+
+.file-manager-modal {
+  overflow: auto;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: max-content;
+  position: relative;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.file-manager-header-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.file-manager-file-info-section {
+  margin-left: 20px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid gray;
+}
+
+
+.file-content {
+  max-height: 400px;
+  height: 100%;
+  contain: content;
+  display: flex;
+  justify-content: center;
+  max-width: 400px;
+}
+
+.file-content .carousel-root {
+  border: 2px solid white;
+  height: unset;
+}
+
+.file-manager-file-info {
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
 }

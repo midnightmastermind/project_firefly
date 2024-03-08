@@ -1,5 +1,5 @@
 // TextElement.js
-import React from 'react';
+import React, { memo } from 'react';
 import { Button, Popover } from '@blueprintjs/core';
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -149,7 +149,7 @@ import ReactMarkdown from 'react-markdown';
 //   );
 // }
 
-const TextElement = ({ setDraggable, element, style, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
+const TextElement = memo(({ setDraggable, element, style, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
   const [styleState, setStyleState] = useState(style);
 
   useEffect(() => {
@@ -161,5 +161,5 @@ const TextElement = ({ setDraggable, element, style, onAddItemType, onRemoveItem
       <ReactMarkdown>{element.content || "### This is a Text Element"}</ReactMarkdown>
     </div>
   );
-}
+});
 export default TextElement;

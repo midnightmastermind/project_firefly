@@ -1,7 +1,8 @@
 
 // VideoElement.js
-import React from 'react';
+import React, { memo } from 'react';
 import { Button, Popover } from '@blueprintjs/core';
+import { useState, useEffect } from 'react';
 
 // const VideoElement = ({ element, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {
@@ -95,7 +96,9 @@ import { Button, Popover } from '@blueprintjs/core';
 //   );
 // }
 
-const VideoElement = ({ element, onAddItemType, onRemoveItem, setLockGrid, editComponent, isNew }) => {
+const VideoElement = memo(({ element, onAddItemType, onRemoveItem, setLockGrid, editComponent, isNew }) => {
+
+
   return (
     <div style={{ height: "100%" }} className="my-context-menu-target">
       <div style={{ height: "100%" }}>
@@ -111,7 +114,7 @@ const VideoElement = ({ element, onAddItemType, onRemoveItem, setLockGrid, editC
       </div>
     </div>
   );
-}
+});
 
 
 export default VideoElement;

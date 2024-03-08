@@ -1,5 +1,5 @@
 // HeaderElement.js
-import React from 'react';
+import React, { memo } from 'react';
 import { Button, Popover } from '@blueprintjs/core';
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -149,7 +149,7 @@ import ReactMarkdown from 'react-markdown';
 //   );
 // }
 
-const HeaderElement = ({ setDraggable, element, style, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
+const NavElement = memo(({ setDraggable, element, style, onAddItemType, onRemoveItem, setLockGrid, editComponent }) => {
   const [styleState, setStyleState] = useState(style);
 
   useEffect(() => {
@@ -161,5 +161,5 @@ const HeaderElement = ({ setDraggable, element, style, onAddItemType, onRemoveIt
       {element.content || "Header"}
     </div>
   );
-}
-export default HeaderElement;
+});
+export default NavElement;

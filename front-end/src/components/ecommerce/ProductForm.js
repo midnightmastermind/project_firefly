@@ -14,16 +14,17 @@ import DynamicForm from 'components/form/Form';
 
 import { default_product_data } from './default_sample_form_data';
 import Carousel from 'components/elements/Carousel';
+import ToolBar from 'components/tools/ToolBar';
 
-const ProductForm = ({ productData = default_product_data, onUpdateProduct }) => {
-    const [productName, setProductName] = useState(productData.name || '');
-    const [fields, setFields] = useState(productData.fields || []);
-    const [variations, setVariations] = useState(productData.data || []);
+const ProductForm = ({ product, onUpdateProduct }) => {
+    const [productName, setProductName] = useState(product.name || '');
+    const [fields, setFields] = useState(product.fields || []);
+    const [variations, setVariations] = useState(product.data || []);
     const typeOptions = ['Text', 'Number', 'Currency'];
 
     // Function to get field value by name
     const getFieldByName = (fieldName, valueType) => {
-        const field = productData.fields.find((field) => field.name === fieldName);
+        const field = product.fields.find((field) => field.name === fieldName);
         return field ? field[valueType] : null;
     };
 
@@ -114,6 +115,7 @@ const ProductForm = ({ productData = default_product_data, onUpdateProduct }) =>
         <div className="product-form-container" style={{ width: '100%' }}>
             <div className="product-form-header">
                 {image}
+                <ToolBar />
                 <div className="product-info-container">
                     <FormGroup label="Product Name">
                         <InputGroup value={productName} onChange={(e) => setProductName(e.target.value)} />
@@ -162,13 +164,14 @@ const ProductForm = ({ productData = default_product_data, onUpdateProduct }) =>
                     <div className="fields-container">
                         <div className="container-header">
                             <h3>Fields</h3>
-                            <Button
+                            <ToolBar />
+                            {/* <Button
                                 intent={Intent.PRIMARY}
                                 onClick={handleAddVariation}
                                 disabled={!canAddVariation}
                             >
                                 Add Field
-                            </Button>
+                            </Button> */}
                         </div>
                         <div className="fields-list-headers" style={{ display: 'flex' }}>
                             <FormGroup className="name-column" label="Name" />

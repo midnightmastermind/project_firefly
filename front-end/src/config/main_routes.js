@@ -15,6 +15,7 @@ import HeaderBuilder from 'components/page_builder/HeaderBuilder';
 import CsvMappingComponent from 'components/storage/CSVMapper';
 import PageBuilder from 'components/page_builder/PageBuilder';
 import PostManager from 'components/blog/PostManager';
+import OldProductList from "components/ecommerce/OldProductList";
 
 
 export const main_routes = [
@@ -37,4 +38,5 @@ export const main_routes = [
     { path: "/page-builder", element: <PageBuilder /> },
     { path: "/post-manager", element: <PostManager /> }, 
     { path: "/blog", element: <Blog /> },
+    { path: "/old-products", element: <OldProductList /> },    
   ];

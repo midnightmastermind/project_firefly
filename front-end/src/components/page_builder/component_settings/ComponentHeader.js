@@ -9,7 +9,7 @@ const ComponentHeader = ({ element, editComponent, onRemoveItem }) => {
       <CogButton element={element} editComponent={editComponent}/>
 
       {/* Delete Button */}
-      <Button className="delete-button" icon="delete" minimal onClick={() => onRemoveItem(element.i)} />
+      <Button className="delete-button" icon="delete" minimal onClick={(event) => onRemoveItem(element.i, event)} />
     </div>
   );
 };

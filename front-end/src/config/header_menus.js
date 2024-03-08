@@ -12,18 +12,17 @@ import SavedItems from 'components/ecommerce/SavedItems';
 import SiteStyleSettings from 'components/style/SiteStyleSettings';
 import SiteAdminSettings from 'components/settings/SiteAdminSettings';
 import UserForm from 'components/user/UserForm';
+import PostManager from 'components/blog/PostManager';
 
-
-const createUserLoggedInMenu = (setPanel, logOut, currentUser) => [
+const createUserLoggedInMenu = (setPanel, logOut, currentUser, toggleChat) => [
     {
-      type: 'panel',
-      onClickHandler: setPanel,
+      type: 'onClick',
       id: 'chat',
       label: 'Chat',
       icon: 'chat',
       hasCaret: false,
       mobileView: true,
-      panel: <div />, // Placeholder for the actual component
+      onClickHandler: toggleChat, // Placeholder for the actual component
     },
     {
       type: 'dropdown',
@@ -74,16 +73,16 @@ const createUserLoggedInMenu = (setPanel, logOut, currentUser) => [
           mobileView: true,
           panel: <ProductManagementDashboard />, // Placeholder for the actual component
         },
-        {
-          type: 'panel',
-          onClickHandler: setPanel,
-          id: 'product_form',
-          label: 'Product Form Test',
-          icon: 'shopping-cart',
-          mobileView: true,
-          panel: <ProductForm />
-          //onUpdateProduct={() => { console.log("test")}} />, // Placeholder for the actual component
-        },
+        // {
+        //   type: 'panel',
+        //   onClickHandler: setPanel,
+        //   id: 'product_form',
+        //   label: 'Product Form Test',
+        //   icon: 'shopping-cart',
+        //   mobileView: true,
+        //   panel: <ProductForm />
+        //   //onUpdateProduct={() => { console.log("test")}} />, // Placeholder for the actual component
+        // },
         {
           type: 'label',
           id: 'scheduling',
@@ -143,7 +142,14 @@ const createUserLoggedInMenu = (setPanel, logOut, currentUser) => [
           id: 'marketing',
           mobileView: true,
           label: 'marketing'
+        },
+        {
+          type: 'label',
+          id: 'analytics',
+          mobileView: true,
+          label: 'analytics'
         }],
+
     },
     {
       type: 'dropdown',
@@ -160,7 +166,7 @@ const createUserLoggedInMenu = (setPanel, logOut, currentUser) => [
           label: 'Cart',
           mobileView: true,
           icon: 'shopping-cart',
-          panel: <Cart /> //hasCheckoutButton={true} isEditable={true} title={'Shopping Cart'} />,
+          panel: <Cart hasCheckoutButton={true} /> //hasCheckoutButton={true} isEditable={true} title={'Shopping Cart'} />,
         },
         {
           type: 'panel',

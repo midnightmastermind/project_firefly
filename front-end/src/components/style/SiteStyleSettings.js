@@ -35,6 +35,33 @@ const SiteStyleSettings = () => {
           ),
         },
         {
+          id: 'font_settings',
+          label: 'Font',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} site-style-settings-section`}>
+              <SiteBackgroundStyle />
+            </Card>
+          ),
+        },
+        {
+          id: 'spacing_settings',
+          label: 'Spacing',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} site-style-settings-section`}>
+              <SiteBackgroundStyle />
+            </Card>
+          ),
+        },
+        {
+          id: 'sizing_settings',
+          label: 'Sizing',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} site-style-settings-section`}>
+              <SiteBackgroundStyle />
+            </Card>
+          ),
+        },
+        {
           id: 'site_components_style_section',
           label: 'Site Components',
           panel: (

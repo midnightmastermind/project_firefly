@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
+import { useDispatch, useSelector } from "react-redux";
+
 import _ from "lodash";
 import PropTypes from "prop-types";
 import { Popover, PopoverInteractionKind, Position, Button, Menu, MenuItem, FormGroup, Tag, Switch, Divider, Collapse, Tab } from "@blueprintjs/core";
@@ -8,8 +10,8 @@ import TextElement from "./components/TextElement";
 import VideoElement from "./components/VideoElement";
 import ImageElement from "./components/ImageElement";
 import ListElement from "./components/ListElement";
-import HeaderElement from "./components/HeaderElement";
-
+import NavElement from "./components/NavElement";
+import CardElement from "./components/CardElement";
 
 import CogButton from "./component_settings/CogButton";
 import PageForm from "./PageForm";
@@ -18,12 +20,13 @@ import ComponentHeader from "./component_settings/ComponentHeader";
 
 const ReactGridLayout = WidthProvider(RGL);
 
-const PageBuilderComponent = (props) => {
+const scalingArray = [.11, .11, .24, .36, .48, .60, .73, .85, .97, 1, 1, 1, 1];
+
+const PageBuilderComponent = memo((props) => {
     const [items, setItems] = useState([]);
     const [mouseDownTime, setMouseDownTime] = useState(0);
     const [mouseUpTime, setMouseUpTime] = useState(0);
     const [draggedItemType, setDraggedItemType] = useState(null);
-
     const updatedLayout = useRef([]);
     const [editable, setEditable] = useState(false);
     const [newCounter, setNewCounter] = useState(0);
@@ -31,6 +34,8 @@ const PageBuilderComponent = (props) => {
     const [currentData, setCurrentData] = useState(null);
     const [isToolboxOpen, setIsToolboxOpen] = useState(false);
     const [isPageSettingsOpen, setIsPageSettingsOpen] = useState(false);
+
+    const { user: currentUser } = useSelector((state) => state.auth);
 
     useEffect(() => {
         if (props.page) {
@@ -43,26 +48,39 @@ const PageBuilderComponent = (props) => {
             setItems(props.layout);
             setNewCounter(props.layout.length)
             updatedLayout.current = props.layout;
+            // setScalingFactors(props.layout);
         }
-    }, [props.layout])
+    }, [props.layout]);
 
     useEffect(() => {
         const handleScroll = () => {
-          const el = document.querySelector('.page-builder-header-topbar');
-          console.log(el);
-            console.log("hit");
-            console.log(window.scrollY);
-            console.log(window);
-            console.log(el.getBoundingClientRect());
-            console.log(el.style);
-          if (el.getBoundingClientRect().top >= 0) {
-            el.style.position = 'absolute';
-            el.style.top = '0px';
+          const topbar_element = document.querySelector('.page-builder-header-topbar');
+          const toolbox_element = document.querySelector('.page-toolbox');
+          const settings_element = document.querySelector('.page-settings');
+
+          if (topbar_element.getBoundingClientRect().top >= 0) {
+            topbar_element.style.position = 'absolute';
+            topbar_element.style.top = '0px';
           }
     
-          if (el.getBoundingClientRect().top < 0) {
-            el.style.position = 'fixed';
-            el.style.top = '0px';
+          if (topbar_element.getBoundingClientRect().top < 0) {
+            topbar_element.style.position = 'fixed';
+            topbar_element.style.top = '0px';
+          }
+          console.log("hit2");
+          console.log(toolbox_element.getBoundingClientRect().top);
+          if (toolbox_element.getBoundingClientRect().top >= 32) {
+            toolbox_element.style.position = 'absolute';
+            toolbox_element.style.top = '32px';
+            settings_element.style.position = 'absolute';
+            settings_element.style.top = '32px';
+          }
+    
+          if (toolbox_element.getBoundingClientRect().top < 0) {
+            toolbox_element.style.position = 'fixed';
+            toolbox_element.style.top = '32px';
+            settings_element.style.position = 'fixed';
+            settings_element.style.top = '32px';
           }
         };
     
@@ -91,30 +109,31 @@ const PageBuilderComponent = (props) => {
         setCurrentData(editedData);
     }
 
-    const handleTabChange = () => {
 
-    }
-
-    const editComponent = (i, variable, value, isStyle) => {
-        let editedData = structuredClone(updatedLayout.current);
-
-        let editedComponent = editedData.find(item => item.i == i);
-
-        let index = editedData.findIndex(item => item.i == i);
-
-        if (isStyle) {
-            editedComponent.style[variable] = value;
-        } else {
-            editedComponent[variable] = value;
-        }
-
-        editedData[index] = editedComponent;
-        updatedLayout.current = editedData;
-
-        setItems(editedData);
-    }
+    const editComponent = (element, variable, value, isStyle) => {
+        setItems(prevItems => {
+            const editedData = [...prevItems]; // Create a new array to avoid mutating the state
+    
+            let editedComponent = editedData.find(item => item.i === element.i);
+            const index = editedData.findIndex(item => item.i === element.i);
+    
+            if (editedComponent.w !== element.w || editedComponent.h !== editedComponent.h) {
+                editedComponent = {...editedComponent, w: element.w};
+                editedComponent = {...editedComponent, h: element.h};
+            }
+            if (isStyle) {
+                editedComponent.style[variable] = value;
+            } else {
+                editedComponent[variable] = value;
+            }
+    
+            editedData[index] = editedComponent;
+            console.log(editedData[index]);
+            return editedData;
+        });
+    };
+    
     const createElement = (el, isNew) => {
-
         if (!el.i) {
             el.i = uuidv4();
             el.style = {}
@@ -156,18 +175,27 @@ const PageBuilderComponent = (props) => {
                         onAddItemType={onAddItemType}
                         element={el}
                     />
-                ) : el.type === "container" ? (
+                ) : el.type === "list" ? (
                     <ListElement
+                        editComponent={editComponent}
+                        onAddItemType={onAddItemType}
+                        layout={updatedLayout.current}
+                        element={el}
+                        style={el.style} // Pass the style to the component
+                    />
+                ) : el.type === "nav" ? (
+                    <NavElement
                         editComponent={editComponent}
                         onAddItemType={onAddItemType}
                         element={el}
                         style={el.style} // Pass the style to the component
                     />
-                ) : el.type === "header" ? (
-                    <HeaderElement
+                ) : el.type === "card" ? (
+                    <CardElement
                         editComponent={editComponent}
                         onAddItemType={onAddItemType}
                         element={el}
+                        data={currentUser}
                         style={el.style} // Pass the style to the component
                     />
                 ) : null}
@@ -205,7 +233,9 @@ const PageBuilderComponent = (props) => {
         setCurrentBreakpoint(breakpoint);
     };
 
-    const onRemoveItem = (i) => {
+    const onRemoveItem = (i, event) => {
+        event.stopPropagation();
+        event.preventDefault(); // Add preventDefault to stop any default button behavior
         const updatedItems = _.reject(updatedLayout.current, { i: i });
 
         updatedLayout.current = updatedItems;
@@ -223,7 +253,6 @@ const PageBuilderComponent = (props) => {
                 return { ...current_item, ...object }
             });
 
-            console.log(new_layout);
             updatedLayout.current = new_layout;
         }
     }
@@ -285,6 +314,15 @@ const PageBuilderComponent = (props) => {
         }
     };
 
+    const onResizeStop = (layout, item) => {
+      console.log(layout);  
+      console.log(item);
+
+      const updatedItem = layout.find((object) => (object.i == item.i));
+      console.log(updatedItem);
+    //   editComponent(updatedItem, 'scalingFactor', calculateScalingFactor(updatedItem.w));
+    };
+
     const onDragStop = (layout, oldItem, newItem, placeholder, e, element) => {
         changeLayout(layout);
     };
@@ -305,6 +343,10 @@ const PageBuilderComponent = (props) => {
         }
     };
 
+    const calculateScalingFactor = (width) => {
+        return scalingArray[width];
+    }
+    
     return (
         <div className="grid page-builder-app">
             {/* <div className="page-builder-header-topbar">
@@ -356,8 +398,10 @@ const PageBuilderComponent = (props) => {
                     {createElement({ type: 'text' }, true)}
                     {createElement({ type: 'video' }, true)}
                     {createElement({ type: 'image' }, true)}
-                    {createElement({ type: 'container' }, true)}
-                    {createElement({ type: 'header' }, true)}
+                    {createElement({ type: 'list' }, true)}
+                    {createElement({ type: 'nav' }, true)}
+                    {createElement({ type: 'card' }, true)}
+
                 </div>
                 <Divider />
             </Collapse>
@@ -370,10 +414,13 @@ const PageBuilderComponent = (props) => {
                             changeLayout(layout);
                         }}
                         isDraggable={true}
+                        draggableCancel={'.component-header'}
                         isResizable={true}
                         onDragStop={onDragStop}
+                        onResizeStop={onResizeStop}
                         isDroppable={true}
                         {...props}
+                        // onResize={handleResize}
                         cols={12}
                         droppingItem={{ i: uuidv4(), w: 1, h: 2 }}
                         onDrop={onDrop}
@@ -386,7 +433,7 @@ const PageBuilderComponent = (props) => {
                 </div>)}
         </div>
     );
-};
+});
 
 PageBuilderComponent.defaultProps = {
     className: "layout",

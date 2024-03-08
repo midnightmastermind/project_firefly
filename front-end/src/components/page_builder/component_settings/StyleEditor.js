@@ -93,15 +93,15 @@ const StyleEditor = ({ element, styleCategory, editComponent }) => {
   }, [selectedTab, element.style]);
 
   const handleColorChange = (color, property) => {
-    editComponent(element.i, property, color.hex, true);
+    editComponent(element, property, color.hex, true);
   };
 
   const handleInputChange = (property, value) => {
     console.log(element.i);
-    editComponent(element.i, property, value, true);
-    // const editedStyle = {...elementStyle};
-    // editedStyle[property] = value;
-    // setElementStyle(editedStyle);
+    editComponent(element, property, value, true);
+    const editedStyle = {...elementStyle};
+    editedStyle[property] = value;
+    setElementStyle(editedStyle);
   };
 
   // const handlePopoverInteraction = (nextOpenState) => {

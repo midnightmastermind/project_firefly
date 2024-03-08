@@ -2,15 +2,17 @@
  * This code renders a loading bar with different colors.
  */
 import React from "react";
-// import ClipLoader from 'react-spinners';
+import { RingLoader } from 'react-spinners';
+import { ReactComponent as ExampleSvg } from 'vitruvian-man.svg';
 
 const LoadingBar = () => {
 
     return (
         <div className="loading-bar-container">
             <div className="loading-bar">
-                {/* <ClipLoader color="#36d7b7" /> */}
+                {<RingLoader color="white" />}
             </div>
+            <ExampleSvg className="vitruvian"/>
         </div>
     );
 };

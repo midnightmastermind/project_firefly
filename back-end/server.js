@@ -15,7 +15,7 @@ const io = socketIO(server, {
     methods: ["GET", "POST"]
   }
 });
-
+require('dotenv').config();
 var corsOptions = {
   origin: "*"
 };
@@ -98,7 +98,23 @@ require("./packages/ecommerce/routes/cart_item.routes")(app);
 require("./packages/ecommerce/routes/stripe.routes")(app);
 const Chat = require('./packages/chat/models/chat.model');
 const ChatMessage = require('./packages/chat/models/chat_message.model');
+const ShopifyProduct = require('./packages/ecommerce/models/shopify_product.model');
+const Task = require('./packages/scheduling/models/task.model');
+const ShopifyOrder = require('./packages/ecommerce/models/shopify_order.model');
+const Shopify = require('shopify-api-node'); // Assuming you have this installed
+const ecommerceConfig = require('./config/ecommerce.config');
 
+console.log(ecommerceConfig);
+
+const shopify = new Shopify({
+  shopName: ecommerceConfig.shopify.shopName,
+  // apiKey: ecommerceConfig.shopify.apiKey,
+  // password: ecommerceConfig.shopify.apiPassword,
+  accessToken: ecommerceConfig.shopify.accessToken,
+  apiVersion: '2023-07'
+});
+
+console.log(shopify);
 
 // require("./packages/chat/routes/conversation.routes")(app);
 // require("./packages/chat/routes/chat_message.routes")(app);
@@ -179,6 +195,80 @@ io.on('connection', (socket) => {
           });
         }
       });
+    }
+  });
+
+  // Emit Shopify orders when a client requests them
+  socket.on('getShopifyOrders', async () => {
+    try {
+      // Fetch latest Shopify orders
+      const orders = await shopify.order.list();
+      console.log(orders);
+
+      // Update MongoDB database (save or update orders)
+      await ShopifyOrder.insertMany(orders, { ordered: false, rawResult: true });
+
+      // Emit updated Shopify orders to the client
+      io.emit('shopifyOrders', orders);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  // Emit Shopify products when a client requests them
+  socket.on('getShopifyProducts', async () => {
+    try {
+      console.log("hit");
+      // Fetch latest Shopify products
+      const products = await shopify.product.list();
+      console.log(products);
+
+      // Update MongoDB database (save or update products)
+      await ShopifyProduct.insertMany(products, { ordered: false, rawResult: true });
+
+      // Emit updated Shopify products to the client
+      io.emit('shopifyProducts', products);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+
+  // CRUD operations
+  socket.on('createTask', async (taskData) => {
+    try {
+      const task = new Task(taskData);
+      await task.save();
+      io.emit('taskCreated', task);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  socket.on('getTasks', async () => {
+    try {
+      const tasks = await Task.find();
+      socket.emit('tasks', tasks);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  socket.on('updateTask', async (taskId, updatedData) => {
+    try {
+      const task = await Task.findByIdAndUpdate(taskId, updatedData, { new: true });
+      io.emit('taskUpdated', task);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  socket.on('deleteTask', async (taskId) => {
+    try {
+      const deletedTask = await Task.findByIdAndDelete(taskId);
+      io.emit('taskDeleted', deletedTask);
+    } catch (error) {
+      console.error(error);
     }
   });
 

@@ -35,6 +35,8 @@ import cartItemReducer from './slices/ecommerce/cart_item';
 import chatMessageReducer from './slices/chat/chat_message';
 import chatReducer from './slices/chat/chat';
 import coversationReducer from './slices/chat/conversation';
+import shopifyReducer from './slices/ecommerce/shopify';
+
 // import socketIOMiddleware from 'common/socketMiddleware';
 
 import socketIOMiddleware from 'common/socketMiddleware';
@@ -42,50 +44,50 @@ import socketIOMiddleware from 'common/socketMiddleware';
 const reducer = {
   auth: authReducer,
   message: messageReducer,
-  attendance: attendanceReducer,
-  product_permissions: productPermissionsReducer,
-  product: productReducer,
-  enrollment: enrollmentReducer,
-  session: sessionReducer,
-  site_product_availability: siteProductAvailabilityReducer,
+  //attendance: attendanceReducer,
+  // product_permissions: productPermissionsReducer,
+  // product: productReducer,
+  // enrollment: enrollmentReducer,
+  // session: sessionReducer,
+  // site_product_availability: siteProductAvailabilityReducer,
   site_permissions: sitePermissionsReducer,
   site: siteReducer,
-  site_object: siteObjectReducer,
-  transaction: transactionReducer,
-  user_site_availability: userSiteAvailabilityReducer,
+  // site_object: siteObjectReducer,
+  // transaction: transactionReducer,
+  // user_site_availability: userSiteAvailabilityReducer,
   user: userReducer,
   file: fileReducer,
-  folder: folderReducer,
-  theme: themeReducer,
-  booking: bookingReducer,
-  event: eventReducer,
-  notification: notificationReducer,
-  navigation: navigationReducer,
+  // folder: folderReducer,
+  // theme: themeReducer,
+  // booking: bookingReducer,
+  // event: eventReducer,
+  // notification: notificationReducer,
+  // navigation: navigationReducer,
   page: pageReducer,
   permission: permissionReducer,
-  post: postReducer,
-  post_category: postCategoryReducer,
-  commerce_category: commerceCategoryReducer,
-  service: serviceReducer,
-  variation: variationReducer,
-  shipment: shipmentReducer,
-  purchase: purchaseReducer,
-  style: styleReducer,
-  navigation: navigationReducer,
-  cart_item: cartItemReducer,
-  conversation: coversationReducer,
+  // post: postReducer,
+  // post_category: postCategoryReducer,
+  // commerce_category: commerceCategoryReducer,
+  // service: serviceReducer,
+  // variation: variationReducer,
+  // shipment: shipmentReducer,
+  // purchase: purchaseReducer,
+  // style: styleReducer,
+  // navigation: navigationReducer,
+  // cart_item: cartItemReducer,
+  // conversation: coversationReducer,
   chat: chatReducer,
   chat_message: chatMessageReducer,
-  
+  shopify: shopifyReducer
 }
 
-const store = configureStore({
-  reducer: reducer,
-  devTools: true,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    immutableCheck: false,
-    serializableCheck: false,
-  }).concat(socketIOMiddleware)
-})
+// const store = configureStore({
+//   reducer: reducer,
+//   devTools: true,
+//   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+//     immutableCheck: false,
+//     serializableCheck: false,
+//   }).concat(socketIOMiddleware)
+// })
 
-export default store;
+export default reducer;

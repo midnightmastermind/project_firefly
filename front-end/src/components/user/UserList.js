@@ -40,7 +40,7 @@ const userSchema = [
     { type: 'text', variable: 'address', label: 'Address' },
     { type: 'text', variable: 'state', label: 'State' },
     { type: 'text', variable: 'country', label: 'Country' },
-    { type: 'text', variable: 'zip', label: 'ZIP Code' },
+    { type: 'number', variable: 'zip', label: 'ZIP Code' },
     { type: 'file', variable: 'profile_image', label: 'Profile Image' },
 ];
 
@@ -53,8 +53,8 @@ const UserList = (props) => {
     const [showGlobalAdminTools, setShowGlobalAdminTools] = useState(false);
     const [showSuperUserTools, setShowSuperUserTools] = useState(false);
     const [toolList, setToolList] = useState(null);
-    const [selectedUser, setSelectedUser] = useState(null)
-
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [userList, setUserList] = useState([]);
     const [currentSite, setCurrentSite] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -69,7 +69,6 @@ const UserList = (props) => {
     const { user_site_availability } = useSelector((state) => state.user_site_availability);
     const site_permissions = useSelector((state) => state.site_permissions.site_permissions);
     const dispatch = useDispatch();
-
 
     // useEffect(() => {
     //     if (currentUser) {
@@ -231,14 +230,14 @@ const UserList = (props) => {
                 className="user-grid-view-card-content"
                 key={user._id || user.id}
             >
-                    <div className="user-grid-view-card-image-container">{image}</div>
-                    <div className="user-grid-view-card-header-container">
-                        <div className="user-grid-view-card-header">{`${user.first_name} ${user.last_name}`}</div>
-                    </div>
-                    <div className="user-grid-view-card-info-container">
-                        <div className="user-grid-view-card-info">{`${user.description}`}</div>
-                    </div>
+                <div className="user-grid-view-card-image-container">{image}</div>
+                <div className="user-grid-view-card-header-container">
+                    <div className="user-grid-view-card-header">{`${user.first_name} ${user.last_name}`}</div>
                 </div>
+                <div className="user-grid-view-card-info-container">
+                    <div className="user-grid-view-card-info">{`${user.description}`}</div>
+                </div>
+            </div>
         )
     }
 
@@ -273,11 +272,6 @@ const UserList = (props) => {
                         callbackFunction={(formData) => console.log(formData)}
                     />
                 </div>
-                <div className="view-button">
-                    <Button style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                        View
-                    </Button>
-                </div>
             </div>
         );
     }
@@ -286,10 +280,11 @@ const UserList = (props) => {
         setFilteredUsers(users);
         setCurrentPage(1);
     };
-
+    console.log(props);
     return (
         <div className="user-list-container">
-            <List
+            {users && <List
+                scalingFactor={props.scalingFactor}
                 items={users}
                 overlayComponent={(user) => <User user={user} />}  // Pass the overlay component for users
                 filterFunction={findByName}
@@ -299,8 +294,8 @@ const UserList = (props) => {
                 gridViewItem={(user) => <UserGridViewCard user={user} />}
                 mode={props.mode}
                 formComponent={<UserForm />}
-                listHeader="User List"
-            />
+                listHeader={!props.hideHeader ? "User List" : ""}
+            />}
         </div>
     );
 }

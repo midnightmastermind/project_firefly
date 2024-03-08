@@ -21,14 +21,19 @@ const UserForm = ({ callbackFunction, data, title }) => {
     if (data) {
       setUserData(data);
     }
-  }, [data])
+  }, [data]);
+
+  console.log(userData);
   return (
-    <DynamicForm
-      schema={userSchema}
-      callbackFunction={callbackFunction}
-      data={userData}
-      title={title || 'User Form'}
-    />
+    <div className="user-form-container">
+      <DynamicForm
+        schema={userSchema}
+        callbackFunction={callbackFunction}
+        data={userData}
+        noSave={Object.keys(userData).length > 0}
+        title={title || 'User Form'}
+      />
+    </div>
   );
 };
 

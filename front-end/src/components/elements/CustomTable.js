@@ -21,7 +21,6 @@ const CustomTable = (props) => {
     }, [props]);
 
     const handleClick = (selection) => {
-      console.log(selection);
       if (props.cellClick) {
         props.cellClick(data[selection[0].rows[0]]);
       }

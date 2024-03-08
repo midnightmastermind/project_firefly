@@ -1,7 +1,10 @@
 // ListElement.js
-import React from 'react';
+import React, { memo } from 'react';
 import { Button, Popover } from '@blueprintjs/core';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import UserList from 'components/user/UserList';
+// import WebPagePreview from "components/common/NewWebpagePreview";
 // const ListElement = ({ element, onAddItemType, onRemoveItem, onSaveConfiguration }) => {
 //   const handleCogButtonClick = (e) => {
 //     e.stopPropagation();
@@ -111,15 +114,38 @@ import { useState } from 'react';
 //     );
 // }
 
-const ListElement = ({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
+const scalingArray = [.11, .11, .24, .36, .48, .48, .48, .48, .48, .48, .48, .48, .48];
+
+const ListElement = memo(({ setDraggable, element, onAddItemType, onRemoveItem, setLockGrid }) => {
+
+    const { current_site: site } = useSelector((state) => state.site);
+    const [currentSite, setCurrentSite] = useState(null);
+    const [currentItem, setCurrentItem] = useState({});
+
+    useEffect(() => {
+        if (element) {
+            setCurrentItem(element);
+        }
+        
+    }, [element]);
+
+    console.log(element);
+
+    useEffect(() => {
+        if (site) {
+            setCurrentSite(site)
+        }
+    }, [site]);
+
 
     return (
-        <div>
-            <div>
-                <span className="text">{element.i}</span>
+        <div className="list-element-container">
+            <div className="list-element">
+               {/* {currentSite && <WebPagePreview url={`${currentSite.domain == 'main' ? '' : currentSite.domain}/users`} />} */}
+               <UserList scalingFactor={currentItem['scalingFactor'] || 1} hideHeader={true}/>
             </div>
         </div>
     );
-}
+});
 
 export default ListElement;

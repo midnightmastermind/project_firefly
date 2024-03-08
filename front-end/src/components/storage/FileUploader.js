@@ -88,7 +88,7 @@ export const FileUploader = ({folder_id}) => {
     fileInputRef.current.click();
   };
   return (
-    <div>
+    <div className="file-uploader-container">
       <div style={styles}>
         {loading && <div>Loading...</div>}
         <FileDrop

@@ -11,7 +11,7 @@ const { Readable } = require('stream');
 
 // Instantiate a storage client with credentials
 const storage = new Storage({ keyFilename: "config/google-cloud-key.json" });
-const bucket = storage.bucket("poms-web-build-storage-bucket");
+const bucket = storage.bucket("poms-web-build-bucket");
 
 exports.createFile = (req, res) => {
     const file = new File({

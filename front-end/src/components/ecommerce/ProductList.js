@@ -22,50 +22,13 @@ import Pagination from "components/common/Pagination";
 import Card from "components/ecommerce/Card";
 import { Tag, Overlay2, Classes } from "@blueprintjs/core";
 import ProductComponent from "./ProductComponent";
+
+import Carousel from "components/elements/Carousel";
+import DynamicForm from "components/form/Form";
+import List from "components/common/List";
+import ProductForm from "./ProductForm";
+
 const searchFields = ["Name", "description"];
-
-
-const Product = ({ product, onProductClick }) => {
-    const formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    });
-  
-    const getFieldByName = (name) => {
-      const field = product.fields.find((f) => f.name === name);
-      return field ? field.value : null;
-    };
-  
-    const image = (
-      <div className="product-image" style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
-    );
-  
-    const salePrice = getFieldByName('sale_price');
-    const regularPrice = getFieldByName('regular_price');
-    const price = salePrice ? (
-      <span className="sale-tag">
-        <span style={{ color: 'red', textDecoration: 'line-through' }}>{`${formatter.format(regularPrice)}`}</span>
-        {`${formatter.format(salePrice)}`}
-      </span>
-    ) : (
-      <span>{`${formatter.format(regularPrice)}`}</span>
-    );
-  
-    const content = (
-      <div className="product-component-container" onClick={() => onProductClick(product)}>
-        <div className="product-image-container">{image}</div>
-        <div className="product-header-container">
-          <div className="product-header">{getFieldByName('name')}</div>
-          <div className="product-price">
-            <Tag>{price}</Tag>
-          </div>
-        </div>
-      </div>
-    );
-  
-    return <Card element={product} content={content} />;
-  };
-  
 
 const ProductList = (props) => {
     const [showLoadingBar, setShowLoadingBar] = useState(true);
@@ -78,13 +41,13 @@ const ProductList = (props) => {
     const [currentSite, setCurrentSite] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedProduct, setSelectedProduct] = useState(null);
-
+    
     const openProductOverlay = (product) => {
-      setSelectedProduct(product);
+        setSelectedProduct(product);
     };
-  
+
     const closeProductOverlay = () => {
-      setSelectedProduct(null);
+        setSelectedProduct(null);
     };
 
     const { products } = useSelector(state => state.product);
@@ -106,67 +69,67 @@ const ProductList = (props) => {
     }
 
 
-    useEffect(() => {
-        if (filteredProducts !== null && fetchedProducts) {
-            setShowLoadingBar(false);
-        }
-    }, [filteredProducts, fetchedProducts]);
+    // useEffect(() => {
+    //     if (filteredProducts !== null && fetchedProducts) {
+    //         setShowLoadingBar(false);
+    //     }
+    // }, [filteredProducts, fetchedProducts]);
 
-    useEffect(() => {
-        if (currentUser) {
-            setShowSuperUserTools(PageAuth.superUserAuth(currentUser));
-            setShowSiteAdminTools(PageAuth.adminAuth(currentUser));
-            setShowGlobalAdminTools(PageAuth.globalAdminAuth(currentUser));
-        }
+    // useEffect(() => {
+    //     if (currentUser) {
+    //         setShowSuperUserTools(PageAuth.superUserAuth(currentUser));
+    //         setShowSiteAdminTools(PageAuth.adminAuth(currentUser));
+    //         setShowGlobalAdminTools(PageAuth.globalAdminAuth(currentUser));
+    //     }
 
-        if (products) {
-            let filtered = [];
-            // let organized_products = organizeProducts(products);
-            console.log(products);
-            if (props.mode == "enrolled") {
-                //filter to only enrolled
-                filtered = filterProducts(products, enrollments, currentUser.id, 'user_id');
-                setFilteredProducts(filtered);
-                setSearchData(filtered);
-            } else if (props.mode == "owned") {
-                filtered = filterProducts(products, product_permissions, currentUser.id, 'user_id');
-                setFilteredProducts(filtered);
-                setSearchData(filtered);
-            } else if (props.mode == "admin") {
-                setFilteredProducts(products);
-                setSearchData(products);
-            } else if (props.mode == "global_admin") {
-                setFilteredProducts(products);
-                setSearchData(products);
-            } else {
-                setFilteredProducts(products);
-                setSearchData(products);
-            }
-        }
-    }, [dispatch, products, product_permissions, enrollments]);
+    //     if (products) {
+    //         let filtered = [];
+    //         // let organized_products = organizeProducts(products);
+    //         console.log(products);
+    //         if (props.mode == "enrolled") {
+    //             //filter to only enrolled
+    //             filtered = filterProducts(products, enrollments, currentUser.id, 'user_id');
+    //             setFilteredProducts(filtered);
+    //             setSearchData(filtered);
+    //         } else if (props.mode == "owned") {
+    //             filtered = filterProducts(products, product_permissions, currentUser.id, 'user_id');
+    //             setFilteredProducts(filtered);
+    //             setSearchData(filtered);
+    //         } else if (props.mode == "admin") {
+    //             setFilteredProducts(products);
+    //             setSearchData(products);
+    //         } else if (props.mode == "global_admin") {
+    //             setFilteredProducts(products);
+    //             setSearchData(products);
+    //         } else {
+    //             setFilteredProducts(products);
+    //             setSearchData(products);
+    //         }
+    //     }
+    // }, [dispatch, products, product_permissions, enrollments]);
 
-    useEffect(() => {
-        const toolList = [
-            {
-                type: "button",
-                text: "Create New Product",
-                icon: "fa-plus",
-                class: "add-new-button",
-                callBackOrLink: "/products/new"
-            }];
+    // useEffect(() => {
+    //     const toolList = [
+    //         {
+    //             type: "button",
+    //             text: "Create New Product",
+    //             icon: "fa-plus",
+    //             class: "add-new-button",
+    //             callBackOrLink: "/products/new"
+    //         }];
 
-        if (!props.site_id) {
-            toolList.push({
-                type: "select",
-                text: "All Sites",
-                callBackFunction: onChangeSite,
-                options: sites,
-                textIndex: "title"
-            });
-        }
+    //     if (!props.site_id) {
+    //         toolList.push({
+    //             type: "select",
+    //             text: "All Sites",
+    //             callBackFunction: onChangeSite,
+    //             options: sites,
+    //             textIndex: "title"
+    //         });
+    //     }
 
-        setToolList(toolList);
-    }, [sites]);
+    //     setToolList(toolList);
+    // }, [sites]);
 
 
     const findByTitle = (products) => {
@@ -174,28 +137,6 @@ const ProductList = (props) => {
         setFilteredProducts(products);
         setCurrentPage(1);
         //dispatch(searchByTitle({ searchTitle }));
-    };
-
-    const addToSite = (product_id) => {
-        dispatch(createSiteProductAvailability({ product_id: product_id, site_id: currentSite }))
-            .unwrap()
-            .then(() => {
-                //props.history.push("/products");
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    };
-
-    const removeFromSite = (product_id) => {
-        dispatch(removeSiteProductAvailability({ product_id: product_id, site_id: currentSite }))
-            .unwrap()
-            .then(() => {
-                //props.history.push("/products");
-            })
-            .catch(e => {
-                console.log(e);
-            });
     };
 
     const currentProductList = useMemo(() => {
@@ -220,17 +161,101 @@ const ProductList = (props) => {
         }
     }
 
+    const ProductListViewCard = ({ product }) => {
+        const getFieldByName = (name) => {
+            const field = product.fields.find((f) => f.name === name);
+            return field ? field.value : null;
+        };
 
+        const images = getFieldByName('images', 'value');
+        const imagesArray = images.map(image => {
+            return {
+                type: 'image',
+                src: image
+            }
+        });
+
+
+        const image = (
+            <div className="product-list-view-card-image"><Carousel settings={{ showThumbs: false }} items={imagesArray} /></div>//style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
+        );
+
+        return (
+            <div className="product-list-view-card-content">
+                {image}
+                <div className="product-list-view-card-info-container">
+                    <DynamicForm
+                        schema={product.fields.map((field) => ({
+                            ...field,
+                            editable: false,
+                            label: field.label || field.name,
+                        }))}
+                        data={product}
+                        title={product.name}
+                        soloSave={true}
+                        noSave={true}
+                        callbackFunction={(formData) => console.log(formData)}
+                    />
+                </div>
+            </div>
+        );
+    }
+
+    const ProductGridViewCard = ({ product }) => {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
+
+        const getFieldByName = (name) => {
+            const field = product.fields.find((f) => f.name === name);
+            return field ? field.value : null;
+        };
+
+        const image = (
+            <div className="product-image" style={{ backgroundImage: `url(${getFieldByName('images')[0]})` }} />
+        );
+
+        const salePrice = getFieldByName('sale_price');
+        const regularPrice = getFieldByName('regular_price');
+        const price = salePrice ? (
+            <span className="sale-tag">
+                <span style={{ color: 'red', textDecoration: 'line-through' }}>{`${formatter.format(regularPrice)}`}</span>
+                {`${formatter.format(salePrice)}`}
+            </span>
+        ) : (
+            <span>{`${formatter.format(regularPrice)}`}</span>
+        );
+
+        const content = (
+            <div className="product-component-container">
+                <div className="product-image-container">{image}</div>
+                <div className="product-header-container">
+                    <div className="product-header">{getFieldByName('name')}</div>
+                    <div className="product-price">
+                        <Tag>{price}</Tag>
+                    </div>
+                </div>
+            </div>
+        );
+
+        return <Card element={product} content={content} />;
+    };
     const display_params = [
         { type: 'text', key: 'name' },
         { type: 'content', key: 'short_description' },
         { type: 'text', key: 'product_price' },
-      ];
+    ];
 
     console.log(currentProductList);
+
+    const overlayComponentAdmin = () => {
+
+    }
+
     return (
         <div>
-            {(props.mode !== "global_admin" && props.mode !== "admin") &&
+            {(props.mode !== "global_admin" && props.mode !== "admin") && !props.noHeroPage &&
                 <>
                     <Hero page={heroPageInfo} />
                     <div className="flex text-center flex-wrap">
@@ -246,52 +271,22 @@ const ProductList = (props) => {
                 <ToolBar toolList={toolList} />
             } */}
             <div className="product-list-container">
-                <SearchBar callBackFunction={findByTitle} fields={searchFields} data={searchData} />
-                {showLoadingBar ? (<LoadingBar />) :
-                    (
-                        currentProductList &&
-                        <>
-                            <div className="product-list">
-                                {
-                                    currentProductList.length > 0 ? (
-                                        currentProductList.map((product, index) => {
-                                            // {props.mode == "global_admin" && props.site_id && belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => removeFromSite(product._id)} class="remove-from-site-card">Remove from Site</button>)}
-                                            // {props.mode == "global_admin" && props.site_id && !belongsToSite(product._id, props.site_id, site_product_availability, 'product_id') && (<button onClick={() => addToSite(product._id)} class="add-to-site-card">Add To Site</button>)} */
-                                            // if (product.availability == true) {
-                                            // if (product.Type == "variable") {
-                                                return <Product key={product._id} product={product} onProductClick={openProductOverlay} displayParams={display_params}/>
-                                            // }
-                                            // }
-                                        })
-                                    ) : (<div class="no-results">No Products Found</div>)
-                                }
-                            </div>
-                            <div className="flex justify-center items-center w-full">
-                                <Pagination
-                                    className="pagination-bar"
-                                    currentPage={currentPage}
-                                    totalCount={filteredProducts.length}
-                                    pageSize={PageSize}
-                                    onPageChange={page => setCurrentPage(page)}
-                                />
-                            </div>
-                        </>
-                    )
+                {products && (<List
+                    items={products}
+                    overlayComponent={(product) => <ProductComponent product={product} />}  // Pass the overlay component for products
+                    filterFunction={findByTitle}
+                    siteAvailability={site_product_availability}
+                    searchFields={searchFields}
+                    listViewItem={(product) => <ProductListViewCard product={product} />}
+                    gridViewItem={(product) => <ProductGridViewCard product={product} />}
+                    mode={props.mode}
+                    adminOverlay={(product) => <ProductForm product={product} />}
+                    listHeader="Product List"
+                    isPanel={props.isPanel}
+                />)
                 }
             </div>
-            {selectedProduct && (
-                <Overlay2
-                isOpen={!!selectedProduct}
-                onClose={closeProductOverlay}
-                className={`${Classes.OVERLAY_SCROLL_CONTAINER}`}
-                >
-                <div className={`${Classes.ELEVATION_4} overlay-container `}>
-                    <ProductComponent product={selectedProduct} />
-                </div>
-                </Overlay2>
-      )}
         </div>
-
     );
 }
 

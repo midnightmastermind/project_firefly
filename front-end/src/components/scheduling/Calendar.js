@@ -1068,6 +1068,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { useDispatch, useSelector } from "react-redux";
 import { Dialog, Button } from '@blueprintjs/core';
 import EventForm from './EventForm';
+import { startOfDay, parseISO } from 'date-fns';
+
 const events = [
   {
     id: '1',
@@ -1136,7 +1138,7 @@ const transformEventsToFullCalendar = (events) => {
     if (event.dateRange.allDay) {
       let endDate = transformedEvent.end;
       endDate.setDate(endDate.getDate() + 1);
-      transformedEvent.end = endDate; 
+      transformedEvent.end = endDate;
     }
     return transformedEvent;
   });
@@ -1147,136 +1149,77 @@ const Calendar = () => {
   const [isEventFormOpen, setEventFormOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
-  // ... (your ot  const dispatch = useDispatch();
-  const sessions = useSelector((state) => state.session.sessions);
+  const [showTimeGridDay, setShowTimeGridDay] = useState(false);
 
-  // ... (your existing state and useEffect)
-
-  // const saveSession = (session, calendarApi) => {
-  //   // ... (your existing saveSession function)
-
-  //   // Update state with the new event
-  //   setCalendarEvents((prevEvents) => [...prevEvents, {
-  //     id: data._id,
-  //     title,
-  //     start: data.start,
-  //     end: data.end,
-  //     status: data.status,
-  //   }]);
-  // };
-
-  // const editSession = (session, id) => {
-  //   // ... (your existing editSession function)
-
-  //   // Update state with the edited event
-  //   setCalendarEvents((prevEvents) =>
-  //     prevEvents.map((event) =>
-  //       event.id === id
-  //         ? {
-  //             ...event,
-  //             title: data.title,
-  //             start: data.start,
-  //             end: data.end,
-  //           }
-  //         : event
-  //     )
-  //   );
-  // };
-  const updateEventInList = (updatedEvent) => {
-    // Update or insert the event in the calendarEvents state
-    const existingEventIndex = calendarEvents.findIndex((event) => event.id === updatedEvent.id);
-    setCalendarEvents((prevEvents) => {
-      const updatedEvents = [...prevEvents];
-      if (existingEventIndex !== -1) {
-        updatedEvents[existingEventIndex] = { ...updatedEvent };
-      } else {
-        updatedEvents.push({ ...updatedEvent });
-      }
-      return updatedEvents;
-    });
-    // Close the EventForm dialog
-    setEventFormOpen(false);
+  const handleDayClick = (clickInfo) => {
     setSelectedEvent(null);
+    // setEventFormOpen(true);
+    console.log(clickInfo.dateStr);
+    console.log(new Date(clickInfo.dateStr));
+    const clickedDate = startOfDay(parseISO(clickInfo.dateStr));
+    console.log(clickedDate);
+    setSelectedDay(clickedDate);
+    setShowTimeGridDay(true);
   };
 
   const closeEventFormDialog = () => {
     setEventFormOpen(false);
     setSelectedEvent(null);
+    setShowTimeGridDay(false);
   };
 
-  const handleEventClick = (clickInfo) => {
-    const clickedEventId = clickInfo.event._def.publicId;
-    const clickedEvent = calendarEvents.find((event) => event.id === clickedEventId);
-
-    if (clickedEvent) {
-      console.log('Clicked Event:', clickedEvent);
-      setSelectedEvent(clickedEvent);
-      setEventFormOpen(true);
-    } else {
-      console.error(`Event with id ${clickedEventId} not found.`);
-    }
-  };
-
-  const handleDayClick = (clickInfo) => {
-    setSelectedEvent(null);
-    setEventFormOpen(true);
-    setSelectedDay("test");
-  }
-
-  // const handleEventDrop = (info) => {
-  //   // ... (your existing handleEventDrop function)
-
-  //   // Update state with the new event time
-  //   setCalendarEvents((prevEvents) =>
-  //     prevEvents.map((event) =>
-  //       event.id === info.event.id
-  //         ? {
-  //             ...event,
-  //             start: start,
-  //             end: end,
-  //           }
-  //         : event
-  //     )
-  //   );
-  // };
-
-  // const handleEventResize = (info) => {
-  //   // ... (your existing handleEventResize function)
-
-  //   // Update state with the new event time
-  //   setCalendarEvents((prevEvents) =>
-  //     prevEvents.map((event) =>
-  //       event.id === info.event.id
-  //         ? {
-  //             ...event,
-  //             end: end,
-  //           }
-  //         : event
-  //     )
-  //   );
-  // };
-
-  // ... (your other functions)
-
+  console.log(selectedDay);
   return (
-    <div className='demo-app'>
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        headerToolbar={{
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        }}
-        initialView='dayGridMonth'
-        editable={true}
-        selectable={true}
-        selectMirror={true}
-        dayMaxEvents={true}
-        eventClick={handleEventClick}
-        events={transformEventsToFullCalendar(calendarEvents)}
-        allDayMaintainDuration={true}
-      />
+    <div className="demo-app calendar-container">
+      <div className="month-view-container">
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek'
+          }}
+          initialView='dayGridMonth'
+          editable={true}
+          height={'100%'}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          eventClick={(clickInfo) => {
+            const clickedEventId = clickInfo.event._def.publicId;
+            const clickedEvent = calendarEvents.find((event) => event.id === clickedEventId);
 
+            if (clickedEvent) {
+              console.log('Clicked Event:', clickedEvent);
+              setSelectedEvent(clickedEvent);
+              setEventFormOpen(true);
+            } else {
+              console.error(`Event with id ${clickedEventId} not found.`);
+            }
+          }}
+          dateClick={handleDayClick}
+          events={transformEventsToFullCalendar(calendarEvents)}
+          allDayMaintainDuration={true}
+        />
+      </div>
+      <div className="day-view-container">
+        {selectedDay && showTimeGridDay ? (
+          <FullCalendar
+            key={`timeGridDay-${String(selectedDay)}`} // Force re-render when selectedDay changes
+            plugins={[timeGridPlugin]}
+            headerToolbar={false}
+            initialView='timeGridDay'
+            height={'100%'}
+            initialDate={selectedDay}
+            events={transformEventsToFullCalendar(calendarEvents)}
+            allDayMaintainDuration={true}
+            visibleRange={{
+              start: selectedDay,
+              end: selectedDay
+            }}
+          />
+        ) : (<div className="empty-container">Select a day</div>)}
+      </div>
       {/* EventForm Dialog */}
       <Dialog
         isOpen={isEventFormOpen}
@@ -1284,10 +1227,25 @@ const Calendar = () => {
         title={selectedEvent ? 'Edit Event' : 'Create Event'}
       >
         <div className='bp3-dialog-body'>
+          {/* Pass the selectedEvent to the EventForm component */}
           <EventForm
             selectedEvent={selectedEvent}
             onClose={closeEventFormDialog}
-            updateEventInList={updateEventInList}
+            // Update or insert the event in the calendarEvents state
+            updateEventInList={(updatedEvent) => {
+              const existingEventIndex = calendarEvents.findIndex(
+                (event) => event.id === updatedEvent.id
+              );
+              setCalendarEvents((prevEvents) => {
+                const updatedEvents = [...prevEvents];
+                if (existingEventIndex !== -1) {
+                  updatedEvents[existingEventIndex] = { ...updatedEvent };
+                } else {
+                  updatedEvents.push({ ...updatedEvent });
+                }
+                return updatedEvents;
+              });
+            }}
           />
         </div>
         <div className='bp3-dialog-footer'>

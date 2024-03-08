@@ -27,7 +27,7 @@ const serviceFactory = (storage, updateState) => {
 const messageIdGenerator = (message) => nanoid();
 const groupIdGenerator = () => nanoid();
 
-const ChatComponent = () => {
+const ChatComponent = (props) => {
   const dispatch = useDispatch();
   const className = "user-window-1"
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -42,13 +42,6 @@ const ChatComponent = () => {
 
   const [chatUser, setChatUser] = useState(null);
   const [storage, setStorage] = useState(basicStorage);
-
-  const [popoverIsOpen, setPopoverIsOpen] = useState(false);
-
-  const togglePopover = () => {
-    //   storage.triggerUpdate();
-    setPopoverIsOpen(prevIsOpen => !prevIsOpen);
-  };
 
   React.useEffect(() => {
     if (currentUser) {
@@ -172,8 +165,8 @@ const ChatComponent = () => {
           }}
           initialState={storage}
         >
-          <Button key={`${className}-button`} className={`${className}-button chat-button`} onClick={(e) => togglePopover(e)} icon="chat" />
-          <Popover isOpen={popoverIsOpen} key={`${className}-popover`} className={`${className}-popover chat-button`} position="auto" content={
+          <Button key={`${className}-button`} className={`${className}-button chat-button`} onClick={(e) => props.toggleChat(e)} icon="chat" />
+          <Popover isOpen={props.isChatOpen} key={`${className}-popover`} className={`${className}-popover chat-button`} position="auto" content={
             <div className="chat-component"><ChatWindow user={chatUser} users={users} /></div>}
           >
             <div className="testeroo" style={{ width: '0', height: '0', overflow: 'hidden' }}></div>

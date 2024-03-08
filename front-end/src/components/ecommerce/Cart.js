@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { remove as removeFromCart } from 'slices/ecommerce/cart_item'; // Assuming you have an action for removing from the cart
+import { Button } from '@blueprintjs/core';
 
-const Cart = ({ hasCheckoutButton, isEditable, title }) => {
+const Cart = ({ hasCheckoutButton, isEditable }) => {
   const { cart_items } = useSelector((state) => state.cart_item);
   const { products } = useSelector((state) => state.product);
   const [items, setItems] = useState([]);
@@ -45,8 +46,8 @@ const Cart = ({ hasCheckoutButton, isEditable, title }) => {
   };
   console.log(items);
   return (
-    <div>
-      {title && title !== '' && <h2>{title}</h2> }
+    <div className="cart-container">
+      {<h2>Cart</h2> }
 
       {items && items.length > 0 && items.map((item) => (
         <div className="cart-item" key={item._id}>
@@ -55,13 +56,13 @@ const Cart = ({ hasCheckoutButton, isEditable, title }) => {
           <div className="cart-item-name">{item.product.name}</div>
           <div className="cart-item-qty">qty: {item.quantity}</div>
           <div className="cart-item-subtotal">{`$${item.sub_total}`}</div>
-          <div className="cart-remove-button"><button onClick={() => dispatch(removeFromCart(item._id))}>Remove</button></div>
+          <div className="cart-remove-button"><Button icon="trash" onClick={() => dispatch(removeFromCart(item._id))} /></div>
         </div>
       ))}
       {items && items.length > 0 && <div className="sub-total-box">Sub Total: {`$${subTotal}`}</div>}
       {items && items.length > 0 && hasCheckoutButton && 
         <div className="cart-action-buttons">
-          <button className="checkout-button" onClick={proceedToCheckout}>Proceed to Checkout</button>
+          <Button className="checkout-button" onClick={proceedToCheckout} text="Proceed to Checkout" />
         </div>
       }
       {(!items || items.length == 0) && <div>0 Products</div>}

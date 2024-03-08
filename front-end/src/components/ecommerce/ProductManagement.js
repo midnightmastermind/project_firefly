@@ -5,7 +5,7 @@ import ProductListWithPanelStack from './ProductListWithPanelStack';
 import CategoryListWithPanelStack from './CategoryListWithPanelStack'; // Add the actual import path
 import TemplateListWithPanelStack from './TemplateListWithPanelStack'; // Add the actual import path
 import SettingsDrawer from 'components/navigation/SettingsDrawer'; // Adjust the import path accordingly
-
+import ProductList from './ProductList';
 const category_schema = {
   id: null,
   name: ""
@@ -50,7 +50,8 @@ const ProductManagementDashboard = () => {
           label: 'Products',
           panel: (
             <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
-              <ProductListWithPanelStack productList={productList} displayParams={displayParams} />
+              {/* <ProductListWithPanelStack productList={productList} displayParams={displayParams} /> */}
+              <ProductList isPanel={true} noHeroPage={true}/>
             </Card>
           ),
         },
@@ -67,6 +68,39 @@ const ProductManagementDashboard = () => {
           ),
         },
         {
+          id: 'inventory_section',
+          label: 'Inventory',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
+              <div className="ecommerce-section-header">
+                <h3>Inventory</h3>
+              </div>
+            </Card>
+          ),
+        },
+        {
+          id: 'shipping_section',
+          label: 'Shipping',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
+              <div className="ecommerce-section-header">
+                <h3>Shipping</h3>
+              </div>
+            </Card>
+          ),
+        },
+        {
+          id: 'orders_section',
+          label: 'Orders',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
+              <div className="ecommerce-section-header">
+                <h3>Orders</h3>
+              </div>
+            </Card>
+          ),
+        },
+        {
           id: 'templates_section',
           label: 'Product Templates',
           panel: (
@@ -75,6 +109,53 @@ const ProductManagementDashboard = () => {
                 <h3>Product Templates</h3>
               </div>
               <TemplateListWithPanelStack templateList={templates} setTemplates={setTemplates} />
+            </Card>
+          ),
+        },
+        {
+          id: 'finances_section',
+          label: 'Finances',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
+              <div className="ecommerce-section-header">
+                <h3>Finance Settings</h3>
+              </div>
+              <TemplateListWithPanelStack templateList={templates} setTemplates={setTemplates} />
+            </Card>
+          ),
+        },
+        {
+          id: 'marketing_section',
+          label: 'Marketing',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
+              <div className="ecommerce-section-header">
+                <h3>Marketing</h3>
+              </div>
+              <TemplateListWithPanelStack templateList={templates} setTemplates={setTemplates} />
+            </Card>
+          ),
+        },
+        {
+          id: 'analytics_section',
+          label: 'Analytics',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
+              <div className="ecommerce-section-header">
+                <h3>Marketing</h3>
+              </div>
+              <TemplateListWithPanelStack templateList={templates} setTemplates={setTemplates} />
+            </Card>
+          ),
+        },
+        {
+          id: 'properties_section',
+          label: 'Properties',
+          panel: (
+            <Card className={`${Classes.ELEVATION_2} ecommerce-section`}>
+              <div className="ecommerce-section-header">
+                <h3>Properties</h3>
+              </div>
             </Card>
           ),
         },
